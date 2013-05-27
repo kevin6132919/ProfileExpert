@@ -7,10 +7,101 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
-
-    <TextView
-        android:layout_width="wrap_content"
+    
+    <TableLayout
+        android:id="@+id/table1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:paddingLeft="50dip"
+        android:paddingRight="50dip"
+        android:shrinkColumns="0,1,2"
+        android:stretchColumns="0,1,2" >
 
+        <!-- 第一行 -->
+        <TableRow>
+            <ImageButton
+                android:contentDescription="@string/imgMissing"
+                android:id="@+id/routine"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+        		android:paddingRight="10dip"
+                android:scaleType="fitCenter"
+                android:background="@color/transparent"
+                android:src="@drawable/r1_routine"
+            	android:layout_column="0"
+                android:text="@string/routine"  >
+            </ImageButton>
+
+            <ImageButton
+                android:contentDescription="@string/imgMissing"
+                android:id="@+id/tempmatter"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+        		android:paddingLeft="10dip"
+                android:scaleType="fitCenter"
+                android:background="@color/transparent"
+                android:src="@drawable/r2_tempmatter" 
+            	android:layout_column="1" >
+            </ImageButton>
+        </TableRow>
+        
+        <!-- 第一行描述 -->
+        <TableRow>
+            <TextView
+                android:layout_gravity="center"
+                android:text="@string/routine"
+        		android:paddingRight="10dip"
+            	android:layout_column="0" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="@string/tempMatter"
+        		android:paddingLeft="10dip"
+            	android:layout_column="1" />
+        </TableRow>
+
+        <!-- 第二行 -->
+        <TableRow>
+            <ImageButton
+                android:contentDescription="@string/imgMissing"
+                android:id="@+id/customeProfile"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+        		android:paddingRight="10dip"
+                android:scaleType="fitCenter"
+                android:background="@color/transparent"
+                android:src="@drawable/r3_customeprofile"
+            	android:layout_column="0"  >
+            </ImageButton>
+
+            <ImageButton
+                android:contentDescription="@string/imgMissing"
+                android:id="@+id/setting"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+        		android:paddingLeft="10dip"
+                android:scaleType="fitCenter"
+                android:background="@color/transparent"
+                android:src="@drawable/r4_setting" 
+            	android:layout_column="1" >
+            </ImageButton>
+        </TableRow>
+        
+        <!-- 第二行描述 -->
+        <TableRow>
+            <TextView
+                android:layout_gravity="center"
+                android:text="@string/customProfile"
+        		android:paddingRight="10dip"
+            	android:layout_column="0" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:text="@string/setting"
+        		android:paddingLeft="10dip"
+            	android:layout_column="1" />
+        </TableRow>
+    </TableLayout>
+
+    
 </RelativeLayout>
