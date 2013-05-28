@@ -1,4 +1,4 @@
-package edu.tongji.sse.profileexpert.acticity;
+package edu.tongji.sse.profileexpert.main;
 
 import edu.tongji.sse.profileexpert.R;
 import android.app.Activity;
