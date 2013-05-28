@@ -7,45 +7,52 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
-    
-    <TableLayout
-        android:id="@+id/table1"
+
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="50dip"
-        android:paddingRight="50dip"
-        android:shrinkColumns="0,1,2"
-        android:stretchColumns="0,1,2" >
+        android:layout_height="wrap_content" >
 
-        <!-- 第一行 -->
-        <TableRow>
-            <ImageButton
-                android:contentDescription="@string/imgMissing"
-                android:id="@+id/routine"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-        		android:paddingRight="10dip"
-                android:scaleType="fitCenter"
-                android:background="@color/transparent"
-                android:src="@drawable/r1_routine"
-            	android:layout_column="0"
-                android:text="@string/routine"  >
-            </ImageButton>
+        <TableLayout
+            android:id="@+id/table1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="0,1"
+            android:stretchColumns="0,1" >
 
-            <ImageButton
-                android:contentDescription="@string/imgMissing"
-                android:id="@+id/tempmatter"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-        		android:paddingLeft="10dip"
-                android:scaleType="fitCenter"
-                android:background="@color/transparent"
-                android:src="@drawable/r2_tempmatter" 
-            	android:layout_column="1" >
-            </ImageButton>
-        </TableRow>
-        
-        <!-- 第一行描述 -->
+            <!-- 第一行 -->
+
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/routine"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/imgMissing"
+                    android:paddingLeft="45dip"
+                    android:paddingRight="20dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/r1_routine"
+                    android:text="@string/routine" >
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/tempmatter"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/imgMissing"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="45dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/r2_tempmatter" >
+                </ImageButton>
+            </TableRow>
+
+            <!--
+        	第一行描述 
         <TableRow>
             <TextView
                 android:layout_gravity="center"
@@ -59,35 +66,42 @@
         		android:paddingLeft="10dip"
             	android:layout_column="1" />
         </TableRow>
+            -->
 
-        <!-- 第二行 -->
-        <TableRow>
-            <ImageButton
-                android:contentDescription="@string/imgMissing"
-                android:id="@+id/customeProfile"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-        		android:paddingRight="10dip"
-                android:scaleType="fitCenter"
-                android:background="@color/transparent"
-                android:src="@drawable/r3_customeprofile"
-            	android:layout_column="0"  >
-            </ImageButton>
 
-            <ImageButton
-                android:contentDescription="@string/imgMissing"
-                android:id="@+id/setting"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-        		android:paddingLeft="10dip"
-                android:scaleType="fitCenter"
-                android:background="@color/transparent"
-                android:src="@drawable/r4_setting" 
-            	android:layout_column="1" >
-            </ImageButton>
-        </TableRow>
-        
-        <!-- 第二行描述 -->
+            <!-- 第二行 -->
+
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/customeProfile"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/imgMissing"
+                    android:paddingLeft="45dip"
+                    android:paddingRight="20dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/r3_customeprofile" >
+                </ImageButton>
+
+                <ImageButton
+                    android:id="@+id/setting"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/imgMissing"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="45dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/r4_setting" >
+                </ImageButton>
+            </TableRow>
+
+            <!--
+        	第二行描述
         <TableRow>
             <TextView
                 android:layout_gravity="center"
@@ -101,7 +115,19 @@
         		android:paddingLeft="10dip"
             	android:layout_column="1" />
         </TableRow>
-    </TableLayout>
+            -->
 
-    
+            <TableRow>
+
+                <edu.tongji.sse.profileexpert.view.MyCalendarView
+                    android:id="@+id/calendarInMainScreen"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dip"
+                    android:layout_span="2"
+                    android:scaleType="fitCenter" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
 </RelativeLayout>

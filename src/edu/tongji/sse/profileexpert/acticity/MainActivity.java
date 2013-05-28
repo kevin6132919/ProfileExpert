@@ -1,5 +1,6 @@
-package edu.tongji.sse.profileexpert;
+package edu.tongji.sse.profileexpert.acticity;
 
+import edu.tongji.sse.profileexpert.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
