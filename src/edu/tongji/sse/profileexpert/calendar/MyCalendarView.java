@@ -192,6 +192,7 @@ public class MyCalendarView extends ImageView
 	    CELL_HEIGH = (int) (height*0.15);
 		
 	}
+	
 	@Override
 	public void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		/*android.util.Log.d(TAG, "left="+left);*/

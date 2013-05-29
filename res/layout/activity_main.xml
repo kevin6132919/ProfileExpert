@@ -24,7 +24,7 @@
             <TableRow>
 
                 <ImageButton
-                    android:id="@+id/routine"
+                    android:id="@+id/bt_routine"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
@@ -38,7 +38,7 @@
                 </ImageButton>
 
                 <ImageButton
-                    android:id="@+id/tempmatter"
+                    android:id="@+id/bt_tempmatter"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
@@ -74,7 +74,7 @@
             <TableRow>
 
                 <ImageButton
-                    android:id="@+id/customeProfile"
+                    android:id="@+id/bt_customeProfile"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
@@ -87,7 +87,7 @@
                 </ImageButton>
 
                 <ImageButton
-                    android:id="@+id/setting"
+                    android:id="@+id/bt_setting"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="1"

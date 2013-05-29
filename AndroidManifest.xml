@@ -21,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="edu.tongji.sse.profileexpert.main.SettingActivity"
+            android:label="@string/setting" >
+        </activity>
+            
     </application>
 
 </manifest>

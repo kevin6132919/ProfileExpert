@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 切换延迟 -->
+    <string-array name="switch_delay_display">
+        <item>1分钟</item>
+     	<item>2分钟</item>
+     	<item>5分钟</item>
+     	<item>10分钟</item>
+     	<item>15分钟</item>
+    </string-array>
+    <string-array name="switch_delay_value">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+    <string name="switch_delay_defaut_value">10</string>
+    
+    <!-- 提醒时间 -->
+    <string-array name="reminding_time_display">
+        <item>30秒</item>
+     	<item>1分钟</item>
+     	<item>2分钟</item>
+     	<item>5分钟</item>
+     	<item>10分钟</item>
+     	<item>15分钟</item>
+    </string-array>
+    <string-array name="reminding_time_value">
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+        <item>600</item>
+        <item>900</item>
+    </string-array>
+    <string name="reminding_time_defaut_value">300</string>
+    
+</resources>

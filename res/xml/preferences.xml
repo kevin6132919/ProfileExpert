@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings" >
+
+    <PreferenceCategory android:title="软件状态" >
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="arm_status"
+            android:summaryOff="自动切换已关闭"
+            android:summaryOn="自动切换已开启"
+            android:title="自动切换" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="详细设置" >
+        <PreferenceScreen android:title="切换设置" >
+            <PreferenceCategory android:title="延迟时间" >
+                <ListPreference
+                    android:defaultValue="@string/switch_delay_defaut_value"
+                    android:entries="@array/switch_delay_display"
+                    android:entryValues="@array/switch_delay_value"
+                    android:key="switch_delay"
+                    android:summary="点击延迟后推迟切换的时间长短"
+                    android:title="切换延迟" />
+            </PreferenceCategory>
+        </PreferenceScreen>
+        <PreferenceScreen android:title="提醒设置" >
+            <PreferenceCategory android:title="启用状态" >
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:key="reminding_enable"
+                    android:summary="在切换模式之前对用户进行提醒"
+                    android:title="开启切换提醒" />
+            </PreferenceCategory>
+            <PreferenceCategory android:title="一次提醒" >
+                <ListPreference
+                    android:defaultValue="@string/reminding_time_defaut_value"
+                    android:dependency="reminding_enable"
+                    android:entries="@array/reminding_time_display"
+                    android:entryValues="@array/reminding_time_value"
+                    android:key="first_reminding_time"
+                    android:summary="点击选择"
+                    android:title="提前多长时间进行提醒" />
+            </PreferenceCategory>
+            <PreferenceCategory android:title="二次提醒" >
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:dependency="reminding_enable"
+                    android:key="second_reminding_enable"
+                    android:summary="此项打勾意味着每次切换有两次提醒"
+                    android:title="是否进行二次提醒" />
+
+                <ListPreference
+                    android:dependency="second_reminding_enable"
+                    android:entries="@array/reminding_time_display"
+                    android:entryValues="@array/reminding_time_value"
+                    android:key="second_reminding_time"
+                    android:summary="点击选择"
+                    android:title="第二次提醒提前的时间" />
+            </PreferenceCategory>
+            <PreferenceCategory android:title="提醒方式" >
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:dependency="reminding_enable"
+                    android:title="通知静音" />
+            </PreferenceCategory>
+        </PreferenceScreen>
+        <PreferenceScreen android:title="法定假日设置" >
+            <PreferenceCategory android:title="启用状态" >
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="holiday_skip_enable"
+                    android:summary="在节假日不进行模式切换"
+                    android:title="跳过节假日" />
+            </PreferenceCategory>
+        </PreferenceScreen>
+        <PreferenceScreen android:title="来电快捷操作" >
+            <PreferenceCategory android:title="启用状态" >
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:key="message_shortcut_enable"
+                    android:summary="拒接来电后，显示快捷按钮，一键回复短信"
+                    android:title="开启来电快捷操作" />
+            </PreferenceCategory>
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>
