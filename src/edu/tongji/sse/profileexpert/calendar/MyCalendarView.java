@@ -116,7 +116,7 @@ public class MyCalendarView extends ImageView
 		Rect Bound = new Rect(CELL_MARGIN_LEFT, CELL_MARGIN_TOP, CELL_WIDTH+CELL_MARGIN_LEFT, CELL_HEIGH+CELL_MARGIN_TOP);
 		for(int week=0; week<cells.length; week++) {
 			for(int day=0; day<cells[week].length; day++) {
-				if(tmp[week][day].whichMonth == CURRENT_MOUNT) { // 此月  开始设置cell
+				if(tmp[week][day].whichMonth == CURRENT_MOUNT) { // 此月 
 					if(day==0 || day==6 )
 						cells[week][day] = new RedCell(tmp[week][day].day, new Rect(Bound), CELL_TEXT_SIZE);
 					else 
@@ -127,15 +127,22 @@ public class MyCalendarView extends ImageView
 					cells[week][day] = new LTGrayCell(tmp[week][day].day, new Rect(Bound), CELL_TEXT_SIZE);
 				}
 				
-				Bound.offset(CELL_WIDTH, 0); // move to next column 
+				Bound.offset(CELL_WIDTH, 0); // 移动至下一列
 				
 				// get today
 				if(tmp[week][day].day==thisDay && tmp[week][day].whichMonth == 0) {
 					today_cell = cells[week][day];
-					decoration.setBounds(today_cell.getBound());
+					
+					//对今天的符号的位置进行修正
+					Rect today_bounds = today_cell.getBound();
+					int today_left = today_bounds.left;
+					int today_top = today_bounds.top + CELL_HEIGH/10;
+					int today_right = today_bounds.right;
+					int today_bottom = today_bounds.bottom + CELL_HEIGH/10;
+					decoration.setBounds(new Rect(today_left, today_top, today_right, today_bottom));
 				}
 			}
-			Bound.offset(0, CELL_HEIGH); // move to next row and first column
+			Bound.offset(0, CELL_HEIGH); // 移动到下一行的第一列
 			Bound.left = CELL_MARGIN_LEFT;
 			Bound.right = CELL_MARGIN_LEFT+CELL_WIDTH;
 		}		
@@ -146,8 +153,6 @@ public class MyCalendarView extends ImageView
 	{
 		// draw background
 		super.onDraw(canvas);
-		
-		setCellProperties();
 		
 		weekTitle.draw(canvas);
 
@@ -185,9 +190,9 @@ public class MyCalendarView extends ImageView
 		int width = (int) (height * background_aspect_ratio);
 		
 		WEEK_TOP_MARGIN = height/15;
-	    WEEK_LEFT_MARGIN = 0;
+	    //WEEK_LEFT_MARGIN = 0;
 	    CELL_MARGIN_TOP = height/10;
-	    CELL_MARGIN_LEFT = 0;
+	    //CELL_MARGIN_LEFT = view.getLeft();
 	    CELL_WIDTH = (int) (width/7.2);
 	    CELL_HEIGH = (int) (height*0.15);
 		
@@ -198,6 +203,7 @@ public class MyCalendarView extends ImageView
 		/*android.util.Log.d(TAG, "left="+left);*/
 		Rect re = getDrawable().getBounds();
 		WEEK_LEFT_MARGIN = CELL_MARGIN_LEFT = (right-left - re.width()) / 2;
+		setCellProperties();
 		weekTitle.setBounds(
 				WEEK_LEFT_MARGIN,
 				WEEK_TOP_MARGIN,
