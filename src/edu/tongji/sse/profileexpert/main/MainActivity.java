@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import edu.tongji.sse.profileexpert.R;
 
@@ -17,9 +16,6 @@ public class MainActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //…Ë÷√»´∆¡œ‘ æ
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         
         bt_setting = (ImageButton) findViewById(R.id.bt_setting);
