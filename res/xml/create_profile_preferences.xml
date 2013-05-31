@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="情景模式" >
+        <EditTextPreference
+            android:defaultValue="自定义模式"
+            android:key="profile_name"
+            android:persistent="false"
+            android:summary="模式名称，点击修改"
+            android:title="名称" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="声音和震动" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="sound_change"
+            android:persistent="false"
+            android:summary="切换时改变系统音量"
+            android:title="允许改变音量" />
+
+        <edu.tongji.sse.profileexpert.preference.SeekBarPreference
+            android:defaultValue="0"
+            android:dependency="sound_change"
+            android:dialogMessage="音量改变至"
+            android:key="sound_change_value"
+            android:max="100"
+            android:summary="改变至:"
+            android:text=" %"
+            android:title="音量改变" />
+
+        <ListPreference
+            android:defaultValue="@string/vibrate_setting_defaut_value"
+            android:entries="@array/vibrate_setting_display"
+            android:entryValues="@array/vibrate_setting_value"
+            android:key="vibrate"
+            android:persistent="false"
+            android:summary="切换时对震动模式的改变"
+            android:title="震动" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="来电铃声" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="ringtone_change"
+            android:persistent="false"
+            android:summary="切换时是否改变当前铃声"
+            android:title="允许改变" />
+
+        <RingtonePreference
+            android:dependency="ringtone_change"
+            android:key="ringtone"
+            android:persistent="false"
+            android:summary="当前铃声:"
+            android:title="选择铃声" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="对应快捷短信" >
+        <EditTextPreference
+            android:persistent="false"
+            android:summary="您好！我正在上课，稍后给您回电！"
+            android:title="点击编辑短信内容" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

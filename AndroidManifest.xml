@@ -25,6 +25,14 @@
             android:name="edu.tongji.sse.profileexpert.main.SettingActivity"
             android:label="@string/setting" >
         </activity>
+        <activity
+            android:name="edu.tongji.sse.profileexpert.main.ProfileActivity"
+            android:label="@string/customProfile" >
+        </activity>
+        <activity
+            android:name="edu.tongji.sse.profileexpert.main.CreateProfileActivity"
+            android:label="@string/add_profile" >
+        </activity>
             
     </application>
 

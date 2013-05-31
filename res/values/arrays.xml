@@ -36,4 +36,29 @@
     </string-array>
     <string name="reminding_time_defaut_value">300</string>
     
+    <!-- 声音设置 -->
+    <string-array name="sound_setting_display">
+        <item>保持不变</item>
+     	<item>静音</item>
+     	<item>允许改变</item>
+    </string-array>
+    <string-array name="sound_setting_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string name="sound_setting_defaut_value">0</string>
+    
+    <!-- 震动设置 -->
+    <string-array name="vibrate_setting_display">
+        <item>保持不变</item>
+     	<item>切换至开启</item>
+     	<item>切换至关闭</item>
+    </string-array>
+    <string-array name="vibrate_setting_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string name="vibrate_setting_defaut_value">0</string>
 </resources>

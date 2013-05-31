@@ -11,23 +11,34 @@ import edu.tongji.sse.profileexpert.R;
 
 public class MainActivity extends Activity 
 {
-	private ImageButton bt_setting = null;
+	private ImageButton ib_setting = null;
+	private ImageButton ib_customeProfile = null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        bt_setting = (ImageButton) findViewById(R.id.bt_setting);
-        bt_setting.setOnClickListener(new OnClickListener()
+        ib_setting = (ImageButton) findViewById(R.id.ib_setting);
+        ib_setting.setOnClickListener(new OnClickListener()
         {
 			public void onClick(View v) {
+				//跳转到设置界面
 				Intent intent=new Intent();
-				//设置跳转新的activity，参数（当前对象，跳转到的class）
 	            intent.setClass(MainActivity.this, SettingActivity.class);
-	            //启动Activity 没有返回
 	            startActivity(intent);
 				}
+		});
+        
+        ib_customeProfile = (ImageButton) findViewById(R.id.ib_customeProfile);
+        ib_customeProfile.setOnClickListener(new OnClickListener()
+        {
+			public void onClick(View v) {
+				//跳转到自定义模式界面
+				Intent intent=new Intent();
+	            intent.setClass(MainActivity.this, ProfileActivity.class);
+	            startActivity(intent);
+			}
 		});
     }
 

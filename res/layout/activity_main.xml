@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent" >
 
         <TableLayout
             android:id="@+id/table1"
@@ -24,7 +25,7 @@
             <TableRow>
 
                 <ImageButton
-                    android:id="@+id/bt_routine"
+                    android:id="@+id/ib_routine"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
@@ -38,7 +39,7 @@
                 </ImageButton>
 
                 <ImageButton
-                    android:id="@+id/bt_tempmatter"
+                    android:id="@+id/ib_tempmatter"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
@@ -51,30 +52,12 @@
                 </ImageButton>
             </TableRow>
 
-            <!--
-        	第一行描述 
-        <TableRow>
-            <TextView
-                android:layout_gravity="center"
-                android:text="@string/routine"
-        		android:paddingRight="10dip"
-            	android:layout_column="0" />
-
-            <TextView
-                android:layout_gravity="center"
-                android:text="@string/tempMatter"
-        		android:paddingLeft="10dip"
-            	android:layout_column="1" />
-        </TableRow>
-            -->
-
-
             <!-- 第二行 -->
 
             <TableRow>
 
                 <ImageButton
-                    android:id="@+id/bt_customeProfile"
+                    android:id="@+id/ib_customeProfile"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
@@ -87,7 +70,7 @@
                 </ImageButton>
 
                 <ImageButton
-                    android:id="@+id/bt_setting"
+                    android:id="@+id/ib_setting"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
@@ -100,22 +83,7 @@
                 </ImageButton>
             </TableRow>
 
-            <!--
-        	第二行描述
-        <TableRow>
-            <TextView
-                android:layout_gravity="center"
-                android:text="@string/customProfile"
-        		android:paddingRight="10dip"
-            	android:layout_column="0" />
-
-            <TextView
-                android:layout_gravity="center"
-                android:text="@string/setting"
-        		android:paddingLeft="10dip"
-            	android:layout_column="1" />
-        </TableRow>
-            -->
+            <!-- 当月日历 -->
 
             <TableRow>
 
@@ -123,8 +91,8 @@
                     android:id="@+id/calendarInMainScreen"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="8dip"
                     android:layout_span="2"
+                    android:paddingTop="8dip"
                     android:scaleType="fitCenter" />
             </TableRow>
         </TableLayout>
