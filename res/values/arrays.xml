@@ -28,13 +28,13 @@
     </string-array>
     <string-array name="reminding_time_value">
         <item>30</item>
-        <item>60</item>
-        <item>120</item>
-        <item>300</item>
-        <item>600</item>
-        <item>900</item>
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
     </string-array>
-    <string name="reminding_time_defaut_value">300</string>
+    <string name="reminding_time_defaut_value">5</string>
     
     <!-- 声音设置 -->
     <string-array name="sound_setting_display">

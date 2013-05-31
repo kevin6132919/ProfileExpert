@@ -18,8 +18,8 @@
                     android:entries="@array/switch_delay_display"
                     android:entryValues="@array/switch_delay_value"
                     android:key="switch_delay"
-                    android:summary="点击延迟后推迟切换的时间长短"
-                    android:title="切换延迟" />
+                    android:summary="点击修改"
+                    android:title="点击延迟推迟的时间长短" />
             </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen android:title="提醒设置" >

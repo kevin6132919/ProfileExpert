@@ -48,14 +48,18 @@
             android:dependency="ringtone_change"
             android:key="ringtone"
             android:persistent="false"
+            android:ringtoneType="ringtone"
+            android:showDefault="true"
+            android:showSilent="true"
             android:summary="当前铃声:"
             android:title="选择铃声" />
     </PreferenceCategory>
     <PreferenceCategory android:title="对应快捷短信" >
         <EditTextPreference
+            android:key="message_content"
             android:persistent="false"
-            android:summary="您好！我正在上课，稍后给您回电！"
-            android:title="点击编辑短信内容" />
+            android:summary="点击编辑"
+            android:title="短信内容" />
     </PreferenceCategory>
 
 </PreferenceScreen>

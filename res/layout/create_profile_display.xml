@@ -9,20 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:stretchColumns="0,1" >
+        android:stretchColumns="0,1"
+        android:background="@android:color/background_light" >
 
         <TableRow tools:ignore="UselessParent" >
-
-            <Button
-                android:id="@+id/bt_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel" />
 
             <Button
                 android:id="@+id/bt_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/bt_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
                 android:text="@string/save" />
         </TableRow>
     </TableLayout>
