@@ -1,5 +1,6 @@
 package edu.tongji.sse.profileexpert.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -13,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
+import edu.tongji.sse.profileexpert.pe.MyProfile;
 import edu.tongji.sse.profileexpert.preference.SeekBarPreference;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
@@ -66,7 +68,7 @@ public class CreateProfileActivity extends PreferenceActivity implements OnPrefe
 		bt_save.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View v) {
-				
+				save();
 			}
 		});
     }
@@ -74,6 +76,43 @@ public class CreateProfileActivity extends PreferenceActivity implements OnPrefe
 	//后退
 	private void back()
 	{
+		this.finish();
+	}
+
+	//保存新的情景模式
+	private void save()
+	{
+		String name = etp_profile_name.getText();
+		boolean allowChangingVolume = cbp_sound_change.isChecked();
+		int volume = sbp_sound_change_value.getProgress();
+		int vibrate_type = Integer.parseInt(lp_vibrate.getValue());
+		boolean allowChangingRingtone = cbp_ringtone_change.isChecked();
+		String ringtone = rp_ringtone.toString();
+		String message_content = etp_message_content.getText();
+		
+		if(name == null || name.equals(""))
+		{
+			Toast.makeText(CreateProfileActivity.this,
+	    			"名称不能为空",
+	    			Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		MyProfile mp = new MyProfile();
+		mp.setName(name);
+		mp.setAllowChangingVolume(allowChangingVolume);
+		if(allowChangingVolume)
+			mp.setVolume(volume);
+		mp.setVibrate_type(vibrate_type);
+		mp.setAllowChangingRingtone(allowChangingRingtone);
+		if(allowChangingRingtone)
+			mp.setRingtone(ringtone);
+		mp.setMessage_content(message_content);
+
+		// 返回对象  
+		Intent intent = new Intent();
+		intent.putExtra(ProfileActivity.MY_PROFILE_KEY, mp);
+		setResult(RESULT_OK, intent);
 		this.finish();
 	}
 	

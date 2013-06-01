@@ -48,4 +48,7 @@ public class MyConstant
 		else
 			return type+"分钟";
 	}
+	
+	//activity之间的传值类型
+	public static final int REQUEST_CODE_MY_PROFILE = 1;
 }
