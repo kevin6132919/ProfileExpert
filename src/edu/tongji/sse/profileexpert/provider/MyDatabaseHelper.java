@@ -1,5 +1,6 @@
 package edu.tongji.sse.profileexpert.provider;
 
+import edu.tongji.sse.profileexpert.util.DefaultProfile;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -44,6 +45,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		db.execSQL(CREATE_TABLE);
+		addDefaultProfile(db);
+	}
+
+	//在表中增加预定义的模式
+	private void addDefaultProfile(SQLiteDatabase db)
+	{
+		db.execSQL(DefaultProfile.INSERT_PROFILE_NORMAL);
+		db.execSQL(DefaultProfile.INSERT_PROFILE_WORK);
+		db.execSQL(DefaultProfile.INSERT_PROFILE_CONFERENCE);
+		db.execSQL(DefaultProfile.INSERT_PROFILE_BREAK);
 	}
 
 	//更新数据库
