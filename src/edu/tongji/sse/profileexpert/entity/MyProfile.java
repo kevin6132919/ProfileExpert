@@ -1,4 +1,4 @@
-package edu.tongji.sse.profileexpert.pe;
+package edu.tongji.sse.profileexpert.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -83,7 +83,7 @@ public class MyProfile implements Parcelable
 	public void writeToParcel(Parcel out, int flags)
 	{
 		out.writeString(name);
-		out.writeBooleanArray(new boolean[]{allowChangingRingtone});
+		out.writeBooleanArray(new boolean[]{allowChangingVolume});
 		out.writeInt(volume);
 		out.writeInt(vibrate_type);
 		out.writeBooleanArray(new boolean[]{allowChangingRingtone});

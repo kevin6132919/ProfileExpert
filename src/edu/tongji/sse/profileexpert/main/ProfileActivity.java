@@ -1,6 +1,7 @@
 package edu.tongji.sse.profileexpert.main;
 
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
-import edu.tongji.sse.profileexpert.pe.MyProfile;
+import edu.tongji.sse.profileexpert.entity.MyProfile;
+import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class ProfileActivity extends ListActivity
@@ -39,14 +41,28 @@ public class ProfileActivity extends ListActivity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == MyConstant.REQUEST_CODE_MY_PROFILE) {  
-            if (resultCode == RESULT_OK) {  
+		if (requestCode == MyConstant.REQUEST_CODE_MY_PROFILE)
+		{  
+            if (resultCode == RESULT_OK)
+            {  
                 MyProfile mp = (MyProfile) data.getParcelableExtra(MY_PROFILE_KEY);
                 Toast.makeText(
                 		ProfileActivity.this,
                 		mp.toString(),
                 		Toast.LENGTH_LONG).show();
-            }  
+                
+                ContentValues values = new ContentValues();
+                values.put(MyProfileTable.NAME, mp.getName());
+                values.put(MyProfileTable.ALLOW_CHANGING_VOLUME, mp.isAllowChangingVolume());
+                if(mp.isAllowChangingVolume())
+                	values.put(MyProfileTable.VOLUME, mp.getVolume());
+                values.put(MyProfileTable.VIBRATE_TYPE, mp.getVibrate_type());
+                values.put(MyProfileTable.ALLOW_CHANGING_RINGTONE, mp.isAllowChangingRingtone());
+                if(mp.isAllowChangingRingtone())
+                	values.put(MyProfileTable.RINGTONE, mp.getRingtone());
+                values.put(MyProfileTable.MESSAGE_CONTENT, mp.getMessage_content());
+                getContentResolver().insert(MyProfileTable.CONTENT_URI, values);
+            }
         }
 	}
 

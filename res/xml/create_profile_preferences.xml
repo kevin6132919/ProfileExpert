@@ -23,6 +23,7 @@
             android:dialogMessage="音量改变至"
             android:key="sound_change_value"
             android:max="100"
+            android:persistent="false"
             android:summary="改变至:"
             android:text=" %"
             android:title="音量改变" />

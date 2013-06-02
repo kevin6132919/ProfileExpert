@@ -3,16 +3,21 @@ package edu.tongji.sse.profileexpert.provider;
 import java.util.HashMap;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 
 public class MyProfileProvider extends ContentProvider
 {
 	private MyDatabaseHelper dbHelper = null;
 	private static UriMatcher uriMatcher = null;
-	private static HashMap<String, String> myProfileMap;
+	private static HashMap<String, String> myProfileProjectionMap;
 	
 	private static final int MY_PROFILES = 1;
 	private static final int MY_PROFILE_ID = 2;
@@ -23,9 +28,9 @@ public class MyProfileProvider extends ContentProvider
 		uriMatcher.addURI(MyProfileTable.AUTHORITY, "myprofile", MY_PROFILES);
 		uriMatcher.addURI(MyProfileTable.AUTHORITY, "myprofile/#", MY_PROFILE_ID);
 		
-		myProfileMap = new HashMap<String, String>();
-		myProfileMap.put(MyProfileTable._ID, MyProfileTable._ID);
-		myProfileMap.put(MyProfileTable.NAME, MyProfileTable.NAME);
+		myProfileProjectionMap = new HashMap<String, String>();
+		myProfileProjectionMap.put(MyProfileTable._ID, MyProfileTable._ID);
+		myProfileProjectionMap.put(MyProfileTable.NAME, MyProfileTable.NAME);
 	}
 	
 	@Override
@@ -36,21 +41,81 @@ public class MyProfileProvider extends ContentProvider
 	}
 
 	@Override
-	public Uri insert(Uri arg0, ContentValues arg1) {
-		// TODO Auto-generated method stub
-		return null;
+	public Uri insert(Uri uri, ContentValues values)
+	{
+		if (uriMatcher.match(uri) != MY_PROFILES) {
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+		
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		long rowId = db.insert(MyProfileTable.TABLE_NAME, MyProfileTable.MESSAGE_CONTENT, values);
+		
+		if (rowId > 0)
+		{
+			Uri profileUri = ContentUris.withAppendedId(MyProfileTable.CONTENT_URI, rowId);
+			getContext().getContentResolver().notifyChange(profileUri, null);
+			return profileUri;
+		}
+		
+		throw new SQLException("Failed to insert row into" + uri);
 	}
 
 	@Override
-	public int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Uri uri, ContentValues values,
+			String selection, String[] selectionArgs)
+	{
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		int count;
+		
+		switch (uriMatcher.match(uri))
+		{
+		case MY_PROFILES:
+			count = db.update(MyProfileTable.TABLE_NAME, values, selection, selectionArgs);
+			break;
+		
+		case MY_PROFILE_ID:
+			String profileId = uri.getPathSegments().get(1);
+			count = db.update(
+					MyProfileTable.TABLE_NAME,
+					values,
+					MyProfileTable._ID + "=" + profileId + 
+						(!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""),
+					selectionArgs);
+			break;
+			
+		default:
+			throw new IllegalArgumentException("Unknow URI " + uri);
+		}
+		
+		return count;
 	}
 
 	@Override
-	public int delete(Uri arg0, String arg1, String[] arg2) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(Uri uri, String selection, String[] selectionArgs)
+	{
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		int count;
+		
+		switch (uriMatcher.match(uri))
+		{
+		case MY_PROFILES:
+			count = db.delete(MyProfileTable.TABLE_NAME, selection, selectionArgs);
+			break;
+		
+		case MY_PROFILE_ID:
+			String profileId = uri.getPathSegments().get(1);
+			count = db.delete(
+					MyProfileTable.TABLE_NAME,
+					MyProfileTable._ID + "=" + profileId + 
+						(!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""),
+					selectionArgs);
+			break;
+			
+		default:
+			throw new IllegalArgumentException("Unknow URI " + uri);
+		}
+		
+		return count;
 	}
 
 	@Override
@@ -70,10 +135,38 @@ public class MyProfileProvider extends ContentProvider
 	}
 
 	@Override
-	public Cursor query(Uri arg0, String[] arg1, String arg2, String[] arg3,
-			String arg4) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cursor query(Uri uri, String[] projection, String selection,
+			String[] selectionArgs,	String sortOrder)
+	{
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		
+		switch (uriMatcher.match(uri)) {
+		case MY_PROFILES:
+			qb.setTables(MyProfileTable.TABLE_NAME);
+			qb.setProjectionMap(myProfileProjectionMap);
+			break;
+			
+		case MY_PROFILE_ID:
+			qb.setTables(MyProfileTable.TABLE_NAME);
+			qb.setProjectionMap(myProfileProjectionMap);
+			qb.appendWhere(MyProfileTable._ID + "=" + uri.getPathSegments().get(1));
+			break;
+			
+		default:
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+		
+		String orderBy;
+		if (TextUtils.isEmpty(sortOrder)) {
+			orderBy = MyProfileTable.DEFAULT_SORT_ORDER;
+		}else {
+			orderBy = sortOrder;
+		}
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, orderBy);
+		//为Cursor对象注册一个观察数据变化的URI
+		c.setNotificationUri(getContext().getContentResolver(), uri);
+		return c;
 	}
 
 }

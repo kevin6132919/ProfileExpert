@@ -60,15 +60,15 @@
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:dependency="reminding_enable"
-                    android:title="通知静音"
+                    android:summaryOff="通知会带上声音提醒"
                     android:summaryOn="通知不会带有声音提醒"
-                    android:summaryOff="通知会带上声音提醒" />
+                    android:title="通知静音" />
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:dependency="reminding_enable"
-                    android:title="通知震动"
+                    android:summaryOff="通知时手机不震动"
                     android:summaryOn="通知时手机震动"
-                    android:summaryOff="通知时手机不震动" />
+                    android:title="通知震动" />
             </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen android:title="法定假日设置" >

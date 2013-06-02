@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
-import edu.tongji.sse.profileexpert.pe.MyProfile;
+import edu.tongji.sse.profileexpert.entity.MyProfile;
 import edu.tongji.sse.profileexpert.preference.SeekBarPreference;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
@@ -87,7 +87,7 @@ public class CreateProfileActivity extends PreferenceActivity implements OnPrefe
 		int volume = sbp_sound_change_value.getProgress();
 		int vibrate_type = Integer.parseInt(lp_vibrate.getValue());
 		boolean allowChangingRingtone = cbp_ringtone_change.isChecked();
-		String ringtone = rp_ringtone.toString();
+		String ringtone = rp_ringtone.getSummary().toString().substring(5);
 		String message_content = etp_message_content.getText();
 		
 		if(name == null || name.equals(""))
@@ -134,6 +134,8 @@ public class CreateProfileActivity extends PreferenceActivity implements OnPrefe
 		}
 		else if(preference == sbp_sound_change_value)
 		{
+			int progress = Integer.parseInt(newValue.toString());
+			sbp_sound_change_value.setProgress(progress);
 			preference.setSummary("¸Ä±äÖÁ:" + newValue + "%");
 			return true;
 		}
