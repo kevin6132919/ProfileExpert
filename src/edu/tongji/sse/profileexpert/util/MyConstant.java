@@ -20,7 +20,7 @@ public class MyConstant
 		case VIBRATE_SETTING_CHANGE_TO_OPEN:
 			return STRING_VIBRATE_SETTING_CHANGE_TO_OPEN;
 		case VIBRATE_SETTING_CHANGE_TO_CLOSE:
-			return STRING_VIBRATE_SETTING_CHANGE_TO_OPEN;
+			return STRING_VIBRATE_SETTING_CHANGE_TO_CLOSE;
 		}
 		return null;
 	}
@@ -32,9 +32,12 @@ public class MyConstant
 	public static final int SEITCHING_DELAY_10 = 10;
 	public static final int SEITCHING_DELAY_15 = 15;
 	
+	public static final String MINUTE = "分钟";
+	public static final String SECOND = "秒";
+	
 	public static String getDelayText(int type)
 	{
-		return type+"分钟";
+		return type + MINUTE;
 	}
 
 	//提醒时间
@@ -48,9 +51,9 @@ public class MyConstant
 	public static String getRemindingTimeText(int type)
 	{
 		if(type == 30)
-			return type+"秒";
+			return type + MINUTE;
 		else
-			return type+"分钟";
+			return type + SECOND;
 	}
 	
 	//activity之间的传值类型

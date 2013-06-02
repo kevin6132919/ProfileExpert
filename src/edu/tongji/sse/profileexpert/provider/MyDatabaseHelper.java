@@ -29,6 +29,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 														+ MyProfileTable.RINGTONE
 														+ " TEXT,"
 														+ MyProfileTable.MESSAGE_CONTENT
+														+ " TEXT,"
+														+ MyProfileTable.DESCRIPTION
 														+ " TEXT" + ");";
 
 	//构造函数-创建数据库

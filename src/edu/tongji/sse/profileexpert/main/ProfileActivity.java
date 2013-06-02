@@ -35,7 +35,7 @@ public class ProfileActivity extends ListActivity
         		this,
         		R.layout.profile_list_item,
         		cursor,
-        		new String[]{MyProfileTable.NAME, MyProfileTable.NAME},
+        		new String[]{MyProfileTable.NAME, MyProfileTable.DESCRIPTION},
         		new int[]{R.id.profile_list_item_name, R.id.profile_list_item_discription});
         setListAdapter(adapter);
         
@@ -76,6 +76,7 @@ public class ProfileActivity extends ListActivity
                 if(mp.isAllowChangingRingtone())
                 	values.put(MyProfileTable.RINGTONE, mp.getRingtone());
                 values.put(MyProfileTable.MESSAGE_CONTENT, mp.getMessage_content());
+                values.put(MyProfileTable.DESCRIPTION, mp.toString());
                 getContentResolver().insert(MyProfileTable.CONTENT_URI, values);
             }
         }

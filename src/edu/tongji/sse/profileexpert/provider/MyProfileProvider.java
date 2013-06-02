@@ -31,6 +31,13 @@ public class MyProfileProvider extends ContentProvider
 		myProfileProjectionMap = new HashMap<String, String>();
 		myProfileProjectionMap.put(MyProfileTable._ID, MyProfileTable._ID);
 		myProfileProjectionMap.put(MyProfileTable.NAME, MyProfileTable.NAME);
+		myProfileProjectionMap.put(MyProfileTable.ALLOW_CHANGING_VOLUME, MyProfileTable.ALLOW_CHANGING_VOLUME);
+		myProfileProjectionMap.put(MyProfileTable.VOLUME, MyProfileTable.VOLUME);
+		myProfileProjectionMap.put(MyProfileTable.VIBRATE_TYPE, MyProfileTable.VIBRATE_TYPE);
+		myProfileProjectionMap.put(MyProfileTable.ALLOW_CHANGING_RINGTONE, MyProfileTable.ALLOW_CHANGING_RINGTONE);
+		myProfileProjectionMap.put(MyProfileTable.RINGTONE, MyProfileTable.RINGTONE);
+		myProfileProjectionMap.put(MyProfileTable.MESSAGE_CONTENT, MyProfileTable.MESSAGE_CONTENT);
+		myProfileProjectionMap.put(MyProfileTable.DISCRIPTION, MyProfileTable.DISCRIPTION);
 	}
 	
 	@Override

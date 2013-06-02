@@ -134,14 +134,14 @@ public class MyProfile implements Parcelable
 		String str = "";
 
 		if(allowChangingVolume)
-			str += MyConstant.RINGTONE + ":" + volume + "%,";
+			str += MyConstant.RINGTONE + ":" + volume + "%" + " ";
 		else
-			str += MyConstant.RINGTONE + ":" + MyConstant.DONT_CHANGE + ",";
+			str += MyConstant.RINGTONE + ":" + MyConstant.DONT_CHANGE + " ";
 
 		String vibrate = MyConstant.getVibtareText(vibrate_type);
 		
 		str += MyConstant.VIBRATE + ":" +
-				vibrate.substring(vibrate.length()-2) + ",";
+				vibrate.substring(vibrate.length()-2)/* + ","*/;
 		
 		return str;
 	}

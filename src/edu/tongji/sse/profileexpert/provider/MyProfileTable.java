@@ -30,4 +30,5 @@ public final class MyProfileTable implements BaseColumns
 	public static final String  ALLOW_CHANGING_RINGTONE = "allowChangingRingtone";
 	public static final String  RINGTONE 	  		 	= "ringtone";
 	public static final String  MESSAGE_CONTENT			= "message_content";
+	public static final String	DESCRIPTION				= "description";
 }
