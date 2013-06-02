@@ -6,17 +6,21 @@ public class MyConstant
 	public static final int VIBRATE_SETTING_UNCHANGED = 0;
 	public static final int VIBRATE_SETTING_CHANGE_TO_OPEN = 1;
 	public static final int VIBRATE_SETTING_CHANGE_TO_CLOSE = 2;
+
+	public static final String STRING_VIBRATE_SETTING_UNCHANGED = "保持不变";
+	public static final String STRING_VIBRATE_SETTING_CHANGE_TO_OPEN = "切换至开启";
+	public static final String STRING_VIBRATE_SETTING_CHANGE_TO_CLOSE = "切换至关闭";
 	
 	public static String getVibtareText(int type)
 	{
 		switch(type)
 		{
 		case VIBRATE_SETTING_UNCHANGED:
-			return "保持不变";
+			return STRING_VIBRATE_SETTING_UNCHANGED;
 		case VIBRATE_SETTING_CHANGE_TO_OPEN:
-			return "切换至开启";
+			return STRING_VIBRATE_SETTING_CHANGE_TO_OPEN;
 		case VIBRATE_SETTING_CHANGE_TO_CLOSE:
-			return "切换至关闭";
+			return STRING_VIBRATE_SETTING_CHANGE_TO_OPEN;
 		}
 		return null;
 	}
@@ -51,4 +55,9 @@ public class MyConstant
 	
 	//activity之间的传值类型
 	public static final int REQUEST_CODE_MY_PROFILE = 1;
+	
+	//MyProfile中toString()方法里使用到的文字
+	public static final String RINGTONE = "铃声";
+	public static final String DONT_CHANGE = "不变";
+	public static final String VIBRATE = "震动";
 }

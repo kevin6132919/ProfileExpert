@@ -3,5 +3,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
-
+    
+    <dimen name="profile_list_item_image_side_length">60dp</dimen>
+    <dimen name="profile_list_item_name_margin_top">4dp</dimen>
+    <dimen name="profile_list_item_name_text_size">25sp</dimen>
+	<dimen name="profile_list_item_name_discription_text_size">15sp</dimen>
 </resources>

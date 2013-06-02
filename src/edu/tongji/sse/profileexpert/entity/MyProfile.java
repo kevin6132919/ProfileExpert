@@ -6,6 +6,7 @@ import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class MyProfile implements Parcelable
 {
+	//private Context ctx = null;
 
 	private String name = null;
 	private boolean allowChangingVolume = false;
@@ -15,8 +16,10 @@ public class MyProfile implements Parcelable
 	private String ringtone = null;
 	private String message_content = null;
 
-	public MyProfile(){}
-	
+	public MyProfile()
+	{
+	}
+
 	public MyProfile(String name, boolean allowChangingVolume, int volume, int vibrate_type,
 			boolean allowChangingRingtone, String ringtone, String message_content)
 	{
@@ -90,47 +93,55 @@ public class MyProfile implements Parcelable
 		out.writeString(ringtone);
 		out.writeString(message_content);
 	}
-	
+
 	public static final Parcelable.Creator<MyProfile> CREATOR
-		= new Parcelable.Creator<MyProfile>()
-		{
+	= new Parcelable.Creator<MyProfile>()
+	{
 		public MyProfile createFromParcel(Parcel in)
-        {  
-            MyProfile mp = new MyProfile();
-            mp.setName(in.readString());
-            boolean[] b = new boolean[1];
-            in.readBooleanArray(b);
-            if(b != null && b.length > 0)
-            	mp.setAllowChangingVolume(b[0]);
-            mp.setVolume(in.readInt());
-            mp.setVibrate_type(in.readInt());
-            b = new boolean[1];
-            in.readBooleanArray(b);
-            if(b != null && b.length > 0)
-            	mp.setAllowChangingRingtone(b[0]);
-            mp.setRingtone(in.readString());
-            mp.setMessage_content(in.readString());
-            
-            return mp;
-        }
-  
-        public MyProfile[] newArray(int size) {  
-            return new MyProfile[size];  
-        }
-    };
-    
+		{  
+			MyProfile mp = new MyProfile();
+			mp.setName(in.readString());
+			boolean[] b = new boolean[1];
+			in.readBooleanArray(b);
+			if(b != null && b.length > 0)
+				mp.setAllowChangingVolume(b[0]);
+			mp.setVolume(in.readInt());
+			mp.setVibrate_type(in.readInt());
+			b = new boolean[1];
+			in.readBooleanArray(b);
+			if(b != null && b.length > 0)
+				mp.setAllowChangingRingtone(b[0]);
+			mp.setRingtone(in.readString());
+			mp.setMessage_content(in.readString());
+
+			return mp;
+		}
+
+		public MyProfile[] newArray(int size) {  
+			return new MyProfile[size];  
+		}
+	};
+
+	//为获取string.xml文件里的值,在使用toString方法前必须设置context
+	/*public void SetContext(Context context)
+	{
+		this.ctx = context;
+	}*/
 
 	@Override
 	public String toString()
 	{
 		String str = "";
-		str += "name:"+name;
-		str += " allowChangingVolume:"+allowChangingVolume;
-		str += " volume:"+volume;
-		str += " vibrate_type:"+vibrate_type;
-		str += " allowChangingRingtone:"+allowChangingRingtone;
-		str += " ringtone:"+ringtone;
-		str += " message_content:"+message_content;
+
+		if(allowChangingVolume)
+			str += MyConstant.RINGTONE + ":" + volume + "%,";
+		else
+			str += MyConstant.RINGTONE + ":" + MyConstant.DONT_CHANGE + ",";
+
+		String vibrate = MyConstant.getVibtareText(vibrate_type);
+		
+		str += MyConstant.VIBRATE + ":" +
+				vibrate.substring(vibrate.length()-2) + ",";
 		
 		return str;
 	}

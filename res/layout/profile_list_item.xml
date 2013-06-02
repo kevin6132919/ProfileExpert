@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/profile_list_item_image"
+        android:layout_width="@dimen/profile_list_item_image_side_length"
+        android:layout_height="@dimen/profile_list_item_image_side_length"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/imgMissing"
+        android:src="@drawable/star" />
+
+    <TextView
+        android:id="@+id/profile_list_item_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/profile_list_item_name_margin_top"
+        android:layout_toRightOf="@id/profile_list_item_image"
+        android:textSize="@dimen/profile_list_item_name_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/profile_list_item_discription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/profile_list_item_image"
+        android:layout_alignLeft="@id/profile_list_item_name"
+        android:textSize="@dimen/profile_list_item_name_discription_text_size" />
+
+</RelativeLayout>
