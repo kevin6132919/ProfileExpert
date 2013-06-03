@@ -1,6 +1,7 @@
 package edu.tongji.sse.profileexpert.preference;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -19,7 +20,7 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 	private Context context;
 
 	private String dialogMessage, suffix;
-	private int _default, _max, _value = 0;
+	private int _default, _max, _value, temp_progress = 0;
 
 	public SeekBarPreference(Context context, AttributeSet attrs) { 
 		super(context,attrs); 
@@ -47,6 +48,7 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 		valueText = new TextView(context);
 		valueText.setGravity(Gravity.CENTER_HORIZONTAL);
 		valueText.setTextSize(32);
+		valueText.setText(suffix == null ? ""+_default : _default+suffix);
 		params = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.FILL_PARENT, 
 				LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -100,4 +102,18 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 			seekBar.setProgress(progress); 
 	}
 	public int getProgress() { return _value; }
+	
+	@Override
+	protected void onDialogClosed(boolean positiveResult)
+	{
+		if(!positiveResult)
+			this.setProgress(temp_progress);
+		super.onDialogClosed(positiveResult);
+	}
+	@Override
+	protected void onPrepareDialogBuilder(Builder builder)
+	{
+		temp_progress = _value;
+		super.onPrepareDialogBuilder(builder);
+	}
 }
