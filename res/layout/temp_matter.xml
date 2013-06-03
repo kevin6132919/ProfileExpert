@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/background_light" >
+
+    <edu.tongji.sse.profileexpert.calendar.MyCalendarView
+        android:id="@+id/my_calendar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/my_calendar_padding_top"
+        android:scaleType="fitCenter" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:paddingTop="@dimen/temp_matter_listview_vertical_padding"
+        android:paddingLeft="@dimen/temp_matter_listview_horizontal_padding"
+        android:paddingRight="@dimen/temp_matter_listview_horizontal_padding"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/background_light"
+        android:layout_below="@id/my_calendar" />
+
+</RelativeLayout>

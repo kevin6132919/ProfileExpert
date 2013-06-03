@@ -4,8 +4,22 @@
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
     
+    <dimen name="main_screen_img_near_center_padding">20dp</dimen>
+    <dimen name="main_screen_img_near_edge_padding">45dp</dimen>
+    
+    <dimen name="my_calendar_padding_top">8dip</dimen>
+    
     <dimen name="profile_list_item_image_side_length">60dp</dimen>
+	<dimen name="profile_list_item_image_horizontal_padding">5dp</dimen>
     <dimen name="profile_list_item_name_margin_top">4dp</dimen>
     <dimen name="profile_list_item_name_text_size">25sp</dimen>
 	<dimen name="profile_list_item_name_discription_text_size">15sp</dimen>
+	
+	<dimen name="matter_in_hour_height">40dp</dimen>
+	<dimen name="hour_list_item_length">30dp</dimen>
+	<dimen name="hour_list_item_horizontal_padding">10dp</dimen>
+	<dimen name="hour_list_item_num_text_size">15sp</dimen>
+	
+	<dimen name="temp_matter_listview_vertical_padding">20dp</dimen>
+	<dimen name="temp_matter_listview_horizontal_padding">35dp</dimen>
 </resources>

@@ -16,11 +16,11 @@ public class DefaultProfile
 	
 	public static final String INSERT_PROFILE_CONFERENCE = 
 			"INSERT INTO " + MyProfileTable.TABLE_NAME
-			+ " VALUES ('3','会议','1','0','2','0',null,"
+			+ " VALUES ('2','会议','1','0','2','0',null,"
 			+ "'抱歉，我正在开会，散会后给您回电','铃声:0% 震动:关闭')";
 	
 	public static final String INSERT_PROFILE_BREAK = 
 			"INSERT INTO " + MyProfileTable.TABLE_NAME
-			+ " VALUES ('4','休息','1','0','2','0',null,"
+			+ " VALUES ('3','休息','1','0','2','0',null,"
 			+ "'抱歉，我正在休息，稍后后给您回电','铃声:0% 震动:关闭')";
 }

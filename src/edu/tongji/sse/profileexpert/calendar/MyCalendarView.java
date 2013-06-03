@@ -182,7 +182,7 @@ public class MyCalendarView extends ImageView
 	//在绘制之前设置MyCell的属性
 	private void setCellProperties()
 	{
-		ImageView view = (ImageView)findViewById(R.id.calendarInMainScreen);
+		ImageView view = (ImageView)findViewById(R.id.my_calendar);
 		//int width = view.getWidth();
 		int height = view.getHeight();
 		//由于得到的宽度不是实际的宽度

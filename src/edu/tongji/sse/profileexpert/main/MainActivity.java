@@ -13,9 +13,11 @@ public class MainActivity extends Activity
 {
 	private ImageButton ib_setting = null;
 	private ImageButton ib_customeProfile = null;
+	private ImageButton ib_tempMatter = null;
 	
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
@@ -37,6 +39,17 @@ public class MainActivity extends Activity
 				//跳转到自定义模式界面
 				Intent intent=new Intent();
 	            intent.setClass(MainActivity.this, ProfileActivity.class);
+	            startActivity(intent);
+			}
+		});
+
+        ib_tempMatter = (ImageButton) findViewById(R.id.ib_tempmatter);
+        ib_tempMatter.setOnClickListener(new OnClickListener()
+        {
+			public void onClick(View v) {
+				//跳转到自定义模式界面
+				Intent intent=new Intent();
+	            intent.setClass(MainActivity.this, TempMatterActivity.class);
 	            startActivity(intent);
 			}
 		});

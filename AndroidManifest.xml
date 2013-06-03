@@ -42,6 +42,10 @@
             android:name="edu.tongji.sse.profileexpert.main.CreateProfileActivity"
             android:label="@string/add_profile" >
         </activity>
+        <activity
+            android:name="edu.tongji.sse.profileexpert.main.TempMatterActivity"
+            android:label="@string/tempMatter" >
+        </activity>
 
         <provider
             android:name="edu.tongji.sse.profileexpert.provider.MyProfileProvider"

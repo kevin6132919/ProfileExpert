@@ -31,8 +31,8 @@
                     android:layout_column="0"
                     android:background="@color/transparent"
                     android:contentDescription="@string/imgMissing"
-                    android:paddingLeft="45dip"
-                    android:paddingRight="20dip"
+                    android:paddingLeft="@dimen/main_screen_img_near_edge_padding"
+                    android:paddingRight="@dimen/main_screen_img_near_center_padding"
                     android:scaleType="fitCenter"
                     android:src="@drawable/r1_routine"
                     android:text="@string/routine" >
@@ -45,8 +45,8 @@
                     android:layout_column="1"
                     android:background="@color/transparent"
                     android:contentDescription="@string/imgMissing"
-                    android:paddingLeft="20dip"
-                    android:paddingRight="45dip"
+                    android:paddingLeft="@dimen/main_screen_img_near_center_padding"
+                    android:paddingRight="@dimen/main_screen_img_near_edge_padding"
                     android:scaleType="fitCenter"
                     android:src="@drawable/r2_tempmatter" >
                 </ImageButton>
@@ -63,8 +63,8 @@
                     android:layout_column="0"
                     android:background="@color/transparent"
                     android:contentDescription="@string/imgMissing"
-                    android:paddingLeft="45dip"
-                    android:paddingRight="20dip"
+                    android:paddingLeft="@dimen/main_screen_img_near_edge_padding"
+                    android:paddingRight="@dimen/main_screen_img_near_center_padding"
                     android:scaleType="fitCenter"
                     android:src="@drawable/r3_customeprofile" >
                 </ImageButton>
@@ -76,8 +76,8 @@
                     android:layout_column="1"
                     android:background="@color/transparent"
                     android:contentDescription="@string/imgMissing"
-                    android:paddingLeft="20dip"
-                    android:paddingRight="45dip"
+                    android:paddingLeft="@dimen/main_screen_img_near_center_padding"
+                    android:paddingRight="@dimen/main_screen_img_near_edge_padding"
                     android:scaleType="fitCenter"
                     android:src="@drawable/r4_setting" >
                 </ImageButton>
@@ -88,11 +88,11 @@
             <TableRow>
 
                 <edu.tongji.sse.profileexpert.calendar.MyCalendarView
-                    android:id="@+id/calendarInMainScreen"
+                    android:id="@+id/my_calendar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_span="2"
-                    android:paddingTop="8dip"
+                    android:paddingTop="@dimen/my_calendar_padding_top"
                     android:scaleType="fitCenter" />
             </TableRow>
         </TableLayout>
