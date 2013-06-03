@@ -35,8 +35,12 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 				Integer.parseInt(lp_switch_delay.getValue())));
 		lp_first_reminding_time.setSummary(MyConstant.getRemindingTimeText(
 				Integer.parseInt(lp_first_reminding_time.getValue())));
-		lp_second_reminding_time.setSummary(MyConstant.getRemindingTimeText(
-				Integer.parseInt(lp_second_reminding_time.getValue())));
+		String value = lp_second_reminding_time.getValue();
+		if(value != null)
+		{
+			lp_second_reminding_time.setSummary(MyConstant.getRemindingTimeText(
+				Integer.parseInt(value)));
+		}
 	}
 
 	//preference¸Ä±ä¼àÌýº¯Êý
