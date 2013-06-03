@@ -8,6 +8,8 @@
         android:id="@+id/profile_list_item_image"
         android:layout_width="@dimen/profile_list_item_image_side_length"
         android:layout_height="@dimen/profile_list_item_image_side_length"
+        android:paddingLeft="@dimen/profile_list_item_image_horizontal_padding"
+        android:paddingRight="@dimen/profile_list_item_image_horizontal_padding"
         android:layout_centerVertical="true"
         android:contentDescription="@string/imgMissing"
         android:src="@drawable/star" />
