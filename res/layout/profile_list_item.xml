@@ -30,5 +30,11 @@
         android:layout_alignBottom="@id/profile_list_item_image"
         android:layout_alignLeft="@id/profile_list_item_name"
         android:textSize="@dimen/profile_list_item_name_discription_text_size" />
+    <!-- 
+    <TextView 
+        android:id="@+id/profile_list_item_id"
+        android:visibility="invisible"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/> -->
 
 </RelativeLayout>

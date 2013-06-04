@@ -13,4 +13,13 @@
     <string name="add_profile">新增情景模式</string>
     <string name="save">保存</string>
     <string name="cancel">返回</string>
+    
+    <string name="select">请选择</string>
+    <string name="delete">删除</string>
+    <string name="edit">编辑</string>
+    <string name="tips">温馨提示</string>
+    <string name="confirm">确认</string>
+    <string name="delete_profile_text">确定要删除该情景模式吗?删除后将无法恢复!</string>
+    <string name="delete_profile_success">模式删除成功</string>
+    <string name="delete_profile_fail">模式删除失败</string>
 </resources>
