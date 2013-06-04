@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true"><shape>
+            <gradient android:angle="0" android:endColor="#C0C0C0" android:startColor="#FFFF00" />
+
+            <stroke android:width="4dip" android:color="#b0000000" />
+
+            <corners android:radius="15dp" />
+
+            <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
+        </shape></item>
+    <item android:state_focused="true"><shape>
+            <gradient android:angle="270" android:endColor="#00000000" android:startColor="#FFFFFFFF" />
+
+            <stroke android:width="4dip" android:color="#00000000" />
+
+            <corners android:radius="15dp" />
+
+            <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
+        </shape></item>
+    <item><shape>
+            <gradient android:angle="90" android:endColor="#00000000" android:startColor="#FFFFFFFF" />
+
+            <stroke android:width="4dip" android:color="#00000000" />
+
+            <corners android:radius="15dp" />
+
+            <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
+        </shape></item>
+
+</selector><!--
+简单一说：shape是用来自己画图用的 其中gradient可以让它有个一个渐变效果，startColor 是开始的颜色，endColor是最后的颜色，angle用来确定方向，0表示Left_Right 90是Bottom——Top 180是Right——Left发现规律了吧，
+剩下的自己应该知道了 stroke 是来确定边框的 其中width 是表示宽度，color是边框的颜色 corners 来确定每个角的半径，可以用 topLeftRadius 等来分别设置半径的大小，Padding 用开确定里面内容的位置，
+当然我们也可以分开单独写<shape>然后用 android:drawable="@drawable/"来定义自己画的图片或者是已有的图片，这要看自己的用途
+-->
