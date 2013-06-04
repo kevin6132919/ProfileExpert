@@ -7,11 +7,13 @@
     <string name="customProfile">自定义模式</string>
     <string name="setting">软件设置</string>
     <string name="imgMissing">图片加载失败</string>
-    <string name="exit">退出</string>
+    
     
     <string name="add_profile">新增情景模式</string>
+    <string name="edit_profile">编辑情景模式</string>
     <string name="save">保存</string>
     <string name="cancel">返回</string>
+    <string name="exit">退出</string>
     
     <string name="select">请选择</string>
     <string name="delete">删除</string>

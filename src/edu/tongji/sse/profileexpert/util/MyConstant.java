@@ -57,7 +57,8 @@ public class MyConstant
 	}
 	
 	//activity之间的传值类型
-	public static final int REQUEST_CODE_MY_PROFILE = 1;
+	public static final int REQUEST_CODE_CREATE_PROFILE = 1;
+	public static final int REQUEST_CODE_EDIT_PROFILE = 2;
 	
 	//MyProfile中toString()方法里使用到的文字
 	public static final String RINGTONE = "铃声";

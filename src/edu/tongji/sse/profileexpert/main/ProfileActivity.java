@@ -23,9 +23,10 @@ import edu.tongji.sse.profileexpert.util.MyConstant;
 public class ProfileActivity extends ListActivity
 {
 	public static final String MY_PROFILE_KEY = "my_profile";
+	public static final String EDIT_PROFILE_ID_KEY = "my_profile_id";
 
 	private Button bt_new_profile = null;
-	private MyProfile my_profile = null;
+	//private MyProfile my_profile = null;
 	private Cursor cursor = null;
 	private ListAdapter adapter = null;
 
@@ -52,8 +53,7 @@ public class ProfileActivity extends ListActivity
 				//跳转到自定义模式界面
 				Intent intent=new Intent();
 				intent.setClass(ProfileActivity.this, CreateProfileActivity.class);
-				intent.putExtra(MY_PROFILE_KEY, my_profile);
-				startActivityForResult(intent, MyConstant.REQUEST_CODE_MY_PROFILE); 
+				startActivityForResult(intent, MyConstant.REQUEST_CODE_CREATE_PROFILE); 
 			}
 		});
 	}
@@ -62,16 +62,18 @@ public class ProfileActivity extends ListActivity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == MyConstant.REQUEST_CODE_MY_PROFILE)
-		{  
+
+		if (requestCode == MyConstant.REQUEST_CODE_CREATE_PROFILE)
+		{
 			if (resultCode == RESULT_OK)
-			{  
+			{
 				MyProfile mp = (MyProfile) data.getParcelableExtra(MY_PROFILE_KEY);
 				/*Toast.makeText(
                 		ProfileActivity.this,
                 		mp.toString(),
                 		Toast.LENGTH_LONG).show();*/
-
+				
+				//将MyProfile的值填入ContentValues中
 				ContentValues values = new ContentValues();
 				values.put(MyProfileTable.NAME, mp.getName());
 				values.put(MyProfileTable.ALLOW_CHANGING_VOLUME, mp.isAllowChangingVolume());
@@ -86,15 +88,47 @@ public class ProfileActivity extends ListActivity
 				getContentResolver().insert(MyProfileTable.CONTENT_URI, values);
 			}
 		}
+		else if(requestCode == MyConstant.REQUEST_CODE_EDIT_PROFILE)
+		{
+			if (resultCode == RESULT_OK)
+			{
+				/*Toast.makeText(
+						ProfileActivity.this,
+						"编辑返回测试",
+						Toast.LENGTH_SHORT).show();*/
+				MyProfile mp = (MyProfile) data.getParcelableExtra(MY_PROFILE_KEY);
+				long id = data.getLongExtra(EDIT_PROFILE_ID_KEY, -1);
+				
+				//将MyProfile的值填入ContentValues中
+				ContentValues values = new ContentValues();
+				values.put(MyProfileTable.NAME, mp.getName());
+				values.put(MyProfileTable.ALLOW_CHANGING_VOLUME, mp.isAllowChangingVolume());
+				if(mp.isAllowChangingVolume())
+					values.put(MyProfileTable.VOLUME, mp.getVolume());
+				values.put(MyProfileTable.VIBRATE_TYPE, mp.getVibrate_type());
+				values.put(MyProfileTable.ALLOW_CHANGING_RINGTONE, mp.isAllowChangingRingtone());
+				if(mp.isAllowChangingRingtone())
+					values.put(MyProfileTable.RINGTONE, mp.getRingtone());
+				values.put(MyProfileTable.MESSAGE_CONTENT, mp.getMessage_content());
+				values.put(MyProfileTable.DESCRIPTION, mp.toString());
+				
+				getContentResolver().update(
+						MyProfileTable.CONTENT_URI,
+						values,
+						MyProfileTable._ID + "=?",
+						new String[]{""+id});
+			}
+		}
+
 	}
 
 	protected void onListItemClick(ListView l, View v, int position, long id)
 	{
 		final long _id = id;
 		new AlertDialog.Builder(this)
-			.setIcon(android.R.drawable.ic_menu_info_details)
-			.setTitle(getString(R.string.select))
-			.setItems(
+		.setIcon(android.R.drawable.ic_menu_info_details)
+		.setTitle(getString(R.string.select))
+		.setItems(
 				new String[] { getString(R.string.edit), getString(R.string.delete) },
 				new DialogInterface.OnClickListener()
 				{
@@ -112,8 +146,8 @@ public class ProfileActivity extends ListActivity
 						dialog.dismiss();
 					}
 				})
-			.setNegativeButton(getString(R.string.cancel), null)
-			.show();
+				.setNegativeButton(getString(R.string.cancel), null)
+				.show();
 	}
 
 	//编辑对应的模式
@@ -121,16 +155,16 @@ public class ProfileActivity extends ListActivity
 	{
 		//跳转到编辑模式界面
 		Intent intent=new Intent();
-		intent.setClass(ProfileActivity.this, CreateProfileActivity.class);
-		intent.putExtra(MY_PROFILE_KEY, my_profile);
-		startActivityForResult(intent, MyConstant.REQUEST_CODE_MY_PROFILE); 
+		intent.setClass(ProfileActivity.this, EditProfileActivity.class);
+		intent.putExtra(EDIT_PROFILE_ID_KEY, id);
+		startActivityForResult(intent, MyConstant.REQUEST_CODE_EDIT_PROFILE); 
 	}
 
 	//删除对应的模式
 	private void delteCorrespondingProfile(long id)
 	{
 		final long _id = id;
-		
+
 		new Builder(ProfileActivity.this)
 		.setIcon(R.drawable.alerts_warning)
 		.setMessage(getString(R.string.delete_profile_text))
@@ -141,20 +175,20 @@ public class ProfileActivity extends ListActivity
 			{
 				String msg = null;
 				int result = getContentResolver().delete(
-								MyProfileTable.CONTENT_URI,
-								MyProfileTable._ID + "=?",
-								new String[]{""+_id});
+						MyProfileTable.CONTENT_URI,
+						MyProfileTable._ID + "=?",
+						new String[]{""+_id});
 				if(result == 1)
 					msg = getString(R.string.delete_profile_success);
 				else
 					msg = getString(R.string.delete_profile_fail);
 				Toast.makeText(ProfileActivity.this, msg, Toast.LENGTH_SHORT).show();
-				
+
 				//刷新当前listView
 				cursor.requery();
-			    dialog.dismiss();
+				dialog.dismiss();
 			}})
-		.setNegativeButton(getString(R.string.cancel), null)
-		.show();
+			.setNegativeButton(getString(R.string.cancel), null)
+			.show();
 	}
 }
