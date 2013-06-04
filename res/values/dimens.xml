@@ -3,6 +3,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
+    <dimen name="activity_rectangle_margin">2dp</dimen>
     
     <dimen name="main_screen_img_near_center_padding">20dp</dimen>
     <dimen name="main_screen_img_near_edge_padding">45dp</dimen>
@@ -20,6 +21,7 @@
 	<dimen name="hour_list_item_horizontal_padding">10dp</dimen>
 	<dimen name="hour_list_item_num_text_size">15sp</dimen>
 	
-	<dimen name="temp_matter_listview_vertical_padding">20dp</dimen>
-	<dimen name="temp_matter_listview_horizontal_padding">35dp</dimen>
+	<dimen name="temp_matter_listview_margin_top">15dp</dimen>
+	<dimen name="temp_matter_listview_margin_bottom">5dp</dimen>
+	<dimen name="temp_matter_listview_horizontal_margin">25dp</dimen>
 </resources>

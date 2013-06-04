@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/background_light" >
+    android:layout_height="match_parent"
+    android:background="@drawable/gray_rectangle_background"
+    android:layout_margin="@dimen/activity_rectangle_margin" >
 
     <edu.tongji.sse.profileexpert.calendar.MyCalendarView
         android:id="@+id/my_calendar"
@@ -13,12 +14,13 @@
 
     <ListView
         android:id="@android:id/list"
-        android:paddingTop="@dimen/temp_matter_listview_vertical_padding"
-        android:paddingLeft="@dimen/temp_matter_listview_horizontal_padding"
-        android:paddingRight="@dimen/temp_matter_listview_horizontal_padding"
+        android:layout_marginTop="@dimen/temp_matter_listview_margin_top"
+        android:layout_marginBottom="@dimen/temp_matter_listview_margin_bottom"
+        android:layout_marginLeft="@dimen/temp_matter_listview_horizontal_margin"
+        android:layout_marginRight="@dimen/temp_matter_listview_horizontal_margin"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/background_light"
+        android:background="@drawable/dark_rectangle_background"
         android:layout_below="@id/my_calendar" />
 
 </RelativeLayout>
