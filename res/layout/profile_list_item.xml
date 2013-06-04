@@ -12,7 +12,7 @@
         android:paddingRight="@dimen/profile_list_item_image_horizontal_padding"
         android:layout_centerVertical="true"
         android:contentDescription="@string/imgMissing"
-        android:src="@drawable/star" />
+        android:src="@android:drawable/ic_menu_agenda" />
 
     <TextView
         android:id="@+id/profile_list_item_name"

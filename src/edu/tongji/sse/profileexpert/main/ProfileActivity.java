@@ -92,7 +92,7 @@ public class ProfileActivity extends ListActivity
 	{
 		final long _id = id;
 		new AlertDialog.Builder(this)
-			.setIcon(android.R.drawable.ic_dialog_info)
+			.setIcon(android.R.drawable.ic_menu_info_details)
 			.setTitle(getString(R.string.select))
 			.setItems(
 				new String[] { getString(R.string.edit), getString(R.string.delete) },
@@ -103,7 +103,7 @@ public class ProfileActivity extends ListActivity
 						switch(which)
 						{
 						case 0:
-							Toast.makeText(ProfileActivity.this, "1", Toast.LENGTH_SHORT).show();
+							editCorrespondingProfile(_id);
 							break;
 						case 1:
 							delteCorrespondingProfile(_id);
@@ -116,13 +116,23 @@ public class ProfileActivity extends ListActivity
 			.show();
 	}
 
+	//编辑对应的模式
+	protected void editCorrespondingProfile(long id)
+	{
+		//跳转到编辑模式界面
+		Intent intent=new Intent();
+		intent.setClass(ProfileActivity.this, CreateProfileActivity.class);
+		intent.putExtra(MY_PROFILE_KEY, my_profile);
+		startActivityForResult(intent, MyConstant.REQUEST_CODE_MY_PROFILE); 
+	}
+
 	//删除对应的模式
 	private void delteCorrespondingProfile(long id)
 	{
 		final long _id = id;
 		
 		new Builder(ProfileActivity.this)
-		.setIcon(android.R.drawable.ic_dialog_alert)
+		.setIcon(R.drawable.alerts_warning)
 		.setMessage(getString(R.string.delete_profile_text))
 		.setTitle(getString(R.string.tips))
 		.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener(){

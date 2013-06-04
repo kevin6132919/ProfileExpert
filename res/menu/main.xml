@@ -2,8 +2,15 @@
 
     <item
         android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
         android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/setting"/>
+    <item
+        android:id="@+id/action_exit"
+        android:icon="@android:drawable/ic_lock_power_off"
+        android:orderInCategory="101"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:title="@string/exit"/>
 
 </menu>
