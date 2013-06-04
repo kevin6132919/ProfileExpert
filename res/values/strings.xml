@@ -14,6 +14,7 @@
     <string name="save">保存</string>
     <string name="cancel">返回</string>
     <string name="exit">退出</string>
+    <string name="help">帮助</string>
     
     <string name="select">请选择</string>
     <string name="delete">删除</string>
