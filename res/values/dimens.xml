@@ -6,7 +6,7 @@
     <dimen name="activity_rectangle_margin">2dp</dimen>
     
     <dimen name="main_screen_img_near_center_padding">20dp</dimen>
-    <dimen name="main_screen_img_near_edge_padding">45dp</dimen>
+    <dimen name="main_screen_img_near_edge_padding">35dp</dimen>
     
     <dimen name="my_calendar_padding_top">8dip</dimen>
     
