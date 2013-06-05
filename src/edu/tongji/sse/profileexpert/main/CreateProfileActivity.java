@@ -14,8 +14,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
+import edu.tongji.sse.profileexpert.control.SeekBarPreference;
 import edu.tongji.sse.profileexpert.entity.MyProfile;
-import edu.tongji.sse.profileexpert.preference.SeekBarPreference;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class CreateProfileActivity extends PreferenceActivity implements OnPreferenceChangeListener

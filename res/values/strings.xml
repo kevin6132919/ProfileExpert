@@ -7,6 +7,7 @@
     <string name="customProfile">自定义模式</string>
     <string name="setting">软件设置</string>
     <string name="imgMissing">图片加载失败</string>
+    <string name="createTempMatter">新建临时事项</string>
     
     
     <string name="add_profile">新增情景模式</string>
@@ -24,4 +25,11 @@
     <string name="delete_profile_text">确定要删除该情景模式吗?删除后将无法恢复!</string>
     <string name="delete_profile_success">模式删除成功</string>
     <string name="delete_profile_fail">模式删除失败</string>
+    
+    <string name="content">内容</string>
+    <string name="start">开始</string>
+    <string name="end">结束</string>
+    <string name="explain">说明</string>
+    <string name="title">标题</string>
+    <string name="titleTips">点击此输入标题</string>
 </resources>

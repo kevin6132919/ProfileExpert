@@ -1,4 +1,4 @@
-package edu.tongji.sse.profileexpert.preference;
+package edu.tongji.sse.profileexpert.control;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog.Builder;

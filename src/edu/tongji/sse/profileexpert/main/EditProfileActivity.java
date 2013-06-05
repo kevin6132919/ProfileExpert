@@ -1,8 +1,8 @@
 package edu.tongji.sse.profileexpert.main;
 
 import edu.tongji.sse.profileexpert.R;
+import edu.tongji.sse.profileexpert.control.SeekBarPreference;
 import edu.tongji.sse.profileexpert.entity.MyProfile;
-import edu.tongji.sse.profileexpert.preference.SeekBarPreference;
 import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 import android.content.Intent;

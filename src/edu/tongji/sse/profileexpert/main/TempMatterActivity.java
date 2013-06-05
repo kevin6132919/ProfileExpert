@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import edu.tongji.sse.profileexpert.R;
@@ -37,5 +40,29 @@ public class TempMatterActivity extends ListActivity
 			items.add(hm);
 		}
 		return items;
+	}
+	
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.temp_matter, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+		case R.id.action_add_temp_matter:
+			//跳转到设置界面
+			Intent intent=new Intent();
+			intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
+			startActivity(intent);
+			return true;
+		default:
+			return false;
+		}
 	}
 }

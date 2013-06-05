@@ -17,7 +17,7 @@
             android:summary="切换时改变系统音量"
             android:title="允许改变音量" />
 
-        <edu.tongji.sse.profileexpert.preference.SeekBarPreference
+        <edu.tongji.sse.profileexpert.control.SeekBarPreference
             android:defaultValue="0"
             android:dependency="sound_change"
             android:dialogMessage="音量改变至"

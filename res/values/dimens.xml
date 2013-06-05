@@ -7,6 +7,7 @@
     
     <dimen name="main_screen_img_near_center_padding">20dp</dimen>
     <dimen name="main_screen_img_near_edge_padding">35dp</dimen>
+    <dimen name="calendar_text_size">18sp</dimen>
     
     <dimen name="my_calendar_padding_top">8dip</dimen>
     
@@ -24,4 +25,9 @@
 	<dimen name="temp_matter_listview_margin_top">15dp</dimen>
 	<dimen name="temp_matter_listview_margin_bottom">5dp</dimen>
 	<dimen name="temp_matter_listview_horizontal_margin">25dp</dimen>
+	
+	<dimen name="new_temp_matter_item_height">40dp</dimen>
+	<dimen name="new_temp_matter_item_tips_horizonal_margin">8dp</dimen>
+	<dimen name="new_temp_matter_item_tips_text_size">18sp</dimen>
+	<dimen name="new_temp_matter_time_picker_margin_top">5dp</dimen>
 </resources>

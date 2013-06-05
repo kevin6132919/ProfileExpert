@@ -195,6 +195,7 @@ public class MyCalendarView extends ImageView
 	    //CELL_MARGIN_LEFT = view.getLeft();
 	    CELL_WIDTH = (int) (width/7.2);
 	    CELL_HEIGH = (int) (height*0.15);
+	    CELL_TEXT_SIZE = getResources().getDimension(R.dimen.calendar_text_size);
 		
 	}
 	
