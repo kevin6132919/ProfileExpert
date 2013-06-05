@@ -6,6 +6,6 @@
         android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="@string/setting"/>
+        android:title="@string/new_matter"/>
 
 </menu>
