@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 public final class MyProfileTable implements BaseColumns
 {
-	public static final String  AUTHORITY = "edu.tongji.sse.provider.profileexpert";
+	public static final String  AUTHORITY = "edu.tongji.sse.profileexpert.profileprovider";
 	
 	//±íÃû
 	public static final String  TABLE_NAME = "myprofile";

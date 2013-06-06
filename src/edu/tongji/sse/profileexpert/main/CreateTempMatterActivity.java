@@ -1,6 +1,7 @@
 package edu.tongji.sse.profileexpert.main;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.control.MyDateSpinner;
 import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
+import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 
 public class CreateTempMatterActivity extends Activity
 {
@@ -69,6 +71,20 @@ public class CreateTempMatterActivity extends Activity
 			Toast.makeText(this, getString(R.string.title_not_null), Toast.LENGTH_SHORT).show();
 			return;
 		}
+		
+		saveTempMatter(title,time_from,time_to,explain);
+	}
+
+	//将新增的临时事项增加到数据库
+	private void saveTempMatter(String title, String time_from, String time_to, String explain)
+	{
+		ContentValues values = new ContentValues();
+		values.put(TempMatterTable.TITLE, title);
+		values.put(TempMatterTable.TIME_FROM, time_from);
+		values.put(TempMatterTable.TIME_TO, time_to);
+		values.put(TempMatterTable.DESCRIPTION, explain);
+		getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
+		back();
 	}
 
 	//后退
