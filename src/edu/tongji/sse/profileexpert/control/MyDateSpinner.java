@@ -37,7 +37,12 @@ public class MyDateSpinner extends Spinner
  
             @Override
             public Object getItem(int arg0) {
-                return null;
+            	String str = time.year
+                        + "-"
+                        + (time.month + 1)
+                        + "-"
+                        + time.monthDay;
+                return str;
             }
  
             @Override
@@ -85,7 +90,11 @@ public class MyDateSpinner extends Spinner
  
                             @Override
                             public Object getItem(int arg0) {
-                                return null;
+                                return year
+                                        + "-"
+                                        + (month + 1)
+                                        + "-"
+                                        + day;
                             }
  
                             @Override

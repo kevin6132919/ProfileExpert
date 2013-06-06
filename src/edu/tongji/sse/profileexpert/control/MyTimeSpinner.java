@@ -37,8 +37,9 @@ public class MyTimeSpinner extends Spinner
             }
  
             @Override
-            public Object getItem(int arg0) {
-                return null;
+            public Object getItem(int arg0)
+            {
+                return formatHourAndMinute(time.hour,time.minute);
             }
  
             @Override
@@ -79,8 +80,9 @@ public class MyTimeSpinner extends Spinner
 				            }
 				 
 				            @Override
-				            public Object getItem(int arg0) {
-				                return null;
+				            public Object getItem(int arg0)
+				            {
+				                return formatHourAndMinute(hourOfDay,minute);
 				            }
 				 
 				            @Override

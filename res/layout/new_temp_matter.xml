@@ -57,6 +57,7 @@
                 android:textSize="@dimen/new_temp_matter_item_tips_text_size" />
 
             <EditText
+                android:id="@+id/et_title"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/new_temp_matter_item_height"
                 android:layout_toRightOf="@id/tv_title"
@@ -157,6 +158,7 @@
                 android:textSize="@dimen/new_temp_matter_item_tips_text_size" />
 
             <EditText
+                android:id="@+id/et_explain"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/new_temp_matter_item_height"
                 android:layout_toRightOf="@id/tv_explain"
