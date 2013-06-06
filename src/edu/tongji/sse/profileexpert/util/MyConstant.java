@@ -64,4 +64,27 @@ public class MyConstant
 	public static final String RINGTONE = "铃声";
 	public static final String DONT_CHANGE = "不变";
 	public static final String VIBRATE = "震动";
+	
+	//星期几
+	public static final String Monday = "周一";
+	public static final String Tuesday = "周二";
+	public static final String Wednesday = "周三";
+	public static final String Thursday = "周四";
+	public static final String Friday = "周五";
+	public static final String Saturday = "周六";
+	public static final String Sunday = "周日";
+	
+	public static String getDayOfWeek(int dayOfWeek)
+	{
+		switch(dayOfWeek)
+		{
+		case 1: return Monday;
+		case 2: return Tuesday;
+		case 3: return Wednesday;
+		case 4: return Thursday;
+		case 5: return Friday;
+		case 6: return Saturday;
+		default : return Sunday;
+		}
+	}
 }

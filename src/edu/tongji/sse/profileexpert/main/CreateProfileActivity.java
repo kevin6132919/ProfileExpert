@@ -93,7 +93,7 @@ public class CreateProfileActivity extends PreferenceActivity implements OnPrefe
 		if(name == null || name.equals(""))
 		{
 			Toast.makeText(CreateProfileActivity.this,
-	    			"名称不能为空",
+	    			getString(R.string.name_not_null),
 	    			Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -125,7 +125,7 @@ public class CreateProfileActivity extends PreferenceActivity implements OnPrefe
 			if(str == null || str.equals(""))
 			{
 				Toast.makeText(CreateProfileActivity.this,
-		    			"名称不能为空",
+						getString(R.string.name_not_null),
 		    			Toast.LENGTH_SHORT).show();
 				return false;
 			}
@@ -136,7 +136,7 @@ public class CreateProfileActivity extends PreferenceActivity implements OnPrefe
 		{
 			int progress = Integer.parseInt(newValue.toString());
 			sbp_sound_change_value.setProgress(progress);
-			preference.setSummary("改变至:" + newValue + "%");
+			preference.setSummary(getString(R.string.change_to)+":" + newValue + "%");
 			return true;
 		}
 		else if(preference == lp_vibrate)
@@ -146,7 +146,7 @@ public class CreateProfileActivity extends PreferenceActivity implements OnPrefe
 		}
 		else if(preference == rp_ringtone)
 		{
-			preference.setSummary("当前铃声:" + newValue.toString());
+			preference.setSummary(getString(R.string.current_ringtone)+":" + newValue.toString());
 			return true;
 		}
 		else if(preference == etp_message_content)

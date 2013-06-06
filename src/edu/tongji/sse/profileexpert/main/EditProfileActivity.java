@@ -103,7 +103,7 @@ public class EditProfileActivity extends PreferenceActivity implements OnPrefere
 		if(!cursor.moveToFirst())
 		{
 			Toast.makeText(EditProfileActivity.this,
-					"所选模式不存在.",
+					getString(R.string.profile_not_exist),
 					Toast.LENGTH_SHORT).show();
 			this.finish();
 		}
@@ -124,7 +124,7 @@ public class EditProfileActivity extends PreferenceActivity implements OnPrefere
 		{
 			int value = Integer.parseInt(cursor.getString(cursor.getColumnIndex(MyProfileTable.VOLUME)));
 			sbp_sound_change_value.setProgress(value);
-			sbp_sound_change_value.setSummary("改变至:" + value + "%");
+			sbp_sound_change_value.setSummary(getString(R.string.change_to) + ":" + value + "%");
 		}
 
 		int type = Integer.parseInt(cursor.getString(cursor.getColumnIndex(MyProfileTable.VIBRATE_TYPE)));
@@ -136,7 +136,7 @@ public class EditProfileActivity extends PreferenceActivity implements OnPrefere
 		cbp_ringtone_change.setChecked(b);
 		if(b)
 		{
-			rp_ringtone.setSummary("当前铃声:" + cursor.getString(cursor.getColumnIndex(MyProfileTable.RINGTONE)));
+			rp_ringtone.setSummary(getString(R.string.current_ringtone) + ":" + cursor.getString(cursor.getColumnIndex(MyProfileTable.RINGTONE)));
 		}
 
 		str = cursor.getString(cursor.getColumnIndex(MyProfileTable.MESSAGE_CONTENT));
@@ -166,7 +166,7 @@ public class EditProfileActivity extends PreferenceActivity implements OnPrefere
 		if(name == null || name.equals(""))
 		{
 			Toast.makeText(EditProfileActivity.this,
-					"名称不能为空",
+					getString(R.string.name_not_null),
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -199,7 +199,7 @@ public class EditProfileActivity extends PreferenceActivity implements OnPrefere
 			if(str == null || str.equals(""))
 			{
 				Toast.makeText(EditProfileActivity.this,
-						"名称不能为空",
+						getString(R.string.name_not_null),
 						Toast.LENGTH_SHORT).show();
 				return false;
 			}
@@ -210,7 +210,7 @@ public class EditProfileActivity extends PreferenceActivity implements OnPrefere
 		{
 			int progress = Integer.parseInt(newValue.toString());
 			sbp_sound_change_value.setProgress(progress);
-			preference.setSummary("改变至:" + newValue + "%");
+			preference.setSummary(getString(R.string.change_to) + ":" + newValue + "%");
 			return true;
 		}
 		else if(preference == lp_vibrate)
@@ -220,7 +220,7 @@ public class EditProfileActivity extends PreferenceActivity implements OnPrefere
 		}
 		else if(preference == rp_ringtone)
 		{
-			preference.setSummary("当前铃声:" + newValue.toString());
+			preference.setSummary(getString(R.string.current_ringtone) + ":" + newValue.toString());
 			return true;
 		}
 		else if(preference == etp_message_content)

@@ -34,4 +34,20 @@
     <string name="titleTips">点击此处输入标题</string>
     <string name="explain">说明</string>
     <string name="explainTips">点击此处输入说明</string>
+    
+    <string name="Monday">周一</string>
+    <string name="Tuesday">周二</string>
+    <string name="Wednesday">周三</string>
+    <string name="Thursday">周四</string>
+    <string name="Friday">周五</string>
+    <string name="Saturday">周六</string>
+    <string name="Sunday">周日</string>
+    
+    <string name="change_to">改变至</string>
+    <string name="current_ringtone">当前铃声</string>
+    
+    <string name="name_not_null">名称不能为空!</string>
+    <string name="title_not_null">标题不能为空!</string>
+    <string name="profile_not_exist">所选模式不存在!</string>
+    
 </resources>

@@ -1,5 +1,6 @@
 package edu.tongji.sse.profileexpert.control;
 
+import edu.tongji.sse.profileexpert.util.MyConstant;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.widget.DatePicker;
@@ -36,16 +37,7 @@ public class MyDatePickerDialog extends DatePickerDialog{
 		y%=100;
 		int week=(c/4-2*c+y+y/4+13*(m+1)/5+d-1)%7;
 		if(week<0){week=7-(-week)%7;}
-		switch(week)
-		{
-		case 1:return "周一";
-		case 2:return "周二";
-		case 3:return "周三";
-		case 4:return "周四";
-		case 5:return "周五";
-		case 6:return "周六";
-		default:return "周日";
-		}
+		return MyConstant.getDayOfWeek(week);
 	}
 
 	public void setTitle(int year,int month,int day)
