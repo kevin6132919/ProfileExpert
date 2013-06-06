@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gray_rectangle_background"
-    android:layout_margin="@dimen/activity_rectangle_margin" >
+    android:layout_margin="@dimen/activity_rectangle_margin"
+    android:background="@drawable/gray_rectangle_background" >
 
     <edu.tongji.sse.profileexpert.calendar.MyCalendarView
         android:id="@+id/my_calendar"
@@ -12,7 +13,8 @@
         android:paddingTop="@dimen/my_calendar_padding_top"
         android:scaleType="fitCenter" />
 
-    <ListView
+    <!--
+         <ListView
         android:id="@android:id/list"
         android:layout_marginTop="@dimen/temp_matter_listview_margin_top"
         android:layout_marginBottom="@dimen/temp_matter_listview_margin_bottom"
@@ -21,6 +23,217 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/dark_rectangle_background"
-        android:layout_below="@id/my_calendar" />
+        android:layout_below="@id/my_calendar" />	-->
+    
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/my_calendar"
+        android:layout_marginBottom="@dimen/temp_matter_listview_margin_bottom"
+        android:layout_marginLeft="@dimen/temp_matter_listview_horizontal_margin"
+        android:layout_marginRight="@dimen/temp_matter_listview_horizontal_margin"
+        android:layout_marginTop="@dimen/temp_matter_listview_margin_top"
+        android:background="@drawable/dark_rectangle_background" >
+
+        <LinearLayout
+            android:id="@+id/ll_hour_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_hour_num_1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="1"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_2"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="2"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_3"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="3"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_4"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="4"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_5"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="5"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_6"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="6"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_7"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="7"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_8"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="8"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_9"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="9"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_10"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="10"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_11"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="11"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_12"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="12"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

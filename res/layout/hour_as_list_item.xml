@@ -13,4 +13,9 @@
         android:paddingRight="@dimen/hour_list_item_horizontal_padding"
         android:textSize="@dimen/hour_list_item_num_text_size" />
 
+    <edu.tongji.sse.profileexpert.control.MyMatterView
+        android:id="@+id/my_matter_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hour_list_item_length"
+        android:layout_toRightOf="@id/tv_hour_num"/>
 </RelativeLayout>

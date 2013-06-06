@@ -12,6 +12,7 @@ import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.control.MyDateSpinner;
 import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
+import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class CreateTempMatterActivity extends Activity
 {
@@ -83,7 +84,8 @@ public class CreateTempMatterActivity extends Activity
 		values.put(TempMatterTable.TIME_FROM, time_from);
 		values.put(TempMatterTable.TIME_TO, time_to);
 		values.put(TempMatterTable.DESCRIPTION, explain);
-		getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
+		//getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
+		setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
 		back();
 	}
 
