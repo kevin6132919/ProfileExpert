@@ -36,11 +36,10 @@
         android:layout_marginTop="@dimen/temp_matter_listview_margin_top"
         android:background="@drawable/dark_rectangle_background" >
 
-        <LinearLayout
-            android:id="@+id/ll_hour_list"
+        <RelativeLayout
+            android:id="@+id/rl_hour_list"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/tv_hour_num_1"
@@ -54,12 +53,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_1"
+                android:layout_below="@id/tv_hour_num_1"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_2"
+                android:layout_below="@id/pl_1"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -70,12 +72,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_2"
+                android:layout_below="@id/tv_hour_num_2"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_3"
+                android:layout_below="@id/pl_2"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -86,12 +91,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_3"
+                android:layout_below="@id/tv_hour_num_3"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_4"
+                android:layout_below="@id/pl_3"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -102,12 +110,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_4"
+                android:layout_below="@id/tv_hour_num_4"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_5"
+                android:layout_below="@id/pl_4"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -118,12 +129,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_5"
+                android:layout_below="@id/tv_hour_num_5"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_6"
+                android:layout_below="@id/pl_5"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -134,12 +148,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_6"
+                android:layout_below="@id/tv_hour_num_6"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_7"
+                android:layout_below="@id/pl_6"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -150,12 +167,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_7"
+                android:layout_below="@id/tv_hour_num_7"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_8"
+                android:layout_below="@id/pl_7"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -166,12 +186,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_8"
+                android:layout_below="@id/tv_hour_num_8"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_9"
+                android:layout_below="@id/pl_8"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -182,12 +205,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_9"
+                android:layout_below="@id/tv_hour_num_9"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_10"
+                android:layout_below="@id/pl_9"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -198,12 +224,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_10"
+                android:layout_below="@id/tv_hour_num_10"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_11"
+                android:layout_below="@id/pl_10"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -214,12 +243,15 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_11"
+                android:layout_below="@id/tv_hour_num_11"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
 
             <TextView
                 android:id="@+id/tv_hour_num_12"
+                android:layout_below="@id/pl_11"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -230,10 +262,12 @@
                 tools:ignore="HardcodedText" />
 
             <View
+                android:id="@+id/pl_12"
+                android:layout_below="@id/tv_hour_num_12"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

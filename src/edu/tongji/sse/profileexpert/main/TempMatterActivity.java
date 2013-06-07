@@ -2,16 +2,13 @@ package edu.tongji.sse.profileexpert.main;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.util.MyConstant;
@@ -27,54 +24,34 @@ public class TempMatterActivity extends /*List*/Activity
 		setContentView(R.layout.temp_matter);
 
 		TextView tv_5 = (TextView) findViewById(R.id.tv_hour_num_5); 
-		TextView tv_7 = (TextView) findViewById(R.id.tv_hour_num_7);
-		
-		Canvas canvas = new Canvas();
-		paint.setAntiAlias(true);                       //设置画笔为无锯齿  
-	    paint.setColor(Color.BLACK);                    //设置画笔颜色  
-	    canvas.drawColor(Color.WHITE);                  //白色背景  
-	    paint.setStrokeWidth((float) 3.0);              //线宽  
-	    paint.setStyle(Style.STROKE);                   //空心效果  
-	    Rect r1=new Rect();                         //Rect对象  
-	    r1.left=tv_5.getLeft();                                 //左边  
-	    r1.top=tv_5.getTop();                                  //上边  
-	    r1.right=tv_7.getRight();                                   //右边  
-	    r1.bottom=tv_7.getBottom();                              //下边  
-	    canvas.drawRect(r1, paint);                 //绘制矩形  
+		TextView tv_8 = (TextView) findViewById(R.id.tv_hour_num_8);
+		TextView tv_hour_num_6  = (TextView) findViewById(R.id.tv_hour_num_6);
 
-	    LinearLayout ll = (LinearLayout) findViewById(R.id.ll_hour_list);
-	    canvas.drawText("100,100", 100, 100, paint);
-	    canvas.drawText("200,200", 200, 200, paint);
-	    canvas.drawText("300,300", 300, 300, paint);
-	    canvas.drawText("300,200", 300, 200, paint);
-	    canvas.drawText("400,200", 400, 200, paint);
-	    canvas.drawText("500,400", 500, 400, paint);
-	    ll.draw(canvas);
-		/*ListAdapter adapter = new SimpleAdapter(
-				this,
-				getHourNumMap(),
-				R.layout.hour_as_list_item,
-				new String[]{HOUR_NUMBER_KEY},
-				new int[]{R.id.tv_hour_num});
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl_hour_list);
+
 		
-		setListAdapter(adapter);
+		TextView tv = new TextView(this);
+		tv.setText("子丑寅卯辰巳午未申酉戌亥");
 		
-		draw();*/
+		RelativeLayout.LayoutParams lp
+			= new RelativeLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+		lp.addRule(RelativeLayout.BELOW,  tv_5.getId());
+		lp.addRule(RelativeLayout.ABOVE,  tv_8.getId());
+		lp.addRule(RelativeLayout.RIGHT_OF,  tv_hour_num_6.getId());
+		lp.leftMargin = 5;
+		lp.rightMargin = 5;
+		lp.topMargin = 5;
+		lp.bottomMargin = 5;
+		tv.setLayoutParams(lp);
+		
+		tv.setBackgroundResource(R.drawable.red_rectangle_background);
+		tv.setGravity(Gravity.CENTER);
+		
+		rl.addView(tv);
+		
 	}
-/*
-	private List<HashMap<String, String>> getHourNumMap()
-	{
-		List<HashMap<String,String>> items = new ArrayList<HashMap<String,String>>();
-		for(int i=0;i<24;i++)
-		{
-			HashMap<String,String> hm = new HashMap<String, String>();
-			hm.put(HOUR_NUMBER_KEY, i+"");
-			items.add(hm);
-		}
-		return items;
-	}*/
-
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -114,31 +91,5 @@ public class TempMatterActivity extends /*List*/Activity
 
 	private void draw()
 	{
-		Canvas canvas = new Canvas();
-		paint.setAntiAlias(true);                       //设置画笔为无锯齿  
-	    paint.setColor(Color.BLACK);                    //设置画笔颜色  
-	    canvas.drawColor(Color.WHITE);                  //白色背景  
-	    paint.setStrokeWidth((float) 3.0);              //线宽  
-	    paint.setStyle(Style.STROKE);                   //空心效果  
-	    Rect r1=new Rect();                         //Rect对象  
-	    r1.left=50;                                 //左边  
-	    r1.top=50;                                  //上边  
-	    r1.right=450;                                   //右边  
-	    r1.bottom=250;                              //下边  
-	    canvas.drawRect(r1, paint);                 //绘制矩形  
-	    RectF r2=new RectF();                           //RectF对象  
-	    r2.left=50;                                 //左边  
-	    r2.top=400;                                 //上边  
-	    r2.right=450;                                   //右边  
-	    r2.bottom=600;                              //下边  
-	    canvas.drawRoundRect(r2, 10, 10, paint);        //绘制圆角矩形
-	    
-	    canvas.drawText("100,100", 100, 100, paint);
-	    canvas.drawText("200,200", 200, 200, paint);
-	    canvas.drawText("300,300", 300, 300, paint);
-	    canvas.drawText("300,200", 300, 200, paint);
-	    canvas.drawText("400,200", 400, 200, paint);
-	    canvas.drawText("500,400", 500, 400, paint);
-		
 	}
 }
