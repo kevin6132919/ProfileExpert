@@ -44,8 +44,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 			+ TempMatterTable.TITLE
 			+ " TEXT,"
 			+ TempMatterTable.TIME_FROM
-			+ " TEXT,"
+			+ " LONG,"
 			+ TempMatterTable.TIME_TO
+			+ " LONG,"
+			+ TempMatterTable.TIME_FROM_STR
+			+ " TEXT,"
+			+ TempMatterTable.TIME_TO_STR
 			+ " TEXT,"
 			+ MyProfileTable.DESCRIPTION
 			+ " TEXT" + ");";

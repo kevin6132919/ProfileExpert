@@ -39,9 +39,9 @@ public class MyDateSpinner extends Spinner
             public Object getItem(int arg0) {
             	String str = time.year
                         + "-"
-                        + (time.month + 1)
+                        + format((time.month + 1))
                         + "-"
-                        + time.monthDay;
+                        + format(time.monthDay);
                 return str;
             }
  
@@ -57,9 +57,9 @@ public class MyDateSpinner extends Spinner
                 text.setTextSize(getResources().getDimension(R.dimen.time_text_size));
                 text.setText(time.year
                         + "-"
-                        + (time.month + 1)
+                        + format((time.month + 1))
                         + "-"
-                        + time.monthDay
+                        + format(time.monthDay)
                         + MyDatePickerDialog.caculateWeekDay(time.year,
                                 time.month+1, time.monthDay));
                 text.setTextColor(Color.BLACK);
@@ -92,9 +92,9 @@ public class MyDateSpinner extends Spinner
                             public Object getItem(int arg0) {
                                 return year
                                         + "-"
-                                        + (month + 1)
+                                        + format((month + 1))
                                         + "-"
-                                        + day;
+                                        + format(day);
                             }
  
                             @Override
@@ -110,9 +110,9 @@ public class MyDateSpinner extends Spinner
                                 text.setTextSize(getResources().getDimension(R.dimen.time_text_size));
                                 text.setText(year
                                         + "-"
-                                        + (month + 1)
+                                        + format((month + 1))
                                         + "-"
-                                        + day
+                                        + format(day)
                                         + MyDatePickerDialog.caculateWeekDay(
                                                 year, month + 1, day));
                                 text.setTextColor(Color.BLACK);
@@ -124,5 +124,13 @@ public class MyDateSpinner extends Spinner
                 }, time.year, time.month, time.monthDay);
         tpd.show();
         return true;
+    }
+    
+    private String format(int value)
+    {
+    	if(value<10)
+    		return "0"+value;
+    	else
+    		return ""+value;
     }
 }

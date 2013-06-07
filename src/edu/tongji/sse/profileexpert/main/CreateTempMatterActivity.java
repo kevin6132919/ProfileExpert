@@ -1,5 +1,9 @@
 package edu.tongji.sse.profileexpert.main;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.os.Bundle;
@@ -14,6 +18,7 @@ import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
+@SuppressLint("SimpleDateFormat")
 public class CreateTempMatterActivity extends Activity
 {
 	private Button bt_cancel = null;
@@ -54,7 +59,7 @@ public class CreateTempMatterActivity extends Activity
 			}
 		});
 	}
-	
+
 	//保存当前临时事项
 	protected void save()
 	{
@@ -66,27 +71,44 @@ public class CreateTempMatterActivity extends Activity
 		time = (String) my_time_spinner_to.getSelectedItem();
 		String time_to = date + " " + time;
 		String explain = et_explain.getText().toString();
-		
+
 		if(title == null || title.equals(""))
 		{
 			Toast.makeText(this, getString(R.string.title_not_null), Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
+
 		saveTempMatter(title,time_from,time_to,explain);
 	}
 
 	//将新增的临时事项增加到数据库
 	private void saveTempMatter(String title, String time_from, String time_to, String explain)
 	{
-		ContentValues values = new ContentValues();
-		values.put(TempMatterTable.TITLE, title);
-		values.put(TempMatterTable.TIME_FROM, time_from);
-		values.put(TempMatterTable.TIME_TO, time_to);
-		values.put(TempMatterTable.DESCRIPTION, explain);
-		//getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
-		setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
-		back();
+		try {
+			ContentValues values = new ContentValues();
+			values.put(TempMatterTable.TITLE, title);
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			long l_time_from = format.parse(time_from).getTime();
+			long l_time_to = format.parse(time_to).getTime();
+
+			if(l_time_from >= l_time_to)
+			{
+				Toast.makeText(this, getString(R.string.invalid_time), Toast.LENGTH_LONG).show();
+				return;
+			}
+			
+			values.put(TempMatterTable.TIME_FROM, l_time_from);
+			values.put(TempMatterTable.TIME_TO, l_time_to);
+			values.put(TempMatterTable.TIME_FROM_STR, time_from);
+			values.put(TempMatterTable.TIME_TO_STR, time_to);
+			values.put(TempMatterTable.DESCRIPTION, explain);
+			getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
+			setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
+			back();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	//后退
