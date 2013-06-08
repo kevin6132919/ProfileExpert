@@ -9,6 +9,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="16"
         tools:ignore="OldTargetApi" />
+    <!-- <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/> -->
 
     <application
         android:allowBackup="true"
@@ -64,5 +66,4 @@
             android:authorities="edu.tongji.sse.profileexpert.tempmatterprovider"
             android:exported="false" />
     </application>
-
 </manifest>

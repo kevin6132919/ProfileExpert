@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -46,6 +47,9 @@ public class MyCalendarView extends ImageView
     private int selected_month = -1;
     private int selected_day = -1;
     private MyCell selected_cell = null;
+    
+    private Point from_point = null;
+    private Point to_point = null;
 	
 	public MyCalendarView(Context context)
 	{
@@ -282,17 +286,59 @@ public class MyCalendarView extends ImageView
 	public boolean onTouchEvent(MotionEvent event)
     {
     	if(onCellTouchListener!=null){
-	    	for(MyCell[] week : cells) {
-				for(MyCell day : week) {
-					if(day.hitTest((int)event.getX(), (int)event.getY())) {
-						onCellTouchListener.onTouch(day);
-					}						
-				}
-			}
+    		switch(event.getAction())
+    		{
+    		case MotionEvent.ACTION_DOWN:
+        		/*for(MyCell[] week : cells)
+        		{
+        			for(MyCell day : week)
+        			{
+        				if(day.hitTest((int)event.getX(), (int)event.getY())) {
+        					onCellTouchListener.onTouch(day);
+        				}
+        			}
+        		}*/
+    			from_point = new Point((int)event.getX(),(int)event.getY());
+        		break;
+    		case MotionEvent.ACTION_UP:
+    			to_point = new Point((int)event.getX(),(int)event.getY());
+    			checkGesture(from_point,to_point);
+    			break;
+    		}
     	}
-		return super.onTouchEvent(event);
+		return true;
 	}
     
+    //对手势操作进行简单判断
+	private void checkGesture(Point from_point, Point to_point)
+	{
+		MyCell from = null,to = null;
+		for(MyCell[] week : cells)
+		{
+			for(MyCell day : week)
+			{
+				if(day.hitTest(from_point.x, from_point.y))
+				{
+					from = day;
+				}
+				if(day.hitTest(to_point.x, to_point.y))
+				{
+					to = day;
+				}
+			}
+		}
+		
+		if(from == null || to == null)
+			return;
+		
+		if(from == to)
+			onCellTouchListener.onTouch(from);
+		else if(from.getBound().left < to.getBound().left)
+			previousMonth();
+		else if(from.getBound().left > to.getBound().left)
+			nextMonth();
+	}
+	
 	public int getYear()
 	{
 		return helper.getYear();
@@ -307,11 +353,11 @@ public class MyCalendarView extends ImageView
 	{
 		if(selected_day == -1)
 			return "" + rightNow.get(Calendar.YEAR) + "-"
-					+ rightNow.get(Calendar.MONTH) + "-"
+					+ (rightNow.get(Calendar.MONTH)+1) + "-"
 					+ rightNow.get(Calendar.DAY_OF_MONTH);
 		else
 			return "" + selected_year + "-"
-			+ selected_month + "-"
+			+ (selected_month+1) + "-"
 			+ selected_day;
 	}
 	

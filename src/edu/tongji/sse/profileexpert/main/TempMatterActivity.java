@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import edu.tongji.sse.profileexpert.R;
@@ -45,31 +46,31 @@ public class TempMatterActivity extends /*List*/Activity implements OnCellTouchL
 		TextView tv_day = (TextView) findViewById(R.id.tv_day);
 		TextView tv_5 = (TextView) findViewById(R.id.tv_hour_num_5); 
 		TextView tv_8 = (TextView) findViewById(R.id.tv_hour_num_8);
-		TextView tv_hour_num_6  = (TextView) findViewById(R.id.tv_hour_num_6);
+		TextView tv_hour_num_1  = (TextView) findViewById(R.id.tv_hour_num_1);
 
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl_hour_list);
 		
 		tv_day.setText(calendar.getShowDay());
 		
-		TextView tv = new TextView(this);
-		tv.setText("◊”≥Û“˙√Æ≥ΩÀ»ŒÁŒ¥…Í”œ–Á∫•");
+		Button bt = new Button(this);
+		bt.setText("◊”≥Û“˙√Æ≥ΩÀ»ŒÁŒ¥…Í”œ–Á∫•");
 		
 		RelativeLayout.LayoutParams lp
 			= new RelativeLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		lp.addRule(RelativeLayout.BELOW,  tv_5.getId());
 		lp.addRule(RelativeLayout.ABOVE,  tv_8.getId());
-		lp.addRule(RelativeLayout.RIGHT_OF,  tv_hour_num_6.getId());
+		lp.addRule(RelativeLayout.RIGHT_OF,  tv_hour_num_1.getId());
 		lp.leftMargin = 5;
 		lp.rightMargin = 5;
 		lp.topMargin = 5;
 		lp.bottomMargin = 5;
-		tv.setLayoutParams(lp);
+		bt.setLayoutParams(lp);
 		
-		tv.setBackgroundResource(R.drawable.red_rectangle_background);
-		tv.setGravity(Gravity.CENTER);
+		bt.setBackgroundResource(R.drawable.matter_button_style);
+		bt.setGravity(Gravity.CENTER);
 		
-		rl.addView(tv);
+		rl.addView(bt);
 	}
 
 	//ºÏ≤È «∑Ò“——°‘Ò»’∆⁄

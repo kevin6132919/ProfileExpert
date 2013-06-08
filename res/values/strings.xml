@@ -50,5 +50,6 @@
     <string name="title_not_null">标题不能为空!</string>
     <string name="profile_not_exist">所选模式不存在!</string>
     <string name="invalid_time">时间错误,开始时间应早于结束时间!</string>
+    <string name="account_not_exist">手机中未保存谷歌账户,新增事项无法写入谷歌日历!</string>
     
 </resources>

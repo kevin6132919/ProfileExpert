@@ -29,11 +29,30 @@ public class CreateTempMatterActivity extends Activity
 	private MyDateSpinner my_date_spinner_to = null;
 	private MyTimeSpinner my_time_spinner_from = null;
 	private MyTimeSpinner my_time_spinner_to = null;
+	
+	/*private static String calanderURL = "";
+	private static String calanderEventURL = "";
+    
+    private int gmailPosition = -1;
+    //为了兼容不同版本的日历,2.2以后url发生改变
+	static{
+		if(Integer.parseInt(Build.VERSION.SDK) >= 8){
+			calanderURL = "content://com.android.calendar/calendars";
+			calanderEventURL = "content://com.android.calendar/events";
+			//calanderRemiderURL = "content://com.android.calendar/reminders";
+
+		}else{
+			calanderURL = "content://calendar/calendars";
+			calanderEventURL = "content://calendar/events";
+			//calanderRemiderURL = "content://calendar/reminders";		
+		}
+	}*/
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_temp_matter);
 
+        /*gmailPosition = getGmailPosition();*/
 
 		// 根据id找到控件
 		bt_cancel = (Button) findViewById(R.id.bt_cancel);
@@ -105,11 +124,63 @@ public class CreateTempMatterActivity extends Activity
 			values.put(TempMatterTable.DESCRIPTION, explain);
 			getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
 			setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
+			
+			/*saveToGoogleCalendar(title,explain,l_time_from,l_time_to);*/
+			
 			back();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
+
+	/*//同时将该事项保存到google自带Calendar中
+	private void saveToGoogleCalendar(String title, String explain, long l_time_from, long l_time_to)
+	{
+		String calId = getGoogleAccountId();
+		ContentValues event = new ContentValues();
+		event.put("calendar_id",calId);
+		event.put("title", title);
+    	event.put("description", explain);
+    	event.put("dtstart", l_time_from);
+    	event.put("dtend", l_time_to);
+    	getContentResolver().insert(Uri.parse(calanderEventURL), event);
+	}
+
+	//得到到对应的google账户对应的id
+	private String getGoogleAccountId()
+	{
+		Cursor userCursor = getContentResolver().query(Uri.parse(calanderURL), null, 
+				null, null, null);
+		if(userCursor.getCount() > 0){
+			if(gmailPosition != -1)
+			{
+				userCursor.moveToPosition(gmailPosition);
+				return  userCursor.getString(userCursor.getColumnIndex("_id"));
+			}
+		}
+		return null;
+	}
+
+	//得到gmail邮箱对应的user Offset
+	private int getGmailPosition()
+	{
+		Cursor userCursor = getContentResolver().query(Uri.parse(calanderURL), null, 
+				null, null, null);
+		if(userCursor.getCount()>0)
+		{
+			for(int i=0;i<userCursor.getCount();i++)
+			{
+				userCursor.moveToPosition(i);
+				String userName = userCursor.getString(userCursor.getColumnIndex("name"));
+				if(userName.endsWith("@gmail.com"))
+				{
+					return i;
+				}
+			}
+		}
+		Toast.makeText(this, getString(R.string.account_not_exist), Toast.LENGTH_SHORT).show();
+		return -1;
+	}*/
 
 	//后退
 	private void back()
