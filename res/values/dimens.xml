@@ -21,6 +21,7 @@
 	<dimen name="hour_list_item_length">30dp</dimen>
 	<dimen name="hour_list_item_horizontal_padding">10dp</dimen>
 	<dimen name="hour_list_item_num_text_size">15sp</dimen>
+	<dimen name="hour_list_show_day_text_size">18sp</dimen>
 	
 	<dimen name="temp_matter_listview_margin_top">15dp</dimen>
 	<dimen name="temp_matter_listview_margin_bottom">5dp</dimen>

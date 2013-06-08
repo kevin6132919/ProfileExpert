@@ -10,7 +10,7 @@ public class MyCell {
 	//private static final String TAG = "Cell";
 	protected Rect rect = null;
 	protected int dayOfMonth = 1;	// from 1 to 31
-	protected Paint paint = new Paint(Paint.SUBPIXEL_TEXT_FLAG
+	private Paint paint = new Paint(Paint.SUBPIXEL_TEXT_FLAG
             |Paint.ANTI_ALIAS_FLAG);
 	private int dx, dy;
 	
@@ -18,12 +18,12 @@ public class MyCell {
 	{
 		dayOfMonth = dayOfMon;
 		this.rect = rect;
-		paint.setTextSize(textSize/*26f*/);
-		paint.setColor(Color.BLACK);
-		if(bold) paint.setFakeBoldText(true);
+		getPaint().setTextSize(textSize/*26f*/);
+		getPaint().setColor(Color.BLACK);
+		if(bold) getPaint().setFakeBoldText(true);
 		
-		dx = (int) paint.measureText(String.valueOf(dayOfMonth)) / 2;
-		dy = (int) (-paint.ascent() + paint.descent()) / 2;
+		dx = (int) getPaint().measureText(String.valueOf(dayOfMonth)) / 2;
+		dy = (int) (-getPaint().ascent() + getPaint().descent()) / 2;
 	}
 	
 	public MyCell(int dayOfMon, Rect rect, float textSize)
@@ -36,7 +36,7 @@ public class MyCell {
 		//Paint _paint = new Paint(Paint.SUBPIXEL_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
 		float x = rect.centerX() - dx;
 		float y = rect.centerY() + dy;
-		canvas.drawText(String.valueOf(dayOfMonth), x, y, paint);
+		canvas.drawText(String.valueOf(dayOfMonth), x, y, getPaint());
 	}
 	
 	public int getDayOfMonth(){
@@ -53,6 +53,14 @@ public class MyCell {
 	
 	public String toString() {
 		return String.valueOf(dayOfMonth)+"("+rect.toString()+")";
+	}
+
+	public Paint getPaint() {
+		return paint;
+	}
+
+	public void setPaint(Paint paint) {
+		this.paint = paint;
 	}
 
 }

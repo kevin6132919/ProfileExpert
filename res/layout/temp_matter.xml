@@ -42,7 +42,45 @@
             android:layout_height="wrap_content" >
 
             <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:textSize="@dimen/hour_list_show_day_text_size"
+                android:textColor="#EE11C2"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl"
+                android:layout_below="@id/tv_day"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+            
+            <TextView
+                android:id="@+id/tv_hour_num_0"
+                android:layout_below="@id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="0"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_0"
+                android:layout_below="@id/tv_hour_num_0"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+			
+			<TextView
                 android:id="@+id/tv_hour_num_1"
+                android:layout_below="@id/pl_0"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hour_list_item_length"
                 android:gravity="center"
@@ -58,7 +96,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />
-
+            
             <TextView
                 android:id="@+id/tv_hour_num_2"
                 android:layout_below="@id/pl_1"
@@ -264,6 +302,215 @@
             <View
                 android:id="@+id/pl_12"
                 android:layout_below="@id/tv_hour_num_12"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_13"
+                android:layout_below="@id/pl_12"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="13"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_13"
+                android:layout_below="@id/tv_hour_num_13"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_14"
+                android:layout_below="@id/pl_13"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="14"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_14"
+                android:layout_below="@id/tv_hour_num_14"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_15"
+                android:layout_below="@id/pl_14"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="15"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_15"
+                android:layout_below="@id/tv_hour_num_15"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_16"
+                android:layout_below="@id/pl_15"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="16"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_16"
+                android:layout_below="@id/tv_hour_num_16"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_17"
+                android:layout_below="@id/pl_16"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="17"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_17"
+                android:layout_below="@id/tv_hour_num_17"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_18"
+                android:layout_below="@id/pl_17"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="18"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_18"
+                android:layout_below="@id/tv_hour_num_18"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_19"
+                android:layout_below="@id/pl_18"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="19"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_19"
+                android:layout_below="@id/tv_hour_num_19"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_20"
+                android:layout_below="@id/pl_19"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="20"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_20"
+                android:layout_below="@id/tv_hour_num_20"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_21"
+                android:layout_below="@id/pl_20"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="21"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_21"
+                android:layout_below="@id/tv_hour_num_21"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_22"
+                android:layout_below="@id/pl_21"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="22"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_22"
+                android:layout_below="@id/tv_hour_num_22"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/parting_line" />
+
+            <TextView
+                android:id="@+id/tv_hour_num_23"
+                android:layout_below="@id/pl_22"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hour_list_item_length"
+                android:gravity="center"
+                android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
+                android:paddingRight="@dimen/hour_list_item_horizontal_padding"
+                android:text="23"
+                android:textSize="@dimen/hour_list_item_num_text_size"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:id="@+id/pl_23"
+                android:layout_below="@id/tv_hour_num_23"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/parting_line" />

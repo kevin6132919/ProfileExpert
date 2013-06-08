@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.MonthDisplayHelper;
+import android.view.MotionEvent;
 import android.widget.ImageView;
 import edu.tongji.sse.profileexpert.R;
 
@@ -20,7 +21,7 @@ public class MyCalendarView extends ImageView
     private static int CELL_WIDTH = 58;
     private static int CELL_HEIGH = 53;
     private static int CELL_MARGIN_TOP = 51;
-    private static int CELL_MARGIN_LEFT = 41;
+	private static int CELL_MARGIN_LEFT = 41;
     private static float CELL_TEXT_SIZE = 36;
     
     // -1 为上月  1为下月  0为此月
@@ -32,6 +33,7 @@ public class MyCalendarView extends ImageView
 	private Context context = null;
 	private Calendar rightNow = null;
 	private MonthDisplayHelper helper = null;
+    private OnCellTouchListener onCellTouchListener = null;
 
     private Drawable decoration = null;
     private Drawable weekTitle = null;
@@ -39,6 +41,11 @@ public class MyCalendarView extends ImageView
 	
     private MyCell[][] cells = new MyCell[6][7];
     private MyCell today_cell = null;
+    
+    private int selected_year = -1;
+    private int selected_month = -1;
+    private int selected_day = -1;
+    private MyCell selected_cell = null;
 	
 	public MyCalendarView(Context context)
 	{
@@ -92,7 +99,8 @@ public class MyCalendarView extends ImageView
 	    };
 	    _calendar tmp[][] = new _calendar[6][7];
 	    
-	    for(int i=0; i<tmp.length; i++) {
+	    for(int i=0; i<tmp.length; i++)
+	    {
 	    	int n[] = helper.getDigitsForRow(i);
 	    	for(int d=0; d<n.length; d++) {
 	    		if(helper.isWithinCurrentMonth(i,d))
@@ -112,6 +120,13 @@ public class MyCalendarView extends ImageView
 	    if(helper.getYear()==today.get(Calendar.YEAR) && helper.getMonth()==today.get(Calendar.MONTH)) {
 	    	thisDay = today.get(Calendar.DAY_OF_MONTH);
 	    }
+	    int selectedDay = 0;
+	    selected_cell = null;
+	    if(helper.getYear()==selected_year
+	    		&& helper.getMonth()==selected_month)
+	    {
+	    	selectedDay = selected_day;
+	    }
 		// build cells
 		Rect Bound = new Rect(CELL_MARGIN_LEFT, CELL_MARGIN_TOP, CELL_WIDTH+CELL_MARGIN_LEFT, CELL_HEIGH+CELL_MARGIN_TOP);
 		for(int week=0; week<cells.length; week++) {
@@ -130,7 +145,8 @@ public class MyCalendarView extends ImageView
 				Bound.offset(CELL_WIDTH, 0); // 移动至下一列
 				
 				// get today
-				if(tmp[week][day].day==thisDay && tmp[week][day].whichMonth == 0) {
+				if(tmp[week][day].day==thisDay && tmp[week][day].whichMonth == 0)
+				{
 					today_cell = cells[week][day];
 					
 					//对今天的符号的位置进行修正
@@ -140,6 +156,20 @@ public class MyCalendarView extends ImageView
 					int today_right = today_bounds.right;
 					int today_bottom = today_bounds.bottom + CELL_HEIGH/10;
 					decoration.setBounds(new Rect(today_left, today_top, today_right, today_bottom));
+				}
+				
+				// get selected
+				if(tmp[week][day].day==selectedDay && tmp[week][day].whichMonth == 0)
+				{
+					selected_cell = cells[week][day];
+					
+					Rect selected_bounds = selected_cell.getBound();
+					int selected_left = selected_bounds.left;
+					int selected_top = selected_bounds.top + CELL_HEIGH/10;
+					int selected_right = selected_bounds.right;
+					int selected_bottom = selected_bounds.bottom + CELL_HEIGH/10;
+					decoraClick.setBounds(new Rect(selected_left, selected_top, selected_right, selected_bottom));
+				
 				}
 			}
 			Bound.offset(0, CELL_HEIGH); // 移动到下一行的第一列
@@ -214,25 +244,89 @@ public class MyCalendarView extends ImageView
 		super.onLayout(changed, left, top, right, bottom);
 	}	
 	
+    public void setOnCellTouchListener(OnCellTouchListener octl) {
+		onCellTouchListener = octl;
+	}
+	
 	private class GrayCell extends MyCell {
 		public GrayCell(int dayOfMon, Rect rect, float s) {
 			super(dayOfMon, rect, s);
-			paint.setColor(Color.GRAY);
+			getPaint().setColor(Color.GRAY);
 		}			
 	}
 	
 	private class LTGrayCell extends MyCell {
 		public LTGrayCell(int dayOfMon, Rect rect, float s) {
 			super(dayOfMon, rect, s);
-			paint.setColor(Color.LTGRAY);
+			getPaint().setColor(Color.LTGRAY);
 		}			
 	}
 	
 	private class RedCell extends MyCell {
 		public RedCell(int dayOfMon, Rect rect, float s) {
 			super(dayOfMon, rect, s);
-			paint.setColor(0xdddd0000);
+			getPaint().setColor(0xdddd0000);
 		}			
-		
 	}
+	
+    @Override
+	public boolean onTouchEvent(MotionEvent event)
+    {
+    	if(onCellTouchListener!=null){
+	    	for(MyCell[] week : cells) {
+				for(MyCell day : week) {
+					if(day.hitTest((int)event.getX(), (int)event.getY())) {
+						onCellTouchListener.onTouch(day);
+					}						
+				}
+			}
+    	}
+		return super.onTouchEvent(event);
+	}
+    
+	public int getYear()
+	{
+		return helper.getYear();
+	}
+    
+	public int getMonth()
+	{
+		return helper.getMonth();
+	}
+    
+	public String getShowDay()
+	{
+		if(selected_day == -1)
+			return "" + rightNow.get(Calendar.YEAR) + "-"
+					+ rightNow.get(Calendar.MONTH) + "-"
+					+ rightNow.get(Calendar.DAY_OF_MONTH);
+		else
+			return "" + selected_year + "-"
+			+ selected_month + "-"
+			+ selected_day;
+	}
+	
+	public void nextMonth()
+	{
+    	helper.nextMonth();
+    	initCells();
+    	invalidate();
+    }
+    
+    public void previousMonth()
+    {
+    	helper.previousMonth();
+    	initCells();
+    	invalidate();
+    }
+    
+    public void setDate(int year, int month, int day)
+    {
+    	selected_year = year;
+    	selected_month = month;
+    	selected_day = day;
+    	helper = new MonthDisplayHelper(year, month);
+    	initCells();
+    	invalidate();
+    }
 }
