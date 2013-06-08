@@ -149,13 +149,8 @@ public class MyCalendarView extends ImageView
 				{
 					today_cell = cells[week][day];
 					
-					//对今天的符号的位置进行修正
-					Rect today_bounds = today_cell.getBound();
-					int today_left = today_bounds.left;
-					int today_top = today_bounds.top + CELL_HEIGH/10;
-					int today_right = today_bounds.right;
-					int today_bottom = today_bounds.bottom + CELL_HEIGH/10;
-					decoration.setBounds(new Rect(today_left, today_top, today_right, today_bottom));
+					Rect today_bounds = fixBoundPosition(today_cell.getBound(),week);
+					decoration.setBounds(today_bounds);
 				}
 				
 				// get selected
@@ -163,12 +158,8 @@ public class MyCalendarView extends ImageView
 				{
 					selected_cell = cells[week][day];
 					
-					Rect selected_bounds = selected_cell.getBound();
-					int selected_left = selected_bounds.left;
-					int selected_top = selected_bounds.top + CELL_HEIGH/10;
-					int selected_right = selected_bounds.right;
-					int selected_bottom = selected_bounds.bottom + CELL_HEIGH/10;
-					decoraClick.setBounds(new Rect(selected_left, selected_top, selected_right, selected_bottom));
+					Rect selected_bounds = fixBoundPosition(selected_cell.getBound(),week);
+					decoraClick.setBounds(selected_bounds);
 				
 				}
 			}
@@ -178,6 +169,24 @@ public class MyCalendarView extends ImageView
 		}		
 	}
 	
+	//对今天和选中符号位置进行修正
+	private Rect fixBoundPosition(Rect originalRect,int week)
+	{
+		double divisor = getDivisorByWeek(week);
+		
+		Rect newRect = new Rect(originalRect);
+		newRect.left = originalRect.left;
+		newRect.top = (int) (originalRect.top + CELL_HEIGH/divisor);
+		newRect.right = originalRect.right;
+		newRect.bottom = (int) (originalRect.bottom + CELL_HEIGH/divisor);
+		return newRect;
+	}
+	
+	//根据当前星期的位置给出用于计算偏移量的因子
+	private double getDivisorByWeek(int week)
+	{
+		return 6 + week;
+	}
 	@Override
 	protected void onDraw(Canvas canvas)
 	{
