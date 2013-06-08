@@ -117,11 +117,16 @@ public class CreateTempMatterActivity extends Activity
 				return;
 			}
 			
+			String show_str = time_from.substring(11)
+					+ "-" + time_to.substring(11)
+					+ " " + title;
+			
 			values.put(TempMatterTable.TIME_FROM, l_time_from);
 			values.put(TempMatterTable.TIME_TO, l_time_to);
 			values.put(TempMatterTable.TIME_FROM_STR, time_from);
 			values.put(TempMatterTable.TIME_TO_STR, time_to);
 			values.put(TempMatterTable.DESCRIPTION, explain);
+			values.put(TempMatterTable.SHOW_STRING, show_str);
 			getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
 			setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
 			

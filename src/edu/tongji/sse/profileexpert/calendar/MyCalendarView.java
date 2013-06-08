@@ -353,12 +353,12 @@ public class MyCalendarView extends ImageView
 	{
 		if(selected_day == -1)
 			return "" + rightNow.get(Calendar.YEAR) + "-"
-					+ (rightNow.get(Calendar.MONTH)+1) + "-"
-					+ rightNow.get(Calendar.DAY_OF_MONTH);
+					+ format(rightNow.get(Calendar.MONTH)+1) + "-"
+					+ format(rightNow.get(Calendar.DAY_OF_MONTH));
 		else
 			return "" + selected_year + "-"
-			+ (selected_month+1) + "-"
-			+ selected_day;
+			+ format(selected_month+1) + "-"
+			+ format(selected_day);
 	}
 	
 	public void nextMonth()
@@ -383,5 +383,13 @@ public class MyCalendarView extends ImageView
     	helper = new MonthDisplayHelper(year, month);
     	initCells();
     	invalidate();
+    }
+    
+    private String format(int value)
+    {
+    	if(value<10)
+    		return "0"+value;
+    	else
+    		return ""+value;
     }
 }

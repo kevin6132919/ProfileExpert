@@ -36,8 +36,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 
 
 	private static final String TABLE_NAME_2 = TempMatterTable.TABLE_NAME;
-	private static final String CREATE_TABLE_2 =
-			"CREATE TABLE "
+	private static final String CREATE_TABLE_2 ="CREATE TABLE "
 			+ TABLE_NAME_2
 			+ "(" + TempMatterTable._ID
 			+ " INTEGER PRIMARY KEY,"
@@ -51,9 +50,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 			+ " TEXT,"
 			+ TempMatterTable.TIME_TO_STR
 			+ " TEXT,"
-			+ MyProfileTable.DESCRIPTION
+			+ TempMatterTable.SHOW_STRING
+			+ " TEXT,"
+			+ TempMatterTable.DESCRIPTION
 			+ " TEXT" + ");";
-	
+
 	//构造函数-创建数据库
 	public MyDatabaseHelper(Context context)
 	{

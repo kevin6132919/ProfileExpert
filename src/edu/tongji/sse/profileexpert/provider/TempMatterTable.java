@@ -29,4 +29,5 @@ public final class TempMatterTable implements BaseColumns
 	public static final String  TIME_FROM_STR 			= "timeFromStr";
 	public static final String  TIME_TO_STR				= "timeToStr";
 	public static final String	DESCRIPTION				= "description";
+	public static final String  SHOW_STRING				= "showString";
 }

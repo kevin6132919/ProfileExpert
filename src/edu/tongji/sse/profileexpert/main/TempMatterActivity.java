@@ -1,76 +1,110 @@
 package edu.tongji.sse.profileexpert.main;
 
-import android.app.Activity;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import android.annotation.SuppressLint;
+import android.app.ListActivity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.MonthDisplayHelper;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.ListAdapter;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendar.MyCell;
 import edu.tongji.sse.profileexpert.calendar.OnCellTouchListener;
+import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
-public class TempMatterActivity extends /*List*/Activity implements OnCellTouchListener
+@SuppressLint("SimpleDateFormat")
+public class TempMatterActivity extends ListActivity implements OnCellTouchListener
 {
 	/*private static final String HOUR_NUMBER_KEY = "hourNum";*/
-	private MyCalendarView calendar = null;
-	
+	private MyCalendarView mcv_calendar = null;
+	private TextView tv_show_day = null;
+	private Cursor cursor = null;
+	private Calendar calendar = Calendar.getInstance();
+
 	Paint paint = new Paint(Paint.SUBPIXEL_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.temp_matter);
+		try {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.temp_matter);
 
-		calendar = (MyCalendarView) findViewById(R.id.my_calendar);
-		calendar.setOnCellTouchListener(this);
-		
-		checkSelected();
-		
-		drawMatterList();
-		
+			mcv_calendar = (MyCalendarView) findViewById(R.id.my_calendar);
+			mcv_calendar.setOnCellTouchListener(this);
+
+			checkSelected();
+
+			updateShowDay();
+			loadMatters();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	//绘制事项列表
-	private void drawMatterList()
-	{
-		TextView tv_day = (TextView) findViewById(R.id.tv_day);
-		TextView tv_5 = (TextView) findViewById(R.id.tv_hour_num_5); 
-		TextView tv_8 = (TextView) findViewById(R.id.tv_hour_num_8);
-		TextView tv_hour_num_1  = (TextView) findViewById(R.id.tv_hour_num_1);
 
-		RelativeLayout rl = (RelativeLayout) findViewById(R.id.rl_hour_list);
+	//加载已添加的当日的事项
+	@SuppressWarnings("deprecation")
+	private void loadMatters() throws ParseException
+	{
+		//得到选择的那一天的开始和结束时间
+		String show_day = mcv_calendar.getShowDay();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		long showTime = format.parse(show_day).getTime();
+		calendar.setTimeInMillis(showTime);
 		
-		tv_day.setText(calendar.getShowDay());
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		long from = calendar.getTimeInMillis();
 		
-		Button bt = new Button(this);
-		bt.setText("子丑寅卯辰巳午未申酉戌亥");
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		long to = calendar.getTimeInMillis();
 		
-		RelativeLayout.LayoutParams lp
-			= new RelativeLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-		lp.addRule(RelativeLayout.BELOW,  tv_5.getId());
-		lp.addRule(RelativeLayout.ABOVE,  tv_8.getId());
-		lp.addRule(RelativeLayout.RIGHT_OF,  tv_hour_num_1.getId());
-		lp.leftMargin = 5;
-		lp.rightMargin = 5;
-		lp.topMargin = 5;
-		lp.bottomMargin = 5;
-		bt.setLayoutParams(lp);
+		cursor = this.getContentResolver().query(
+				TempMatterTable.CONTENT_URI,
+				null,
+				"("+TempMatterTable.TIME_FROM + ">=? AND "
+						+ TempMatterTable.TIME_FROM + "<=?)"
+						+ " OR (" + TempMatterTable.TIME_TO + ">=? AND "
+						+ TempMatterTable.TIME_TO + "<=?)",
+				new String[]{""+from,""+to,""+from,""+to},
+				TempMatterTable.TIME_FROM + " ASC");
 		
-		bt.setBackgroundResource(R.drawable.matter_button_style);
-		bt.setGravity(Gravity.CENTER);
+		startManagingCursor(cursor);
+		ListAdapter adapter = new SimpleCursorAdapter(
+				this,
+				R.layout.matter_list_item,
+				cursor,
+				new String[]{TempMatterTable.SHOW_STRING},
+				new int[]{R.id.bt_matter});
+		setListAdapter(adapter);
+
+	}
+
+	//绘制事项列表
+	private void updateShowDay()
+	{
+		tv_show_day = (TextView) findViewById(R.id.tv_day);
+		tv_show_day.setText(mcv_calendar.getShowDay());
 		
-		rl.addView(bt);
+		try {
+			loadMatters();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	//检查是否已选择日期
@@ -85,7 +119,7 @@ public class TempMatterActivity extends /*List*/Activity implements OnCellTouchL
 			int day = intent.getIntExtra("selected_day", -1);
 			if(year==-1 || month==-1 || day==-1)
 				return;
-			calendar.setDate(year, month, day);
+			mcv_calendar.setDate(year, month, day);
 		}
 	}
 
@@ -134,7 +168,7 @@ public class TempMatterActivity extends /*List*/Activity implements OnCellTouchL
 	public void onTouch(MyCell cell)
 	{
 		MonthDisplayHelper helper = 
-				new MonthDisplayHelper(calendar.getYear(), calendar.getMonth());
+				new MonthDisplayHelper(mcv_calendar.getYear(), mcv_calendar.getMonth());
 		int color = cell.getPaint().getColor();
 		if(color == Color.GRAY)
 			helper.previousMonth();
@@ -144,7 +178,7 @@ public class TempMatterActivity extends /*List*/Activity implements OnCellTouchL
 		int year = helper.getYear();
 		int month = helper.getMonth();
 		int day = cell.getDayOfMonth();
-		calendar.setDate(year, month, day);
-		drawMatterList();
+		mcv_calendar.setDate(year, month, day);
+		updateShowDay();
 	}
 }

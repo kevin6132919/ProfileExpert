@@ -33,7 +33,10 @@ public class TempMatterProvider extends ContentProvider
 		tempMatterProjectionMap.put(TempMatterTable.TITLE, TempMatterTable.TITLE);
 		tempMatterProjectionMap.put(TempMatterTable.TIME_FROM, TempMatterTable.TIME_FROM);
 		tempMatterProjectionMap.put(TempMatterTable.TIME_TO, TempMatterTable.TIME_TO);
+		tempMatterProjectionMap.put(TempMatterTable.TIME_FROM_STR, TempMatterTable.TIME_FROM_STR);
+		tempMatterProjectionMap.put(TempMatterTable.TIME_TO_STR, TempMatterTable.TIME_TO_STR);
 		tempMatterProjectionMap.put(TempMatterTable.DESCRIPTION, TempMatterTable.DESCRIPTION);
+		tempMatterProjectionMap.put(TempMatterTable.SHOW_STRING, TempMatterTable.SHOW_STRING);
 	}
 	
 	@Override
