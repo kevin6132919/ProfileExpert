@@ -22,7 +22,6 @@ import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendar.MyCell;
 import edu.tongji.sse.profileexpert.calendar.OnCellTouchListener;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
-import edu.tongji.sse.profileexpert.util.MyConstant;
 
 @SuppressLint("SimpleDateFormat")
 public class TempMatterActivity extends ListActivity implements OnCellTouchListener
@@ -139,29 +138,11 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 			//跳转到设置界面
 			Intent intent=new Intent();
 			intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
-			startActivityForResult(intent, MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
+			startActivity(intent);
 			return true;
 		default:
 			return false;
 		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if (requestCode == MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER)
-		{
-			if (resultCode == RESULT_OK)
-			{
-				draw();
-			}
-		}
-	}
-
-	private void draw()
-	{
 	}
 
 	@Override

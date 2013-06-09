@@ -1,10 +1,5 @@
 package edu.tongji.sse.profileexpert.main;
 
-import edu.tongji.sse.profileexpert.R;
-import edu.tongji.sse.profileexpert.control.SeekBarPreference;
-import edu.tongji.sse.profileexpert.entity.MyProfile;
-import edu.tongji.sse.profileexpert.provider.MyProfileTable;
-import edu.tongji.sse.profileexpert.util.MyConstant;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,13 +7,18 @@ import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.RingtonePreference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import edu.tongji.sse.profileexpert.R;
+import edu.tongji.sse.profileexpert.control.SeekBarPreference;
+import edu.tongji.sse.profileexpert.entity.MyProfile;
+import edu.tongji.sse.profileexpert.provider.MyProfileTable;
+import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class EditProfileActivity extends PreferenceActivity implements OnPreferenceChangeListener
 {

@@ -1,9 +1,9 @@
 package edu.tongji.sse.profileexpert.control;
 
-import edu.tongji.sse.profileexpert.util.MyConstant;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.widget.DatePicker;
+import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class MyDatePickerDialog extends DatePickerDialog{
 

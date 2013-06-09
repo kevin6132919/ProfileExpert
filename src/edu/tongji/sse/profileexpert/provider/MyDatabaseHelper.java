@@ -1,9 +1,9 @@
 package edu.tongji.sse.profileexpert.provider;
 
-import edu.tongji.sse.profileexpert.util.DefaultProfile;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import edu.tongji.sse.profileexpert.util.DefaultProfile;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper
 {

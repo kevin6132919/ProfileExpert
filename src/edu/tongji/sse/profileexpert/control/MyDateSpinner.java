@@ -1,6 +1,5 @@
 package edu.tongji.sse.profileexpert.control;
 
-import edu.tongji.sse.profileexpert.R;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.graphics.Color;
@@ -12,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import edu.tongji.sse.profileexpert.R;
  
 public class MyDateSpinner extends Spinner
 {
