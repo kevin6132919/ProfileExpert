@@ -36,10 +36,10 @@
                         android:layout_height="wrap_content"
                         android:layout_column="0"
                         android:layout_margin="2dp"
-                        android:background="@color/transparent"
+                        android:background="@android:color/transparent"
                         android:contentDescription="@string/imgMissing"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/r1_routine"
+                        android:src="@drawable/routine_button_style"
                         android:text="@string/routine" >
                     </ImageButton>
 
@@ -49,10 +49,10 @@
                         android:layout_height="wrap_content"
                         android:layout_column="1"
                         android:layout_margin="2dp"
-                        android:background="@color/transparent"
+                        android:background="@android:color/transparent"
                         android:contentDescription="@string/imgMissing"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/r2_tempmatter" >
+                        android:src="@drawable/temp_matter_button_style" >
                     </ImageButton>
                 </TableRow>
 
@@ -64,10 +64,10 @@
                         android:layout_height="wrap_content"
                         android:layout_column="0"
                         android:layout_margin="2dp"
-                        android:background="@color/transparent"
+                        android:background="@android:color/transparent"
                         android:contentDescription="@string/imgMissing"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/r3_customeprofile" >
+                        android:src="@drawable/custom_profile_button_style" >
                     </ImageButton>
 
                     <ImageButton
@@ -76,10 +76,10 @@
                         android:layout_height="wrap_content"
                         android:layout_column="1"
                         android:layout_margin="2dp"
-                        android:background="@color/transparent"
+                        android:background="@android:color/transparent"
                         android:contentDescription="@string/imgMissing"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/r4_setting" >
+                        android:src="@drawable/setting_button_style" >
                     </ImageButton>
                 </TableRow>
             </TableLayout>
@@ -97,7 +97,6 @@
                     android:scaleType="fitCenter" />
             </LinearLayout>
         </LinearLayout>
-        
     </ScrollView>
 
 </RelativeLayout>
