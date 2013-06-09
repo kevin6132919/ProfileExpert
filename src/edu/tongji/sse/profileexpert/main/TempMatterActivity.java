@@ -18,6 +18,7 @@ import android.util.MonthDisplayHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -173,6 +174,18 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 	{
 		tv_show_day = (TextView) findViewById(R.id.tv_day);
 		tv_show_day.setText(mcv_calendar.getShowDay());
+		tv_show_day.setOnLongClickListener(new OnLongClickListener()
+		{
+			@Override
+			public boolean onLongClick(View v)
+			{
+				//跳转到新增临时事项界面
+				Intent intent=new Intent();
+				intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
+				startActivity(intent);
+				return true;
+			}
+		});
 		
 		try {
 			loadMatters();
@@ -210,7 +223,7 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 		switch(item.getItemId())
 		{
 		case R.id.action_add_temp_matter:
-			//跳转到设置界面
+			//跳转到新增临时事项界面
 			Intent intent=new Intent();
 			intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
 			startActivity(intent);
