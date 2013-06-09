@@ -34,7 +34,7 @@ import edu.tongji.sse.profileexpert.util.MyConstant;
 @SuppressLint("SimpleDateFormat")
 public class TempMatterActivity extends ListActivity implements OnCellTouchListener
 {
-	/*private static final String HOUR_NUMBER_KEY = "hourNum";*/
+	public static final String SHOW_DAY_KEY = "show_day_str"; 
 	private MyCalendarView mcv_calendar = null;
 	private TextView tv_show_day = null;
 	private Cursor cursor = null;
@@ -179,10 +179,7 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 			@Override
 			public boolean onLongClick(View v)
 			{
-				//跳转到新增临时事项界面
-				Intent intent=new Intent();
-				intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
-				startActivity(intent);
+				jumpToAddTempMatterActivity();
 				return true;
 			}
 		});
@@ -223,14 +220,20 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 		switch(item.getItemId())
 		{
 		case R.id.action_add_temp_matter:
-			//跳转到新增临时事项界面
-			Intent intent=new Intent();
-			intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
-			startActivity(intent);
+			jumpToAddTempMatterActivity();
 			return true;
 		default:
 			return false;
 		}
+	}
+
+	//跳转到新增临时事项界面
+	private void jumpToAddTempMatterActivity()
+	{
+		Intent intent=new Intent();
+		intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
+		intent.putExtra(SHOW_DAY_KEY, mcv_calendar.getShowDay());
+		startActivity(intent);
 	}
 
 	@Override

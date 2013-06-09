@@ -2,10 +2,12 @@ package edu.tongji.sse.profileexpert.main;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -59,7 +61,7 @@ public class CreateTempMatterActivity extends Activity
 		setContentView(R.layout.new_temp_matter);
 
         /*gmailPosition = getGmailPosition();*/
-
+		
 		// 根据id找到控件
 		bt_cancel = (Button) findViewById(R.id.bt_cancel);
 		bt_save = (Button) findViewById(R.id.bt_save);
@@ -71,6 +73,12 @@ public class CreateTempMatterActivity extends Activity
 		my_time_spinner_to = (MyTimeSpinner) findViewById(R.id.my_time_spinner_to);
 		sp_profile = (Spinner) findViewById(R.id.sp_profile);
 
+		try {
+			initDateSpinner();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		initSpinner();
 		
 		// 设置监听器
@@ -86,6 +94,28 @@ public class CreateTempMatterActivity extends Activity
 				save();
 			}
 		});
+	}
+
+	//按intent中传过来的showDay初始化DateSpinner
+	private void initDateSpinner() throws ParseException
+	{
+		Intent intent = getIntent();
+		String showDay = intent.getStringExtra(TempMatterActivity.SHOW_DAY_KEY);
+		if(showDay!=null && !showDay.equals(""))
+		{
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			long time = format.parse(showDay).getTime();
+			Calendar c = Calendar.getInstance();
+			c.setTimeInMillis(time);
+			my_date_spinner_from.setDefault(
+					c.get(Calendar.YEAR),
+					c.get(Calendar.MONTH),
+					c.get(Calendar.DAY_OF_MONTH));
+			my_date_spinner_to.setDefault(
+					c.get(Calendar.YEAR),
+					c.get(Calendar.MONTH),
+					c.get(Calendar.DAY_OF_MONTH));
+		}
 	}
 
 	//初始化选择情景模式的spinner
