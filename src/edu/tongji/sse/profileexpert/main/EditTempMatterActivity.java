@@ -2,13 +2,18 @@ package edu.tongji.sse.profileexpert.main;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.widget.CursorAdapter;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +29,7 @@ import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
 @SuppressLint("SimpleDateFormat")
-public class CreateTempMatterActivity extends Activity
+public class EditTempMatterActivity extends Activity
 {
 	private Button bt_cancel = null;
 	private Button bt_save = null;
@@ -35,44 +40,23 @@ public class CreateTempMatterActivity extends Activity
 	private MyTimeSpinner my_time_spinner_from = null;
 	private MyTimeSpinner my_time_spinner_to = null;
 	private Spinner sp_profile = null;
-	
-	/*private static String calanderURL = "";
-	private static String calanderEventURL = "";
-    
-    private int gmailPosition = -1;
-    //为了兼容不同版本的日历,2.2以后url发生改变
-	static{
-		if(Integer.parseInt(Build.VERSION.SDK) >= 8){
-			calanderURL = "content://com.android.calendar/calendars";
-			calanderEventURL = "content://com.android.calendar/events";
-			//calanderRemiderURL = "content://com.android.calendar/reminders";
 
-		}else{
-			calanderURL = "content://calendar/calendars";
-			calanderEventURL = "content://calendar/events";
-			//calanderRemiderURL = "content://calendar/reminders";		
-		}
-	}*/
+	private Cursor cursor = null;
+	private long id = -1;
 
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_temp_matter);
 
-        /*gmailPosition = getGmailPosition();*/
+		getCursor();
 
-		// 根据id找到控件
-		bt_cancel = (Button) findViewById(R.id.bt_cancel);
-		bt_save = (Button) findViewById(R.id.bt_save);
-		et_title = (EditText) findViewById(R.id.et_title);
-		et_explain = (EditText) findViewById(R.id.et_explain);
-		my_date_spinner_from = (MyDateSpinner) findViewById(R.id.my_date_spinner_from);
-		my_date_spinner_to = (MyDateSpinner) findViewById(R.id.my_date_spinner_to);
-		my_time_spinner_from = (MyTimeSpinner) findViewById(R.id.my_time_spinner_from);
-		my_time_spinner_to = (MyTimeSpinner) findViewById(R.id.my_time_spinner_to);
-		sp_profile = (Spinner) findViewById(R.id.sp_profile);
+		findViews();
 
 		initSpinner();
 		
+		initValues();
+
 		// 设置监听器
 		bt_cancel.setOnClickListener(new OnClickListener()
 		{
@@ -88,6 +72,74 @@ public class CreateTempMatterActivity extends Activity
 		});
 	}
 
+	//初始化各控件的值
+	private void initValues()
+	{
+		String str = cursor.getString(cursor.getColumnIndex(TempMatterTable.TITLE));
+		et_title.setText(str);
+		
+		Calendar c = Calendar.getInstance();
+		long l_time_from = Long.parseLong(
+				cursor.getString(cursor.getColumnIndex(TempMatterTable.TIME_FROM)));
+		c.setTimeInMillis(l_time_from);
+		my_date_spinner_from.setDefault(
+				c.get(Calendar.YEAR),
+				c.get(Calendar.MONTH),
+				c.get(Calendar.DAY_OF_MONTH));
+		my_time_spinner_from.setDefault(
+				c.get(Calendar.HOUR_OF_DAY),
+				c.get(Calendar.MINUTE));
+		
+		long l_time_to = Long.parseLong(
+				cursor.getString(cursor.getColumnIndex(TempMatterTable.TIME_TO)));
+		c.setTimeInMillis(l_time_to);
+		my_date_spinner_to.setDefault(
+				c.get(Calendar.YEAR),
+				c.get(Calendar.MONTH),
+				c.get(Calendar.DAY_OF_MONTH));
+		my_time_spinner_to.setDefault(
+				c.get(Calendar.HOUR_OF_DAY),
+				c.get(Calendar.MINUTE));
+		
+		str = cursor.getString(cursor.getColumnIndex(TempMatterTable.DESCRIPTION));
+		et_explain.setText(str);
+	}
+
+	// 根据id找到控件
+	private void findViews()
+	{
+		bt_cancel = (Button) findViewById(R.id.bt_cancel);
+		bt_save = (Button) findViewById(R.id.bt_save);
+		et_title = (EditText) findViewById(R.id.et_title);
+		et_explain = (EditText) findViewById(R.id.et_explain);
+		my_date_spinner_from = (MyDateSpinner) findViewById(R.id.my_date_spinner_from);
+		my_date_spinner_to = (MyDateSpinner) findViewById(R.id.my_date_spinner_to);
+		my_time_spinner_from = (MyTimeSpinner) findViewById(R.id.my_time_spinner_from);
+		my_time_spinner_to = (MyTimeSpinner) findViewById(R.id.my_time_spinner_to);
+		sp_profile = (Spinner) findViewById(R.id.sp_profile);
+	}
+
+	//拿到extra中的id并获取到Cursor
+	private void getCursor()
+	{
+		Intent intent = getIntent();
+		id = intent.getLongExtra(TempMatterActivity.EDIT_TEMP_MATTER_ID_KEY, -1);
+		cursor = getContentResolver().query(
+				TempMatterTable.CONTENT_URI,
+				null,
+				TempMatterTable._ID + "=?",
+				new String[]{""+id},
+				null);
+
+		if(!cursor.moveToFirst())
+		{
+			Toast.makeText(EditTempMatterActivity.this,
+					getString(R.string.temp_matter_not_exist),
+					Toast.LENGTH_SHORT).show();
+			this.finish();
+		}
+	}
+
 	//初始化选择情景模式的spinner
 	@SuppressWarnings("deprecation")
 	private void initSpinner()
@@ -100,6 +152,7 @@ public class CreateTempMatterActivity extends Activity
 				cursor,
 				new String[]{MyProfileTable.NAME, MyProfileTable.DESCRIPTION},
 				new int[]{R.id.profile_list_item_name, R.id.profile_list_item_discription});
+		
 		sp_profile.setAdapter(adapter);
 	}
 
@@ -142,12 +195,12 @@ public class CreateTempMatterActivity extends Activity
 				Toast.makeText(this, getString(R.string.invalid_time), Toast.LENGTH_LONG).show();
 				return;
 			}
-			
+
 			String show_str = time_from.substring(11)
 					+ "-" + time_to.substring(11)
 					+ "  " + shortString(title,5)
 					+ "  " + shortString(getProfileTitle(profile_id),5);
-			
+
 			values.put(TempMatterTable.TIME_FROM, l_time_from);
 			values.put(TempMatterTable.TIME_TO, l_time_to);
 			values.put(TempMatterTable.TIME_FROM_STR, time_from);
@@ -157,9 +210,8 @@ public class CreateTempMatterActivity extends Activity
 			values.put(TempMatterTable.PROFILE_ID, profile_id);
 			getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
 			setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
-			
-			/*saveToGoogleCalendar(title,explain,l_time_from,l_time_to);*/
-			
+
+
 			back();
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -197,53 +249,4 @@ public class CreateTempMatterActivity extends Activity
 	{
 		this.finish();
 	}
-
-	/*//同时将该事项保存到google自带Calendar中
-	private void saveToGoogleCalendar(String title, String explain, long l_time_from, long l_time_to)
-	{
-		String calId = getGoogleAccountId();
-		ContentValues event = new ContentValues();
-		event.put("calendar_id",calId);
-		event.put("title", title);
-    	event.put("description", explain);
-    	event.put("dtstart", l_time_from);
-    	event.put("dtend", l_time_to);
-    	getContentResolver().insert(Uri.parse(calanderEventURL), event);
-	}
-
-	//得到到对应的google账户对应的id
-	private String getGoogleAccountId()
-	{
-		Cursor userCursor = getContentResolver().query(Uri.parse(calanderURL), null, 
-				null, null, null);
-		if(userCursor.getCount() > 0){
-			if(gmailPosition != -1)
-			{
-				userCursor.moveToPosition(gmailPosition);
-				return  userCursor.getString(userCursor.getColumnIndex("_id"));
-			}
-		}
-		return null;
-	}
-
-	//得到gmail邮箱对应的user Offset
-	private int getGmailPosition()
-	{
-		Cursor userCursor = getContentResolver().query(Uri.parse(calanderURL), null, 
-				null, null, null);
-		if(userCursor.getCount()>0)
-		{
-			for(int i=0;i<userCursor.getCount();i++)
-			{
-				userCursor.moveToPosition(i);
-				String userName = userCursor.getString(userCursor.getColumnIndex("name"));
-				if(userName.endsWith("@gmail.com"))
-				{
-					return i;
-				}
-			}
-		}
-		Toast.makeText(this, getString(R.string.account_not_exist), Toast.LENGTH_SHORT).show();
-		return -1;
-	}*/
 }

@@ -36,6 +36,44 @@ public class MyDateSpinner extends Spinner
     	_year = year;
     	_month = month;
     	_day = day;
+    	MyDateSpinner.this.setAdapter(new BaseAdapter()
+        {
+            @Override
+            public int getCount() {
+                return 1;
+            }
+
+            @Override
+            public Object getItem(int arg0) {
+                return _year
+                        + "-"
+                        + format((_month + 1))
+                        + "-"
+                        + format(_day);
+            }
+
+            @Override
+            public long getItemId(int arg0) {
+                return 0;
+            }
+
+            @Override
+            public View getView(int arg0, View arg1,
+                    ViewGroup arg2) {
+                TextView text = new TextView(MyDateSpinner.this
+                        .getContext());
+                text.setTextSize(getResources().getDimension(R.dimen.time_text_size));
+                text.setText(_year
+                        + "-"
+                        + format((_month + 1))
+                        + "-"
+                        + format(_day)
+                        + MyDatePickerDialog.caculateWeekDay(
+                                _year, _month + 1, _day));
+                text.setTextColor(Color.BLACK);
+                return text;
+            }
+        });
     }
     
     public MyDateSpinner(Context context, AttributeSet attrs)
@@ -109,8 +147,8 @@ public class MyDateSpinner extends Spinner
                     	_month = month;
                     	_day = day;
                         //为MyDateSpinner动态设置adapter，主要用于修改spinner的text值
-                        MyDateSpinner.this.setAdapter(new BaseAdapter() {
- 
+                        MyDateSpinner.this.setAdapter(new BaseAdapter()
+                        {
                             @Override
                             public int getCount() {
                                 return 1;

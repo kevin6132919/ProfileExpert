@@ -28,6 +28,7 @@ import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendar.MyCell;
 import edu.tongji.sse.profileexpert.calendar.OnCellTouchListener;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
+import edu.tongji.sse.profileexpert.util.MyConstant;
 
 @SuppressLint("SimpleDateFormat")
 public class TempMatterActivity extends ListActivity implements OnCellTouchListener
@@ -39,6 +40,7 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 	private Calendar calendar = Calendar.getInstance();
 
 	Paint paint = new Paint(Paint.SUBPIXEL_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+	public static final String EDIT_TEMP_MATTER_ID_KEY = "temp_matter_id";
 
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -160,8 +162,11 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 	//编辑对应的临时事项
 	private void editCorrespondingTempMatter(long id)
 	{
-		// TODO Auto-generated method stub
-		
+		//跳转到编辑临时事项界面
+		Intent intent=new Intent();
+		intent.setClass(TempMatterActivity.this, EditTempMatterActivity.class);
+		intent.putExtra(EDIT_TEMP_MATTER_ID_KEY, id);
+		startActivityForResult(intent, MyConstant.REQUEST_CODE_EDIT_PROFILE); 
 	}
 	//绘制事项列表
 	private void updateShowDay()

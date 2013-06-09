@@ -34,6 +34,34 @@ public class MyTimeSpinner extends Spinner
     {
         _hour = hour;
         _minute = minute;
+        MyTimeSpinner.this.setAdapter(new BaseAdapter()
+        {
+            @Override
+            public int getCount() {
+                return 1;
+            }
+ 
+            @Override
+            public Object getItem(int arg0)
+            {
+                return formatHourAndMinute(_hour,_minute);
+            }
+ 
+            @Override
+            public long getItemId(int arg0) {
+                return 0;
+            }
+ 
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                TextView text = new TextView(MyTimeSpinner.this.getContext());
+                text.setTextSize(getResources().getDimension(R.dimen.time_text_size));
+                text.setText(formatHourAndMinute(_hour,_minute));
+                text.setTextColor(Color.BLACK);
+                return text;
+            }
+        });
     }
  
     public MyTimeSpinner(Context context, AttributeSet attrs)

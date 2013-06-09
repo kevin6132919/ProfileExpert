@@ -7,8 +7,8 @@
     <string name="customProfile">自定义模式</string>
     <string name="setting">软件设置</string>
     <string name="imgMissing">图片加载失败</string>
-    <string name="createTempMatter">新建临时事项</string>
-    
+    <string name="createTempMatter">新建临时事项</string>    
+    <string name="editTempMatter">编辑临时事项</string>
     
     <string name="add_profile">新增情景模式</string>
     <string name="edit_profile">编辑情景模式</string>
@@ -54,6 +54,7 @@
     <string name="name_not_null">名称不能为空!</string>
     <string name="title_not_null">标题不能为空!</string>
     <string name="profile_not_exist">所选模式不存在!</string>
+    <string name="temp_matter_not_exist">所选模式不存在!</string>
     <string name="show_profile_not_exist">模式不存在</string>
     <string name="invalid_time">时间错误,开始时间应早于结束时间!</string>
     <string name="account_not_exist">手机中未保存谷歌账户,新增事项无法写入谷歌日历!</string>
