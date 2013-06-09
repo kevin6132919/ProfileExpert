@@ -6,15 +6,20 @@ import java.text.SimpleDateFormat;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.control.MyDateSpinner;
 import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
+import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
@@ -29,6 +34,7 @@ public class CreateTempMatterActivity extends Activity
 	private MyDateSpinner my_date_spinner_to = null;
 	private MyTimeSpinner my_time_spinner_from = null;
 	private MyTimeSpinner my_time_spinner_to = null;
+	private Spinner sp_profile = null;
 	
 	/*private static String calanderURL = "";
 	private static String calanderEventURL = "";
@@ -63,7 +69,10 @@ public class CreateTempMatterActivity extends Activity
 		my_date_spinner_to = (MyDateSpinner) findViewById(R.id.my_date_spinner_to);
 		my_time_spinner_from = (MyTimeSpinner) findViewById(R.id.my_time_spinner_from);
 		my_time_spinner_to = (MyTimeSpinner) findViewById(R.id.my_time_spinner_to);
+		sp_profile = (Spinner) findViewById(R.id.sp_profile);
 
+		initSpinner();
+		
 		// 设置监听器
 		bt_cancel.setOnClickListener(new OnClickListener()
 		{
@@ -79,6 +88,21 @@ public class CreateTempMatterActivity extends Activity
 		});
 	}
 
+	//初始化选择情景模式的spinner
+	@SuppressWarnings("deprecation")
+	private void initSpinner()
+	{
+		Cursor cursor = this.getContentResolver().query(MyProfileTable.CONTENT_URI, null, null, null, null);
+		startManagingCursor(cursor);
+		SpinnerAdapter adapter = new SimpleCursorAdapter(
+				this,
+				R.layout.profile_list_item,
+				cursor,
+				new String[]{MyProfileTable.NAME, MyProfileTable.DESCRIPTION},
+				new int[]{R.id.profile_list_item_name, R.id.profile_list_item_discription});
+		sp_profile.setAdapter(adapter);
+	}
+
 	//保存当前临时事项
 	protected void save()
 	{
@@ -90,6 +114,7 @@ public class CreateTempMatterActivity extends Activity
 		time = (String) my_time_spinner_to.getSelectedItem();
 		String time_to = date + " " + time;
 		String explain = et_explain.getText().toString();
+		long profile_id = sp_profile.getSelectedItemId();
 
 		if(title == null || title.equals(""))
 		{
@@ -97,17 +122,18 @@ public class CreateTempMatterActivity extends Activity
 			return;
 		}
 
-		saveTempMatter(title,time_from,time_to,explain);
+		saveTempMatter(title,time_from,time_to,explain,profile_id);
 	}
 
 	//将新增的临时事项增加到数据库
-	private void saveTempMatter(String title, String time_from, String time_to, String explain)
+	private void saveTempMatter(String title, String time_from, String time_to,
+			String explain, long profile_id)
 	{
 		try {
 			ContentValues values = new ContentValues();
 			values.put(TempMatterTable.TITLE, title);
 
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			long l_time_from = format.parse(time_from).getTime();
 			long l_time_to = format.parse(time_to).getTime();
 
@@ -119,7 +145,8 @@ public class CreateTempMatterActivity extends Activity
 			
 			String show_str = time_from.substring(11)
 					+ "-" + time_to.substring(11)
-					+ " " + title;
+					+ "  " + shortString(title,5)
+					+ "  " + shortString(getProfileTitle(profile_id),5);
 			
 			values.put(TempMatterTable.TIME_FROM, l_time_from);
 			values.put(TempMatterTable.TIME_TO, l_time_to);
@@ -127,6 +154,7 @@ public class CreateTempMatterActivity extends Activity
 			values.put(TempMatterTable.TIME_TO_STR, time_to);
 			values.put(TempMatterTable.DESCRIPTION, explain);
 			values.put(TempMatterTable.SHOW_STRING, show_str);
+			values.put(TempMatterTable.PROFILE_ID, profile_id);
 			getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
 			setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
 			
@@ -136,6 +164,38 @@ public class CreateTempMatterActivity extends Activity
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+	}
+
+	//由profile的id得到其标题
+	private String getProfileTitle(long profile_id)
+	{
+		Cursor cursor = getContentResolver().query(
+				MyProfileTable.CONTENT_URI,
+				null,
+				MyProfileTable._ID + "=?",
+				new String[]{""+profile_id},
+				null);
+
+		if(!cursor.moveToFirst())
+		{
+			return getString(R.string.show_profile_not_exist);
+		}
+		else return cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
+	}
+
+	//剪短title
+	private String shortString(String title, int length)
+	{
+		if(title.length() < length)
+			return title;
+		else
+			return title.substring(0, length)+"...";
+	}
+
+	//后退
+	private void back()
+	{
+		this.finish();
 	}
 
 	/*//同时将该事项保存到google自带Calendar中
@@ -186,10 +246,4 @@ public class CreateTempMatterActivity extends Activity
 		Toast.makeText(this, getString(R.string.account_not_exist), Toast.LENGTH_SHORT).show();
 		return -1;
 	}*/
-
-	//后退
-	private void back()
-	{
-		this.finish();
-	}
 }

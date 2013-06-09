@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/tv_day"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/hour_list_item_length"
+            android:layout_height="@dimen/hour_list_show_day_height"
             android:gravity="center"
             android:paddingLeft="@dimen/hour_list_item_horizontal_padding"
             android:paddingRight="@dimen/hour_list_item_horizontal_padding"

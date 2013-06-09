@@ -53,7 +53,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 			+ TempMatterTable.SHOW_STRING
 			+ " TEXT,"
 			+ TempMatterTable.DESCRIPTION
-			+ " TEXT" + ");";
+			+ " TEXT,"
+			+ TempMatterTable.PROFILE_ID
+			+ " LONG" + ");";
 
 	//构造函数-创建数据库
 	public MyDatabaseHelper(Context context)
