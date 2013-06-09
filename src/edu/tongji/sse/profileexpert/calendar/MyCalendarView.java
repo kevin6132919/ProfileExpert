@@ -65,7 +65,7 @@ public class MyCalendarView extends ImageView
 		super(context, attrs, defStyle);
 		this.context = context;
 		decoration = context.getResources().getDrawable(R.drawable.calendar_today);
-		decoraClick = context.getResources().getDrawable(R.drawable.calendar_today);
+		decoraClick = context.getResources().getDrawable(R.drawable.calendar_selected);
 		initCalendarView();
 	}
 	
@@ -217,7 +217,7 @@ public class MyCalendarView extends ImageView
 		if(decoraClick.getBounds()!=null) {
 			decoraClick.draw(canvas);
 			// 设置这里过后  要想办法
-			decoraClick = context.getResources().getDrawable(R.drawable.calendar_today);
+			decoraClick = context.getResources().getDrawable(R.drawable.calendar_selected);
 //			mDecoraClick.setBounds(null);
 		}
 	}
