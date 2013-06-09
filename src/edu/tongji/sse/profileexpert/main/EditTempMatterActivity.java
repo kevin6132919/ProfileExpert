@@ -7,13 +7,10 @@ import java.util.Calendar;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.CursorAdapter;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +23,6 @@ import edu.tongji.sse.profileexpert.control.MyDateSpinner;
 import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
 import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
-import edu.tongji.sse.profileexpert.util.MyConstant;
 
 @SuppressLint("SimpleDateFormat")
 public class EditTempMatterActivity extends Activity
@@ -53,7 +49,7 @@ public class EditTempMatterActivity extends Activity
 
 		findViews();
 
-		initSpinner();
+		initSpinner(cursor.getLong(cursor.getColumnIndex(TempMatterTable.PROFILE_ID)));
 		
 		initValues();
 
@@ -142,7 +138,7 @@ public class EditTempMatterActivity extends Activity
 
 	//初始化选择情景模式的spinner
 	@SuppressWarnings("deprecation")
-	private void initSpinner()
+	private void initSpinner(long profile_id)
 	{
 		Cursor cursor = this.getContentResolver().query(MyProfileTable.CONTENT_URI, null, null, null, null);
 		startManagingCursor(cursor);
@@ -153,7 +149,17 @@ public class EditTempMatterActivity extends Activity
 				new String[]{MyProfileTable.NAME, MyProfileTable.DESCRIPTION},
 				new int[]{R.id.profile_list_item_name, R.id.profile_list_item_discription});
 		
+		int position = -1;
+		while(cursor.moveToNext())
+		{
+			position = cursor.getPosition();
+			long id = cursor.getLong(cursor.getColumnIndex(MyProfileTable._ID));
+			if(id == profile_id)
+				break;
+		}
+		
 		sp_profile.setAdapter(adapter);
+		sp_profile.setSelection(position);
 	}
 
 	//保存当前临时事项
@@ -175,11 +181,11 @@ public class EditTempMatterActivity extends Activity
 			return;
 		}
 
-		saveTempMatter(title,time_from,time_to,explain,profile_id);
+		updateTempMatter(title,time_from,time_to,explain,profile_id);
 	}
 
 	//将新增的临时事项增加到数据库
-	private void saveTempMatter(String title, String time_from, String time_to,
+	private void updateTempMatter(String title, String time_from, String time_to,
 			String explain, long profile_id)
 	{
 		try {
@@ -208,9 +214,12 @@ public class EditTempMatterActivity extends Activity
 			values.put(TempMatterTable.DESCRIPTION, explain);
 			values.put(TempMatterTable.SHOW_STRING, show_str);
 			values.put(TempMatterTable.PROFILE_ID, profile_id);
-			getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
-			setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
-
+			getContentResolver().update(
+					TempMatterTable.CONTENT_URI,
+					values,
+					MyProfileTable._ID + "=?",
+					new String[]{""+id});
+			//setResult(MyConstant.REQUEST_CODE_EDIT_TEMP_MATTER);
 
 			back();
 		} catch (ParseException e) {
