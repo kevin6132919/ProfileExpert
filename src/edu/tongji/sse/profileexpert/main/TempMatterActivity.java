@@ -5,7 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -14,9 +17,12 @@ import android.os.Bundle;
 import android.util.MonthDisplayHelper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendar.MyCell;
@@ -93,6 +99,70 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 
 	}
 
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, final long id)
+	{
+		new AlertDialog.Builder(this)
+		.setIcon(android.R.drawable.ic_menu_info_details)
+		.setTitle(getString(R.string.select))
+		.setItems(
+				new String[] { getString(R.string.edit), getString(R.string.delete) },
+				new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
+						switch(which)
+						{
+						case 0:
+							editCorrespondingTempMatter(id);
+							break;
+						case 1:
+							delteCorrespondingTempMatter(id);
+							break;
+						}
+						dialog.dismiss();
+					}
+				})
+				.setNegativeButton(getString(R.string.cancel), null)
+				.show();
+	}
+
+	//删除对应的临时事项
+	private void delteCorrespondingTempMatter(final long id)
+	{
+		new Builder(TempMatterActivity.this)
+		.setIcon(R.drawable.alerts_warning)
+		.setMessage(getString(R.string.delete_temp_matter_text))
+		.setTitle(getString(R.string.tips))
+		.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener(){
+			@SuppressWarnings("deprecation")
+			public void onClick(DialogInterface dialog, int which)
+			{
+				String msg = null;
+				int result = getContentResolver().delete(
+						TempMatterTable.CONTENT_URI,
+						TempMatterTable._ID + "=?",
+						new String[]{""+id});
+				if(result == 1)
+					msg = getString(R.string.delete_temp_matter_success);
+				else
+					msg = getString(R.string.delete_temp_matter_fail);
+				Toast.makeText(TempMatterActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+				//刷新当前listView
+				cursor.requery();
+				dialog.dismiss();
+			}})
+			.setNegativeButton(getString(R.string.cancel), null)
+			.show();
+	}
+
+	//编辑对应的临时事项
+	private void editCorrespondingTempMatter(long id)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 	//绘制事项列表
 	private void updateShowDay()
 	{

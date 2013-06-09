@@ -27,6 +27,10 @@
     <string name="delete_profile_success">模式删除成功</string>
     <string name="delete_profile_fail">模式删除失败</string>
     
+    <string name="delete_temp_matter_text">确定要删除该临时事项吗?删除后将无法恢复!</string>
+    <string name="delete_temp_matter_success">临时事项删除成功</string>
+    <string name="delete_temp_matter_fail">临时事项删除失败</string>
+    
     <string name="content">内容</string>
     <string name="start">开始</string>
     <string name="end">结束</string>

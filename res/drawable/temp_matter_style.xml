@@ -10,7 +10,7 @@
 
             <padding android:bottom="4dp" android:left="7dp" android:right="7dp" android:top="4dp" />
 
-            <corners android:radius="4dp" />
+            <corners android:radius="8dp" />
         </shape></item>
         
     <item android:state_focused="true"><shape android:shape="rectangle">
@@ -22,7 +22,7 @@
 
             <padding android:bottom="4dp" android:left="7dp" android:right="7dp" android:top="4dp" />
 
-            <corners android:radius="4dp" />
+            <corners android:radius="8dp" />
         </shape></item>
         
     <item><shape android:shape="rectangle">
@@ -34,6 +34,6 @@
 
             <padding android:bottom="4dp" android:left="7dp" android:right="7dp" android:top="4dp" />
 
-            <corners android:radius="4dp" />
+            <corners android:radius="8dp" />
         </shape></item>
 </selector>

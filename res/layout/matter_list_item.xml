@@ -2,17 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/hour_list_item_horizontal_padding"
+    android:layout_marginRight="@dimen/hour_list_item_horizontal_padding"
+    android:layout_marginTop="@dimen/hour_list_item_vertical_padding"
+    android:layout_marginBottom="@dimen/hour_list_item_vertical_padding"
+    android:background="@drawable/temp_matter_style" >
 
-    <Button
+    <TextView
         android:id="@+id/bt_matter"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hour_list_item_length"
+        android:layout_height="@dimen/matter_in_hour_height"
         android:gravity="center"
-        android:layout_marginLeft="@dimen/hour_list_item_horizontal_padding"
-        android:layout_marginRight="@dimen/hour_list_item_horizontal_padding"
-        android:layout_marginTop="@dimen/hour_list_item_vertical_padding"
-        android:textSize="@dimen/hour_list_item_num_text_size"
-        android:background="@drawable/matter_button_style" />
+        android:textSize="@dimen/hour_list_item_num_text_size" />
 
 </RelativeLayout>

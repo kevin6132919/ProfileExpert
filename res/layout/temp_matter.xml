@@ -44,7 +44,12 @@
         <ListView
             android:id="@android:id/list"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:dividerHeight="@dimen/hour_list_divider_height"
+            android:layout_marginTop="@dimen/hour_list_top_margin"
+            android:layout_marginLeft="@dimen/hour_list_horizontal_margin"
+            android:layout_marginRight="@dimen/hour_list_horizontal_margin"
+            android:divider="@android:color/background_light">
         </ListView>
     </LinearLayout>
 
