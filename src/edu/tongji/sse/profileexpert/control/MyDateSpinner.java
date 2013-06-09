@@ -15,10 +15,29 @@ import edu.tongji.sse.profileexpert.R;
  
 public class MyDateSpinner extends Spinner
 {
+	private int _year = -1;
+	private int _month = -1;
+	private int _day = -1;
+	
     public MyDateSpinner(Context context){
         super(context);
     }
+    
+    public MyDateSpinner(Context context,int year,int month,int day)
+    {
+        super(context);
+    	_year = year;
+    	_month = month;
+    	_day = day;
+    }
  
+    public void setDefault(int year,int month,int day)
+    {
+    	_year = year;
+    	_month = month;
+    	_day = day;
+    }
+    
     public MyDateSpinner(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -26,7 +45,10 @@ public class MyDateSpinner extends Spinner
             return;
         }
         final Time time = new Time();
-        time.setToNow();
+        if(_year==-1 || _month==-1 || _day==-1)
+        	time.setToNow();
+        else
+        	time.set(_day, _month, _year);
         //为MyDateSpinner设置adapter，主要用于显示spinner的text值
         MyDateSpinner.this.setAdapter(new BaseAdapter()
         {
@@ -72,7 +94,10 @@ public class MyDateSpinner extends Spinner
     public boolean performClick()
     {
         Time time = new Time();
-        time.setToNow();
+        if(_year==-1 || _month==-1 || _day==-1)
+        	time.setToNow();
+        else
+        	time.set(_day, _month, _year);
         MyDatePickerDialog tpd = new MyDatePickerDialog(getContext(),
                 new OnDateSetListener()
         		{
@@ -80,6 +105,9 @@ public class MyDateSpinner extends Spinner
                     public void onDateSet(DatePicker view, final int year,
                             final int month, final int day)
                     {
+                    	_year = year;
+                    	_month = month;
+                    	_day = day;
                         //为MyDateSpinner动态设置adapter，主要用于修改spinner的text值
                         MyDateSpinner.this.setAdapter(new BaseAdapter() {
  

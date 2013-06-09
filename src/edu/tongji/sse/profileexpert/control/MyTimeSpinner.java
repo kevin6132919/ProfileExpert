@@ -16,8 +16,24 @@ import edu.tongji.sse.profileexpert.R;
  
 public class MyTimeSpinner extends Spinner
 {
+	private int _hour = -1;
+	private int _minute = -1;
+	
     public MyTimeSpinner(Context context){
         super(context);
+    }
+    
+    public MyTimeSpinner(Context context,int hour,int minute)
+    {
+        super(context);
+        _hour = hour;
+        _minute = minute;
+    }
+    
+    public void setDefault(int hour,int minute)
+    {
+        _hour = hour;
+        _minute = minute;
     }
  
     public MyTimeSpinner(Context context, AttributeSet attrs)
@@ -27,7 +43,14 @@ public class MyTimeSpinner extends Spinner
             return;
         }
         final Time time = new Time();
-        time.setToNow();
+        if(_hour==-1 || _minute==-1)
+        	time.setToNow();
+        else
+        {
+        	time.setToNow();
+        	time.hour = _hour;
+        	time.minute = _minute;
+        }
         //为MyDateSpinner设置adapter，主要用于显示spinner的text值
         MyTimeSpinner.this.setAdapter(new BaseAdapter()
         {
@@ -63,7 +86,14 @@ public class MyTimeSpinner extends Spinner
     public boolean performClick()
     {
         Time time = new Time();
-        time.setToNow();
+        if(_hour==-1 || _minute==-1)
+        	time.setToNow();
+        else
+        {
+        	time.setToNow();
+        	time.hour = _hour;
+        	time.minute = _minute;
+        }
         TimePickerDialog tpd = new TimePickerDialog(
         		getContext(),
         		new OnTimeSetListener()
@@ -71,6 +101,8 @@ public class MyTimeSpinner extends Spinner
 					@Override
 					public void onTimeSet(TimePicker view, final int hourOfDay, final int minute)
 					{
+				        _hour = hourOfDay;
+				        _minute = minute;
 						//为MyDateSpinner设置adapter，主要用于显示spinner的text值
 				        MyTimeSpinner.this.setAdapter(new BaseAdapter()
 				        {
