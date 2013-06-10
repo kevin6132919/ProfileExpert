@@ -3,13 +3,20 @@ package edu.tongji.sse.profileexpert.main;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import edu.tongji.sse.profileexpert.R;
 
 public class RoutineActivity extends Activity
 {
+	public static final String WEEKDAY_SELECTED = "weekday_selected"; 
+	
 	private TextView tv_1 = null;
 	private TextView tv_2 = null;
 	private TextView tv_3 = null;
@@ -19,7 +26,8 @@ public class RoutineActivity extends Activity
 	private TextView tv_7 = null;
 	private Calendar c = Calendar.getInstance();
 	private String[] weekdays = null;
-		
+	
+	private int current_selected = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +48,8 @@ public class RoutineActivity extends Activity
 		};
 		
 		initWeekdays();
-		
+
+		select(3);
 	}
 
 	//初始化周一至周日
@@ -49,15 +58,53 @@ public class RoutineActivity extends Activity
 		c.setTimeInMillis(System.currentTimeMillis());
 		int today = c.get(Calendar.DAY_OF_WEEK);
 		int[] days = getDayOfWeek(today);
-		tv_1.setText(weekdays[days[0]]);
-		tv_2.setText(weekdays[days[1]]);
-		tv_3.setText(weekdays[days[2]]);
-		tv_4.setText(weekdays[days[3]]);
-		tv_5.setText(weekdays[days[4]]);
-		tv_6.setText(weekdays[days[5]]);
-		tv_7.setText(weekdays[days[6]]);
 		
-		tv_4.setBackgroundColor(Color.rgb(196, 227, 183));
+		for(int i=0;i<7;i++)
+		{
+			final int _i = i;
+			TextView tv = getWeekdayTextView(i);
+			tv.setText(weekdays[days[i]]);
+			tv.setOnClickListener(new OnClickListener()
+			{
+				@Override
+				public void onClick(View v) {
+					select(_i);
+				}
+			});
+		}
+	}
+
+	private TextView getWeekdayTextView(int index)
+	{
+		switch(index)
+		{
+		case 0:
+			return tv_1;
+		case 1:
+			return tv_2;
+		case 2:
+			return tv_3;
+		case 3:
+			return tv_4;
+		case 4:
+			return tv_5;
+		case 5:
+			return tv_6;
+		default:
+			return tv_7;
+		}
+	}
+	
+	private void select(int index)
+	{
+		if(current_selected == index)
+			return;
+		for(int i=0;i<7;i++)
+		{
+			getWeekdayTextView(i).setBackgroundColor(Color.TRANSPARENT);
+		}
+		getWeekdayTextView(index).setBackgroundColor(Color.rgb(196, 227, 183));
+		current_selected = index;
 	}
 
 	private int[] getDayOfWeek(int dayOfWeek)
@@ -92,4 +139,27 @@ public class RoutineActivity extends Activity
 		tv_7 = (TextView) findViewById(R.id.tv_7);
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.routine, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+		case R.id.action_add_routine:
+			//跳转到新增日程界面
+			Intent intent=new Intent();
+			intent.setClass(RoutineActivity.this, CreateRoutineActivity.class);
+			intent.putExtra(WEEKDAY_SELECTED, current_selected);
+			startActivity(intent);
+			return true;
+		default:
+			return false;
+		}
+	}
 }

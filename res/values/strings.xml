@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">模式管家</string>
-    <string name="routine">日程</string>
+    <string name="routine">日程管理</string>
+    <string name="new_routine">新增日程</string>
     <string name="tempMatter">临时事项</string>
     <string name="customProfile">自定义模式</string>
     <string name="setting">软件设置</string>

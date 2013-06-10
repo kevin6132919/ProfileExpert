@@ -4,4 +4,5 @@
     <dimen name="calendar_text_size">15sp</dimen>
 	<dimen name="temp_matter_listview_horizontal_margin">18dp</dimen>
 	<dimen name="time_text_size">12sp</dimen>
+    <dimen name="activity_routine_margin">2dp</dimen>
 </resources>
