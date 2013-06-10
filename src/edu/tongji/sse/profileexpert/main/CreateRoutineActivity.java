@@ -92,11 +92,8 @@ public class CreateRoutineActivity extends Activity
 		ContentValues values = new ContentValues();
 		values.put(RoutineTable.TITLE, title);
 
-		if(is_same_day)
-		{
-			if(!checkTime(time_from, time_to))
-				return;
-		}
+		if(!checkTime(weekdaySelected, is_same_day, time_from, time_to))
+			return;
 
 		String show_str = time_from
 				+ "-" + time_to
@@ -119,23 +116,117 @@ public class CreateRoutineActivity extends Activity
 
 
 	//检查输入时间 的合法性
-	private boolean checkTime(String time_from, String time_to)
+	private boolean checkTime(int weekdaySelected, boolean is_same_day,
+			String time_from, String time_to)
 	{
-		int hour = -1, minute = -1;
-		hour = Integer.parseInt(time_from.substring(0,2));
-		minute = Integer.parseInt(time_from.substring(3));
-		int from = hour * 60 + minute;
-
-		hour = Integer.parseInt(time_to.substring(0,2));
-		minute = Integer.parseInt(time_to.substring(3));
-		int to = hour * 60 + minute;
-		
-		if(from>=to)
+		//检查时间顺序是否混乱
+		if(is_same_day)
 		{
-			Toast.makeText(this, getString(R.string.invalid_time), Toast.LENGTH_LONG).show();
+			int hour = -1, minute = -1;
+			hour = Integer.parseInt(time_from.substring(0,2));
+			minute = Integer.parseInt(time_from.substring(3));
+			int from = hour * 60 + minute;
+
+			hour = Integer.parseInt(time_to.substring(0,2));
+			minute = Integer.parseInt(time_to.substring(3));
+			int to = hour * 60 + minute;
+
+			if(from>=to)
+			{
+				Toast.makeText(this, getString(R.string.invalid_time), Toast.LENGTH_LONG).show();
+				return false;
+			}
+		}
+		
+		//检查是否与其它日程产生冲突
+		Cursor cursor = null;
+		if(is_same_day)
+		{
+			cursor = getContentResolver().query(
+				RoutineTable.CONTENT_URI,
+				null,
+				"(" +
+					"(" + RoutineTable.START_DAY + "=? AND " + RoutineTable.IS_SAME_DAY + "=?" +
+					") AND ("+"("+ RoutineTable.TIME_FROM + ">? AND " + RoutineTable.TIME_FROM + "<?" +
+						      ") OR (" + RoutineTable.TIME_TO + ">? AND " + RoutineTable.TIME_TO + "<?" +
+							       ") OR ("  + RoutineTable.TIME_FROM + "<? AND " + RoutineTable.TIME_TO + ">?" +
+							       		")" +
+						  ")" +
+				") OR (" + RoutineTable.START_DAY + "=? AND " + RoutineTable.IS_SAME_DAY + "=? AND " +
+						RoutineTable.TIME_FROM + "<?" +
+					 ")" +
+				"OR (" + RoutineTable.START_DAY + "=? AND " + RoutineTable.IS_SAME_DAY + "=? AND " +
+						RoutineTable.TIME_TO + ">?" +
+					")"
+				,
+				new String[]{""+weekdaySelected, ""+1,
+						time_from, time_to,
+						time_from, time_to,
+						time_from, time_to,
+						""+weekdaySelected, ""+0,
+						time_to,
+						""+getYesterday(weekdaySelected), ""+0,
+						time_from,
+						},
+				null);
+		}
+		else
+		{
+			cursor = getContentResolver().query(
+				RoutineTable.CONTENT_URI,
+				null,
+				"("
+					+ RoutineTable.START_DAY + "=? AND " + RoutineTable.IS_SAME_DAY + "=? " +
+				") OR " + 
+				"("
+				 	+ RoutineTable.START_DAY + "=? AND " + RoutineTable.IS_SAME_DAY + "=? AND " +
+				 		RoutineTable.TIME_TO + ">?" +
+				") OR " +
+				"(" 
+					+ RoutineTable.START_DAY + "=? AND " + RoutineTable.IS_SAME_DAY + "=? AND " +
+			 			RoutineTable.TIME_TO + ">?" +
+				") OR " +
+				"(" 
+					+ RoutineTable.START_DAY + "=? AND " +
+						RoutineTable.TIME_FROM + "<?" +
+				")"
+				,
+					
+				new String[]{""+weekdaySelected, ""+0,
+						""+weekdaySelected, ""+1,
+						time_from,
+						""+getYesterday(weekdaySelected), ""+0,
+						time_from,
+						""+getTomorrow(weekdaySelected),
+						time_to,
+						},
+				null);
+		}
+
+		if(cursor.moveToFirst())
+		{
+			Toast.makeText(this, getString(R.string.conflict_time), Toast.LENGTH_LONG).show();
 			return false;
 		}
 		return true;
+	}
+
+	//得到后一天
+	private int getTomorrow(int today)
+	{
+		if(today == 6)
+			return 0;
+		else
+			return today + 1;
+	}
+	
+	//得到前一天
+	private int getYesterday(int today)
+	{
+		if(today > 0)
+			return today - 1;
+		else
+			return 6;
 	}
 
 	//由profile的id得到其标题

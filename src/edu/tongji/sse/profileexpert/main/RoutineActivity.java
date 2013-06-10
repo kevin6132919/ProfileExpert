@@ -4,14 +4,17 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import edu.tongji.sse.profileexpert.R;
+import edu.tongji.sse.profileexpert.provider.RoutineTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class RoutineActivity extends Activity
@@ -25,7 +28,9 @@ public class RoutineActivity extends Activity
 	private TextView tv_5 = null;
 	private TextView tv_6 = null;
 	private TextView tv_7 = null;
+	private LinearLayout ll_routine = null;
 	private Calendar c = Calendar.getInstance();
+	private Cursor cursor = null;
 	private String[] weekdays = null;
 	private int days[] = null;
 	
@@ -59,10 +64,34 @@ public class RoutineActivity extends Activity
 	//绘制日程到屏幕
 	private void drawRoutine()
 	{
-		int today = days[current_selected];
+		getCursor();
+		
 		
 	}
 	
+	private void getCursor()
+	{
+		int today = days[current_selected];
+		cursor = this.getContentResolver().query(
+				RoutineTable.CONTENT_URI,
+				null,
+				"("+RoutineTable.START_DAY + "=? "
+						+ " OR (" + RoutineTable.IS_SAME_DAY + "=? AND "+ RoutineTable.START_DAY + "=?" +
+							  ")" +
+				")",
+				new String[]{""+today,""+0,""+getYesterday(today)},
+				RoutineTable.TIME_FROM + " ASC");
+	}
+
+	//得到前一天
+	private int getYesterday(int today)
+	{
+		if(today > 0)
+			return today - 1;
+		else
+			return 6;
+	}
+
 	//初始化周一至周日
 	private void initWeekdays()
 	{
@@ -148,6 +177,7 @@ public class RoutineActivity extends Activity
 		tv_5 = (TextView) findViewById(R.id.tv_5);
 		tv_6 = (TextView) findViewById(R.id.tv_6);
 		tv_7 = (TextView) findViewById(R.id.tv_7);
+		ll_routine = (LinearLayout) findViewById(R.id.ll_routine);
 	}
 	
 	@Override
