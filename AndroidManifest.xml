@@ -77,5 +77,9 @@
             android:name="edu.tongji.sse.profileexpert.provider.TempMatterProvider"
             android:authorities="edu.tongji.sse.profileexpert.tempmatterprovider"
             android:exported="false" />
+        <provider
+            android:name="edu.tongji.sse.profileexpert.provider.RoutineProvider"
+            android:authorities="edu.tongji.sse.profileexpert.routineprovider"
+            android:exported="false" />
     </application>
 </manifest>

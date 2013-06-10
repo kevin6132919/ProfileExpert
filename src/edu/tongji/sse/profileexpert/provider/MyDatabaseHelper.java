@@ -9,7 +9,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 {
 	//数据库名
 	public static final String DATABASE_NAME = "profile_expert.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	//表名
 	private static final String TABLE_NAME_1 = MyProfileTable.TABLE_NAME;
 	//创建表SQL语句
@@ -57,6 +57,28 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 			+ TempMatterTable.PROFILE_ID
 			+ " LONG" + ");";
 
+	private static final String TABLE_NAME_3 = RoutineTable.TABLE_NAME;
+	private static final String CREATE_TABLE_3 ="CREATE TABLE "
+			+ TABLE_NAME_3
+			+ "(" + RoutineTable._ID
+			+ " INTEGER PRIMARY KEY,"
+			+ RoutineTable.TITLE
+			+ " TEXT,"
+			+ RoutineTable.START_DAY
+			+ " INTEGER,"
+			+ RoutineTable.IS_SAME_DAY
+			+ " BOOLEAN,"
+			+ RoutineTable.TIME_FROM
+			+ " TEXT,"
+			+ RoutineTable.TIME_TO
+			+ " TEXT,"
+			+ RoutineTable.SHOW_STRING
+			+ " TEXT,"
+			+ RoutineTable.DESCRIPTION
+			+ " TEXT,"
+			+ RoutineTable.PROFILE_ID
+			+ " LONG" + ");";
+	
 	//构造函数-创建数据库
 	public MyDatabaseHelper(Context context)
 	{
@@ -70,6 +92,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 		db.execSQL(CREATE_TABLE_1);
 		addDefaultProfile(db);
 		db.execSQL(CREATE_TABLE_2);
+		db.execSQL(CREATE_TABLE_3);
 	}
 
 	//在表中增加预定义的模式
@@ -85,8 +108,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
-		db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_1);
-		db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_2);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_1);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_2);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_3);
 		onCreate(db);
 	}
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import edu.tongji.sse.profileexpert.R;
+import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class RoutineActivity extends Activity
 {
@@ -51,8 +52,17 @@ public class RoutineActivity extends Activity
 		initWeekdays();
 
 		select(3);
+		
+		drawRoutine();
 	}
 
+	//绘制日程到屏幕
+	private void drawRoutine()
+	{
+		int today = days[current_selected];
+		
+	}
+	
 	//初始化周一至周日
 	private void initWeekdays()
 	{
@@ -157,10 +167,24 @@ public class RoutineActivity extends Activity
 			Intent intent=new Intent();
 			intent.setClass(RoutineActivity.this, CreateRoutineActivity.class);
 			intent.putExtra(WEEKDAY_SELECTED, days[current_selected]);
-			startActivity(intent);
+			startActivityForResult(intent,MyConstant.REQUEST_CODE_CREATE_ROUTINE);
 			return true;
 		default:
 			return false;
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == MyConstant.REQUEST_CODE_CREATE_ROUTINE)
+		{
+			if (resultCode == RESULT_OK)
+			{
+				drawRoutine();
+			}
 		}
 	}
 }
