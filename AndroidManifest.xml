@@ -60,6 +60,10 @@
             android:name="edu.tongji.sse.profileexpert.main.EditTempMatterActivity"
             android:label="@string/editTempMatter" >
         </activity>
+        <activity
+            android:name="edu.tongji.sse.profileexpert.main.RoutineActivity"
+            android:label="@string/routine" >
+        </activity>
 
         <provider
             android:name="edu.tongji.sse.profileexpert.provider.MyProfileProvider"

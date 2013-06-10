@@ -20,6 +20,7 @@ public class MainActivity extends Activity implements OnCellTouchListener
 	private ImageButton ib_setting = null;
 	private ImageButton ib_customeProfile = null;
 	private ImageButton ib_tempMatter = null;
+	private ImageButton ib_routine = null;
 	private MyCalendarView calendar = null;
 
 	@Override
@@ -61,6 +62,17 @@ public class MainActivity extends Activity implements OnCellTouchListener
 			}
 		});
 
+		ib_routine = (ImageButton) findViewById(R.id.ib_routine);
+		ib_routine.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(View v) {
+				//跳转到自定义模式界面
+				Intent intent=new Intent();
+				intent.setClass(MainActivity.this, RoutineActivity.class);
+				startActivity(intent);
+			}
+		});
+		
 		calendar = (MyCalendarView) findViewById(R.id.my_calendar);
 		calendar.setOnCellTouchListener(this);
 	}

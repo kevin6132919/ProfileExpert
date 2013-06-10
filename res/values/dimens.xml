@@ -4,6 +4,7 @@
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="activity_rectangle_margin">2dp</dimen>
+    <dimen name="activity_routine_margin">8dp</dimen>
     
     <dimen name="main_screen_img_near_center_padding">20dp</dimen>
     <dimen name="main_screen_img_near_edge_padding">35dp</dimen>
@@ -35,4 +36,11 @@
 	<dimen name="new_temp_matter_item_tips_horizonal_margin">8dp</dimen>
 	<dimen name="new_temp_matter_item_tips_text_size">18sp</dimen>
 	<dimen name="new_temp_matter_time_picker_margin">3dp</dimen>
+	
+	<dimen name="routine_weekday_width">100dp</dimen>
+	<dimen name="routine_weekday_marginLeft">1.5dp</dimen>
+	<dimen name="routine_weekday_marginTop">0.5dp</dimen>
+	<dimen name="routine_weekday_marginBottom">0.5dp</dimen>
+	<dimen name="routine_weekday_marginRight">0.5dp</dimen>
+	<dimen name="routine_weekday_text_size">30sp</dimen>
 </resources>
