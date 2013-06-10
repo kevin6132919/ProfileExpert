@@ -26,6 +26,7 @@ public class RoutineActivity extends Activity
 	private TextView tv_7 = null;
 	private Calendar c = Calendar.getInstance();
 	private String[] weekdays = null;
+	private int days[] = null;
 	
 	private int current_selected = -1;
 
@@ -57,7 +58,7 @@ public class RoutineActivity extends Activity
 	{
 		c.setTimeInMillis(System.currentTimeMillis());
 		int today = c.get(Calendar.DAY_OF_WEEK);
-		int[] days = getDayOfWeek(today);
+		days = getDayOfWeek(today);
 		
 		for(int i=0;i<7;i++)
 		{
@@ -155,7 +156,7 @@ public class RoutineActivity extends Activity
 			//跳转到新增日程界面
 			Intent intent=new Intent();
 			intent.setClass(RoutineActivity.this, CreateRoutineActivity.class);
-			intent.putExtra(WEEKDAY_SELECTED, current_selected);
+			intent.putExtra(WEEKDAY_SELECTED, days[current_selected]);
 			startActivity(intent);
 			return true;
 		default:

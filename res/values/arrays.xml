@@ -61,4 +61,19 @@
         <item>2</item>
     </string-array>
     <string name="vibrate_setting_defaut_value">0</string>
+    
+    <!-- 新建日程 -->
+    <string-array name="sp_weekday_from_display">
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+        <item>周日</item>
+    </string-array>
+    <string-array name="sp_weekday_to_display">
+        <item>当日</item>
+        <item>次日</item>
+    </string-array>
 </resources>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_rectangle_margin"
+    android:background="@drawable/gray_rectangle_background" >
+
+    <TableLayout
+        android:id="@+id/table4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/background_light"
+        android:stretchColumns="0,1" >
+
+        <TableRow tools:ignore="UselessParent" >
+
+            <Button
+                android:id="@+id/bt_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:background="@drawable/button_style"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/bt_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:background="@drawable/button_style"
+                android:text="@string/save" />
+        </TableRow>
+    </TableLayout>
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/table4"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/new_temp_matter_time_picker_margin" >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_marginLeft="@dimen/new_temp_matter_item_tips_horizonal_margin"
+                android:layout_marginRight="@dimen/new_temp_matter_item_tips_horizonal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/title"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/new_temp_matter_item_tips_text_size" />
+
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_toRightOf="@id/tv_title"
+                android:background="@null"
+                android:hint="@string/titleTips"
+                android:inputType="text" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/parting_line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/new_temp_matter_time_picker_margin"
+            android:layout_marginTop="@dimen/new_temp_matter_time_picker_margin" >
+
+            <TextView
+                android:id="@+id/tv_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_marginLeft="@dimen/new_temp_matter_item_tips_horizonal_margin"
+                android:layout_marginRight="@dimen/new_temp_matter_item_tips_horizonal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/start"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/new_temp_matter_item_tips_text_size" />
+
+            <Spinner
+                android:id="@+id/sp_weekday_from"
+                android:clickable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_toRightOf="@id/tv_start" />
+
+            <edu.tongji.sse.profileexpert.control.MyTimeSpinner
+                android:id="@+id/my_time_spinner_from"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_toRightOf="@id/sp_weekday_from" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/parting_line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/new_temp_matter_time_picker_margin"
+            android:layout_marginTop="@dimen/new_temp_matter_time_picker_margin" >
+
+            <TextView
+                android:id="@+id/tv_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_marginLeft="@dimen/new_temp_matter_item_tips_horizonal_margin"
+                android:layout_marginRight="@dimen/new_temp_matter_item_tips_horizonal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/end"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/new_temp_matter_item_tips_text_size" />
+
+            <Spinner
+                android:id="@+id/sp_weekday_to"
+                android:layout_width="wrap_content"
+            	android:spinnerMode="dropdown"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_toRightOf="@id/tv_end" />
+
+            <edu.tongji.sse.profileexpert.control.MyTimeSpinner
+                android:id="@+id/my_time_spinner_to"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_toRightOf="@id/sp_weekday_to" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/parting_line" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/new_temp_matter_time_picker_margin" >
+
+            <TextView
+                android:id="@+id/tv_explain"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_marginLeft="@dimen/new_temp_matter_item_tips_horizonal_margin"
+                android:layout_marginRight="@dimen/new_temp_matter_item_tips_horizonal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/explain"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/new_temp_matter_item_tips_text_size" />
+
+            <EditText
+                android:id="@+id/et_explain"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_temp_matter_item_height"
+                android:layout_toRightOf="@id/tv_explain"
+                android:background="@null"
+                android:hint="@string/explainTips"
+                android:inputType="text" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/parting_line" />
+
+        <Spinner
+            android:id="@+id/sp_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            android:drawSelectorOnTop="true"
+            android:prompt="@string/selectProfile" />
+    </LinearLayout>
+    
+</RelativeLayout>
