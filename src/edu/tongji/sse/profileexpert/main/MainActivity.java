@@ -14,6 +14,7 @@ import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendar.MyCell;
 import edu.tongji.sse.profileexpert.calendar.OnCellTouchListener;
+import edu.tongji.sse.profileexpert.reminding.RemindingManager;
 
 public class MainActivity extends Activity implements OnCellTouchListener
 {
@@ -22,6 +23,7 @@ public class MainActivity extends Activity implements OnCellTouchListener
 	private ImageButton ib_tempMatter = null;
 	private ImageButton ib_routine = null;
 	private MyCalendarView calendar = null;
+	public static RemindingManager rm = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -75,6 +77,8 @@ public class MainActivity extends Activity implements OnCellTouchListener
 		
 		calendar = (MyCalendarView) findViewById(R.id.my_calendar);
 		calendar.setOnCellTouchListener(this);
+		
+		rm = new RemindingManager(this,this.getContentResolver());
 	}
 
 

@@ -3,7 +3,7 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings" >
 
     <PreferenceCategory android:title="软件状态" >
-        <SwitchPreference
+        <CheckBoxPreference
             android:defaultValue="false"
             android:key="arm_status"
             android:summaryOff="自动切换已关闭"

@@ -51,9 +51,9 @@ public class MyConstant
 	public static String getRemindingTimeText(int type)
 	{
 		if(type == 30)
-			return type + MINUTE;
-		else
 			return type + SECOND;
+		else
+			return type + MINUTE;
 	}
 	
 	//activity之间的传值类型
