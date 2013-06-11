@@ -34,6 +34,10 @@
     <string name="delete_temp_matter_success">临时事项删除成功</string>
     <string name="delete_temp_matter_fail">临时事项删除失败</string>
     
+    <string name="delete_routine_text">确定要删除该日程吗?删除后将无法恢复!</string>
+    <string name="delete_routine_success">日程删除成功</string>
+    <string name="delete_routine_fail">日程删除失败</string>
+    
     <string name="content">内容</string>
     <string name="start">开始</string>
     <string name="end">结束</string>
@@ -64,5 +68,6 @@
     <string name="account_not_exist">手机中未保存谷歌账户,新增事项无法写入谷歌日历!</string>
     <string name="weekday_not_selected">未选择从哪一天开始!</string>
     <string name="no_routine">当前没有日程</string>
+    <string name="routine_not_exist">所选日程不存在!</string>
     
 </resources>

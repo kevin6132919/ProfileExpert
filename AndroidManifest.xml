@@ -68,6 +68,10 @@
             android:name="edu.tongji.sse.profileexpert.main.CreateRoutineActivity"
             android:label="@string/new_routine" >
         </activity>
+        <activity
+            android:name="edu.tongji.sse.profileexpert.main.EditRoutineActivity"
+            android:label="@string/new_routine" >
+        </activity>
 
         <provider
             android:name="edu.tongji.sse.profileexpert.provider.MyProfileProvider"

@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -31,7 +32,8 @@ import edu.tongji.sse.profileexpert.util.MyConstant;
 public class RoutineActivity extends Activity
 {
 	public static final String WEEKDAY_SELECTED = "weekday_selected";
-	
+	public static final String EDIT_ROUTINE_ID_KEY = "edit_routine_id";
+
 	private TextView tv_1 = null;
 	private TextView tv_2 = null;
 	private TextView tv_3 = null;
@@ -45,7 +47,7 @@ public class RoutineActivity extends Activity
 	private String[] weekdays = null;
 	List<DrawableRoutine> routineList = null;
 	private int days[] = null;
-	
+
 	private int current_selected = -1;
 
 	@Override
@@ -53,9 +55,9 @@ public class RoutineActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.routine);
-		
+
 		findViews();
-		
+
 		weekdays = new String[]{
 				getString(R.string.Monday),//0
 				getString(R.string.Tuesday),//1
@@ -65,9 +67,9 @@ public class RoutineActivity extends Activity
 				getString(R.string.Saturday),//5
 				getString(R.string.Sunday)//6
 		};
-		
+
 		initWeekdays();
-		
+
 		/*TextView tv = new TextView(this);
 		tv.setText("test");
 		tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1));
@@ -80,7 +82,7 @@ public class RoutineActivity extends Activity
 	private void drawRoutine()
 	{
 		getCursor();
-		
+
 		routineList = new ArrayList<DrawableRoutine>();
 		ll_routine.removeAllViews();
 		while(cursor.moveToNext())
@@ -94,13 +96,13 @@ public class RoutineActivity extends Activity
 			String showString = cursor.getString(cursor.getColumnIndex(RoutineTable.SHOW_STRING));
 			DrawableRoutine dr = getRoutine(id, time_from, time_to,
 					is_same_day, start_day, showString);
-			
+
 			routineList.add(dr);
 		}
-		
+
 		drawByList();
 	}
-	
+
 	private void drawByList()
 	{
 		Collections.sort(routineList);
@@ -125,16 +127,16 @@ public class RoutineActivity extends Activity
 				}
 			}
 		}
-		
+
 		if(nowDrawing < DrawableRoutine.END_MINUTES)
 		{
 			ll_routine.addView(newBlankTextView(DrawableRoutine.END_MINUTES - nowDrawing));
 		}
-		
+
 		//ll_routine.postInvalidate();
 	}
 
-	private Button newRoutineButton(DrawableRoutine dr)
+	private Button newRoutineButton(final DrawableRoutine dr)
 	{
 		Button bt = new Button(this);
 		int interval = dr.getEnd() - dr.getStart();
@@ -148,9 +150,80 @@ public class RoutineActivity extends Activity
 		else
 			bt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
 		bt.setBackgroundResource(R.drawable.routine_style);
+		bt.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				showSelectDialog(dr.getId());
+			}
+		});
 		return bt;
 	}
 
+	private void showSelectDialog(final long id)
+	{
+		new AlertDialog.Builder(RoutineActivity.this)
+		.setIcon(android.R.drawable.ic_menu_info_details)
+		.setTitle(getString(R.string.select))
+		.setItems(
+				new String[] { getString(R.string.edit), getString(R.string.delete) },
+				new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
+						switch(which)
+						{
+						case 0:
+							editCorrespondingRoutine(id);
+							break;
+						case 1:
+							delteCorrespondingRoutine(id);
+							break;
+						}
+						dialog.dismiss();
+					}
+				})
+				.setNegativeButton(getString(R.string.cancel), null)
+				.show();
+	}
+
+	private void delteCorrespondingRoutine(final long id)
+	{
+		new Builder(this)
+		.setIcon(R.drawable.alerts_warning)
+		.setMessage(getString(R.string.delete_routine_text))
+		.setTitle(getString(R.string.tips))
+		.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which)
+			{
+				String msg = null;
+				int result = getContentResolver().delete(
+						RoutineTable.CONTENT_URI,
+						RoutineTable._ID + "=?",
+						new String[]{""+id});
+				if(result == 1)
+					msg = getString(R.string.delete_routine_success);
+				else
+					msg = getString(R.string.delete_routine_fail);
+				Toast.makeText(RoutineActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+				drawRoutine();
+				dialog.dismiss();
+			}})
+			.setNegativeButton(getString(R.string.cancel), null)
+			.show();
+	}
+
+	private void editCorrespondingRoutine(long id)
+	{
+		//跳转到编辑临时事项界面
+		Intent intent=new Intent();
+		intent.setClass(RoutineActivity.this, EditRoutineActivity.class);
+		intent.putExtra(EDIT_ROUTINE_ID_KEY, id);
+		startActivityForResult(intent, MyConstant.REQUEST_CODE_EDIT_ROUTINE); 
+	}
+	
 	private TextView newBlankTextView(int interval)
 	{
 		TextView tv = new TextView(this);
@@ -249,7 +322,7 @@ public class RoutineActivity extends Activity
 			start = from;
 			end = to;
 		}
-		
+
 		return new DrawableRoutine(id, start, end, status, showString);
 	}
 
@@ -261,10 +334,10 @@ public class RoutineActivity extends Activity
 				null,
 				"("+RoutineTable.START_DAY + "=? "
 						+ " OR (" + RoutineTable.IS_SAME_DAY + "=? AND "+ RoutineTable.START_DAY + "=?" +
-							  ")" +
-				")",
-				new String[]{""+today,""+0,""+getYesterday(today)},
-				RoutineTable.START_DAY + " ASC ," + RoutineTable.TIME_FROM + " ASC");
+						")" +
+						")",
+						new String[]{""+today,""+0,""+getYesterday(today)},
+						RoutineTable.START_DAY + " ASC ," + RoutineTable.TIME_FROM + " ASC");
 	}
 
 	//得到前一天
@@ -282,7 +355,7 @@ public class RoutineActivity extends Activity
 		c.setTimeInMillis(System.currentTimeMillis());
 		int today = c.get(Calendar.DAY_OF_WEEK);
 		days = getDayOfWeek(today);
-		
+
 		for(int i=0;i<7;i++)
 		{
 			final int _i = i;
@@ -318,7 +391,7 @@ public class RoutineActivity extends Activity
 			return tv_7;
 		}
 	}
-	
+
 	private void select(int index)
 	{
 		if(current_selected == index)
@@ -352,17 +425,17 @@ public class RoutineActivity extends Activity
 			return new int[]{3,4,5,6,0,1,2};
 		}
 	}
-	
+
 	private void showRoutineListInDialog()
 	{
 		String[] items = getRoutineItems();
-		
+
 		if(items.length == 0)
 		{
 			Toast.makeText(RoutineActivity.this, getString(R.string.no_routine), Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
+
 		new AlertDialog.Builder(this)
 		.setIcon(R.drawable.list_item_black)
 		.setTitle(weekdays[days[current_selected]])
@@ -372,13 +445,14 @@ public class RoutineActivity extends Activity
 				{
 					public void onClick(DialogInterface dialog, int which)
 					{
+						showSelectDialog(routineList.get(which).getId());
 						dialog.dismiss();
 					}
 				})
 				.setNegativeButton(getString(R.string.cancel), null)
 				.show();
 	}
-	
+
 	private String[] getRoutineItems()
 	{
 		String[] items = new String[routineList.size()];
@@ -400,7 +474,7 @@ public class RoutineActivity extends Activity
 		tv_7 = (TextView) findViewById(R.id.tv_7);
 		ll_routine = (LinearLayout) findViewById(R.id.ll_routine);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -434,6 +508,13 @@ public class RoutineActivity extends Activity
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == MyConstant.REQUEST_CODE_CREATE_ROUTINE)
+		{
+			if (resultCode == RESULT_OK)
+			{
+				drawRoutine();
+			}
+		}
+		else if(requestCode == MyConstant.REQUEST_CODE_EDIT_ROUTINE)
 		{
 			if (resultCode == RESULT_OK)
 			{
