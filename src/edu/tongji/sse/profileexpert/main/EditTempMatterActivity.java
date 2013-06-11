@@ -247,10 +247,10 @@ public class EditTempMatterActivity extends Activity
 	//¼ô¶Ìstring
 	private String shortString(String title, int length)
 	{
-		if(title.length() < length)
+		if(title.length() < length + 2)
 			return title;
 		else
-			return title.substring(0, length)+"...";
+			return title.substring(0, length)+"..";
 	}
 
 	//ºóÍË

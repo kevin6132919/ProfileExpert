@@ -1,25 +1,36 @@
 package edu.tongji.sse.profileexpert.main;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
+import edu.tongji.sse.profileexpert.entity.DrawableRoutine;
 import edu.tongji.sse.profileexpert.provider.RoutineTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class RoutineActivity extends Activity
 {
-	public static final String WEEKDAY_SELECTED = "weekday_selected"; 
+	public static final String WEEKDAY_SELECTED = "weekday_selected";
 	
 	private TextView tv_1 = null;
 	private TextView tv_2 = null;
@@ -32,6 +43,7 @@ public class RoutineActivity extends Activity
 	private Calendar c = Calendar.getInstance();
 	private Cursor cursor = null;
 	private String[] weekdays = null;
+	List<DrawableRoutine> routineList = null;
 	private int days[] = null;
 	
 	private int current_selected = -1;
@@ -55,10 +67,13 @@ public class RoutineActivity extends Activity
 		};
 		
 		initWeekdays();
-
-		select(3);
 		
-		drawRoutine();
+		/*TextView tv = new TextView(this);
+		tv.setText("test");
+		tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1));
+		ll_routine.addView(tv);*/
+		//ll_routine.postInvalidate();
+		select(3);
 	}
 
 	//绘制日程到屏幕
@@ -66,9 +81,178 @@ public class RoutineActivity extends Activity
 	{
 		getCursor();
 		
+		routineList = new ArrayList<DrawableRoutine>();
+		ll_routine.removeAllViews();
+		while(cursor.moveToNext())
+		{
+			long id = cursor.getLong(cursor.getColumnIndex(RoutineTable._ID));
+			String time_from = cursor.getString(cursor.getColumnIndex(RoutineTable.TIME_FROM));
+			String time_to = cursor.getString(cursor.getColumnIndex(RoutineTable.TIME_TO));
+			boolean is_same_day = "1".equals(cursor.getString(
+					cursor.getColumnIndex(RoutineTable.IS_SAME_DAY)));
+			int start_day = cursor.getInt(cursor.getColumnIndex(RoutineTable.START_DAY));
+			String showString = cursor.getString(cursor.getColumnIndex(RoutineTable.SHOW_STRING));
+			DrawableRoutine dr = getRoutine(id, time_from, time_to,
+					is_same_day, start_day, showString);
+			
+			routineList.add(dr);
+		}
 		
+		drawByList();
 	}
 	
+	private void drawByList()
+	{
+		Collections.sort(routineList);
+		int nowDrawing = DrawableRoutine.START_MINUTES;
+		for(int i=0;i<routineList.size();i++)
+		{
+			DrawableRoutine dr = routineList.get(i);
+			if(dr.getStatus() != DrawableRoutine.NORMAL)
+				continue;
+			else
+			{
+				if(dr.getStart() > nowDrawing)
+				{
+					ll_routine.addView(newBlankTextView(dr.getStart() - nowDrawing));
+					ll_routine.addView(newRoutineButton(dr));
+					nowDrawing = dr.getEnd();
+				}
+				else
+				{
+					ll_routine.addView(newRoutineButton(dr));
+					nowDrawing = dr.getEnd();
+				}
+			}
+		}
+		
+		if(nowDrawing < DrawableRoutine.END_MINUTES)
+		{
+			ll_routine.addView(newBlankTextView(DrawableRoutine.END_MINUTES - nowDrawing));
+		}
+		
+		//ll_routine.postInvalidate();
+	}
+
+	private Button newRoutineButton(DrawableRoutine dr)
+	{
+		Button bt = new Button(this);
+		int interval = dr.getEnd() - dr.getStart();
+		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, 0, interval);
+		lp.gravity = Gravity.CENTER;
+		bt.setLayoutParams(lp);
+		bt.setText(dr.getShowString());
+		//bt.setTextAppearance(this, android.R.attr.textAppearanceSmall);
+		if(interval>60)
+			bt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+		else
+			bt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+		bt.setBackgroundResource(R.drawable.routine_style);
+		return bt;
+	}
+
+	private TextView newBlankTextView(int interval)
+	{
+		TextView tv = new TextView(this);
+		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, 0, interval);
+		tv.setLayoutParams(lp);
+		return tv;
+	}
+
+	private DrawableRoutine getRoutine(long id, String time_from, String time_to,
+			boolean is_same_day, int start_day, String showString)
+	{
+		int hour = -1, minute = -1;
+		hour = Integer.parseInt(time_from.substring(0,2));
+		minute = Integer.parseInt(time_from.substring(3));
+		int from = hour * 60 + minute;
+
+		hour = Integer.parseInt(time_to.substring(0,2));
+		minute = Integer.parseInt(time_to.substring(3));
+		int to = hour * 60 + minute;
+		int start = -1, end = -1 ,status = DrawableRoutine.NORMAL;
+
+		if(days[current_selected] != start_day)
+		{
+			if(to > DrawableRoutine.START_DRAW_MINUTES)
+			{
+				if(to>DrawableRoutine.END_MINUTES)
+				{
+					start = DrawableRoutine.START_MINUTES;
+					end = DrawableRoutine.END_MINUTES;
+				}
+				else
+				{
+					start = DrawableRoutine.START_MINUTES;
+					end = to;
+				}
+			}
+			else
+			{
+				start = 0;
+				end = DrawableRoutine.START_MINUTES;
+				status = DrawableRoutine.TOP;
+			}
+		}
+		else if(from < DrawableRoutine.START_MINUTES)
+		{
+			if(to > DrawableRoutine.START_DRAW_MINUTES)
+			{
+				if(to>DrawableRoutine.END_MINUTES || !is_same_day)
+				{
+					start = DrawableRoutine.START_MINUTES;
+					end = DrawableRoutine.END_MINUTES;
+				}
+				else
+				{
+					start = DrawableRoutine.START_MINUTES;
+					end = to;
+				}
+			}
+			else
+			{
+				start = from;
+				end = to;
+				status = DrawableRoutine.TOP;
+			}
+		}
+		else if(to > DrawableRoutine.END_MINUTES)
+		{
+			if(from < DrawableRoutine.END_DRAW_MINUTES)
+			{
+				start = from;
+				end = DrawableRoutine.END_MINUTES;
+			}
+			else
+			{
+				start = from;
+				end = to;
+				status = DrawableRoutine.BOTTOM;
+			}
+		}
+		else if(from > DrawableRoutine.END_DRAW_MINUTES)
+		{
+			start = from;
+			if(is_same_day)
+				end = to;
+			else
+				end = DrawableRoutine.REAL_END_MINUTES;
+			status = DrawableRoutine.BOTTOM;
+		}
+		else if(!is_same_day)
+		{
+			start = from;
+			end = DrawableRoutine.END_MINUTES;
+		}
+		else
+		{
+			start = from;
+			end = to;
+		}
+		
+		return new DrawableRoutine(id, start, end, status, showString);
+	}
+
 	private void getCursor()
 	{
 		int today = days[current_selected];
@@ -80,7 +264,7 @@ public class RoutineActivity extends Activity
 							  ")" +
 				")",
 				new String[]{""+today,""+0,""+getYesterday(today)},
-				RoutineTable.TIME_FROM + " ASC");
+				RoutineTable.START_DAY + " ASC ," + RoutineTable.TIME_FROM + " ASC");
 	}
 
 	//得到前一天
@@ -145,6 +329,7 @@ public class RoutineActivity extends Activity
 		}
 		getWeekdayTextView(index).setBackgroundColor(Color.rgb(196, 227, 183));
 		current_selected = index;
+		drawRoutine();
 	}
 
 	private int[] getDayOfWeek(int dayOfWeek)
@@ -168,6 +353,42 @@ public class RoutineActivity extends Activity
 		}
 	}
 	
+	private void showRoutineListInDialog()
+	{
+		String[] items = getRoutineItems();
+		
+		if(items.length == 0)
+		{
+			Toast.makeText(RoutineActivity.this, getString(R.string.no_routine), Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		new AlertDialog.Builder(this)
+		.setIcon(R.drawable.list_item_black)
+		.setTitle(weekdays[days[current_selected]])
+		.setItems(
+				items,
+				new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
+						dialog.dismiss();
+					}
+				})
+				.setNegativeButton(getString(R.string.cancel), null)
+				.show();
+	}
+	
+	private String[] getRoutineItems()
+	{
+		String[] items = new String[routineList.size()];
+		for(int i=0;i<items.length;i++)
+		{
+			items[i] = routineList.get(i).getShowString();
+		}
+		return items;
+	}
+
 	private void findViews()
 	{
 		tv_1 = (TextView) findViewById(R.id.tv_1);
@@ -199,11 +420,14 @@ public class RoutineActivity extends Activity
 			intent.putExtra(WEEKDAY_SELECTED, days[current_selected]);
 			startActivityForResult(intent,MyConstant.REQUEST_CODE_CREATE_ROUTINE);
 			return true;
+		case R.id.action_routine_list:
+			showRoutineListInDialog();
+			return true;
 		default:
 			return false;
 		}
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{

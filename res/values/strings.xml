@@ -4,6 +4,7 @@
     <string name="app_name">模式管家</string>
     <string name="routine">日程管理</string>
     <string name="new_routine">新增日程</string>
+    <string name="routine_list">日程列表</string>
     <string name="tempMatter">临时事项</string>
     <string name="customProfile">自定义模式</string>
     <string name="setting">软件设置</string>
@@ -14,7 +15,8 @@
     <string name="add_profile">新增情景模式</string>
     <string name="edit_profile">编辑情景模式</string>
     <string name="save">保存</string>
-    <string name="cancel">返回</string>
+    <string name="cancel">取消</string>
+    <string name="back">返回</string>
     <string name="exit">退出</string>
     <string name="help">帮助</string>
     <string name="new_matter">新建事项</string>
@@ -61,5 +63,6 @@
     <string name="conflict_time">所输入的时间与其它日程冲突!</string>
     <string name="account_not_exist">手机中未保存谷歌账户,新增事项无法写入谷歌日历!</string>
     <string name="weekday_not_selected">未选择从哪一天开始!</string>
+    <string name="no_routine">当前没有日程</string>
     
 </resources>

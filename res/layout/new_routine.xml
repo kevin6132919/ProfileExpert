@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:background="@drawable/button_style"
-                android:text="@string/cancel" />
+                android:text="@string/back" />
 
             <Button
                 android:id="@+id/bt_save"
@@ -34,7 +34,6 @@
         </TableRow>
     </TableLayout>
 
-    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -91,10 +90,10 @@
 
             <Spinner
                 android:id="@+id/sp_weekday_from"
-                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/new_temp_matter_item_height"
-                android:layout_toRightOf="@id/tv_start" />
+                android:layout_toRightOf="@id/tv_start"
+                android:spinnerMode="dropdown" />
 
             <edu.tongji.sse.profileexpert.control.MyTimeSpinner
                 android:id="@+id/my_time_spinner_from"
@@ -128,9 +127,9 @@
             <Spinner
                 android:id="@+id/sp_weekday_to"
                 android:layout_width="wrap_content"
-            	android:spinnerMode="dropdown"
                 android:layout_height="@dimen/new_temp_matter_item_height"
-                android:layout_toRightOf="@id/tv_end" />
+                android:layout_toRightOf="@id/tv_end"
+                android:spinnerMode="dropdown" />
 
             <edu.tongji.sse.profileexpert.control.MyTimeSpinner
                 android:id="@+id/my_time_spinner_to"
@@ -179,9 +178,9 @@
             android:id="@+id/sp_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:spinnerMode="dialog"
             android:drawSelectorOnTop="true"
-            android:prompt="@string/selectProfile" />
+            android:prompt="@string/selectProfile"
+            android:spinnerMode="dialog" />
     </LinearLayout>
-    
+
 </RelativeLayout>

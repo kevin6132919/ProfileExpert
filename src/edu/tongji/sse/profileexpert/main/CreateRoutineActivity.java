@@ -73,6 +73,7 @@ public class CreateRoutineActivity extends Activity
 		String time_from = (String) my_time_spinner_from.getSelectedItem();
 		String time_to = (String) my_time_spinner_to.getSelectedItem();
 		String explain = et_explain.getText().toString();
+		weekday_selected = sp_weekday_from.getSelectedItemPosition();
 		long profile_id = sp_profile.getSelectedItemId();
 		boolean is_same_day = sp_weekday_to.getSelectedItemPosition() == 0;
 
@@ -249,11 +250,12 @@ public class CreateRoutineActivity extends Activity
 	//¼ô¶Ìstring
 	private String shortString(String title, int length)
 	{
-		if(title.length() < length)
+		if(title.length() < length + 2)
 			return title;
 		else
-			return title.substring(0, length)+"...";
+			return title.substring(0, length)+"..";
 	}
+	
 	//ºóÍË
 	private void back()
 	{
@@ -278,6 +280,7 @@ public class CreateRoutineActivity extends Activity
 		ArrayAdapter<CharSequence> sp_weekday_from_adapter = ArrayAdapter.createFromResource(
 				this, R.array.sp_weekday_from_display,
 				R.layout.weekday_select_spinner_item);
+		sp_weekday_from_adapter.setDropDownViewResource(R.layout.weekday_select_spinner_dropdown_item);
 		sp_weekday_from.setAdapter(sp_weekday_from_adapter);
 		sp_weekday_from.setSelection(weekday_selected);
 

@@ -8,7 +8,7 @@
 
             <gradient android:endColor="#DDB822" android:startColor="#DDB822" />
 
-            <padding android:bottom="4dp" android:left="7dp" android:right="7dp" android:top="4dp" />
+            <padding android:bottom="1dp" android:left="7dp" android:right="7dp" android:top="1dp" />
 
             <corners android:radius="2dp" />
         </shape></item>
@@ -20,7 +20,7 @@
 
             <gradient android:endColor="#DDB822" android:startColor="#DDB822" />
 
-            <padding android:bottom="4dp" android:left="7dp" android:right="7dp" android:top="4dp" />
+            <padding android:bottom="1dp" android:left="7dp" android:right="7dp" android:top="1dp" />
 
             <corners android:radius="2dp" />
         </shape></item>
@@ -32,7 +32,7 @@
 
             <gradient android:endColor="#FFEE99" android:startColor="#FFEE66" />
 
-            <padding android:bottom="4dp" android:left="7dp" android:right="7dp" android:top="4dp" />
+            <padding android:bottom="1dp" android:left="7dp" android:right="7dp" android:top="1dp" />
 
             <corners android:radius="2dp" />
         </shape></item>

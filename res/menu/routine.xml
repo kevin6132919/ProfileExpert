@@ -8,4 +8,11 @@
         android:showAsAction="ifRoom"
         android:title="@string/new_routine"/>
 
+<item
+        android:id="@+id/action_routine_list"
+        android:icon="@drawable/list_item"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/routine_list"/>
+
 </menu>
