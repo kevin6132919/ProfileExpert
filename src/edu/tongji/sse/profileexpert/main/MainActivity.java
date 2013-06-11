@@ -1,7 +1,9 @@
 package edu.tongji.sse.profileexpert.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.MonthDisplayHelper;
@@ -15,6 +17,7 @@ import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendar.MyCell;
 import edu.tongji.sse.profileexpert.calendar.OnCellTouchListener;
 import edu.tongji.sse.profileexpert.reminding.RemindingManager;
+import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class MainActivity extends Activity implements OnCellTouchListener
 {
@@ -23,6 +26,7 @@ public class MainActivity extends Activity implements OnCellTouchListener
 	private ImageButton ib_tempMatter = null;
 	private ImageButton ib_routine = null;
 	private MyCalendarView calendar = null;
+	public static SharedPreferences preference = null;
 	public static RemindingManager rm = null;
 
 	@Override
@@ -79,6 +83,14 @@ public class MainActivity extends Activity implements OnCellTouchListener
 		calendar.setOnCellTouchListener(this);
 		
 		rm = new RemindingManager(this,this.getContentResolver());
+		
+		preference = getSharedPreferences(
+				MyConstant.preference_name, Context.MODE_PRIVATE);
+		boolean arm_status = preference.getBoolean("arm_status", false);
+		if(arm_status == true)
+		{
+			rm.startReminding();
+		}
 	}
 
 

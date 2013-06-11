@@ -90,4 +90,7 @@ public class MyConstant
 		default : return Sunday;
 		}
 	}
+	
+	//«–ªªÃ·–—
+	public static final String preference_name = "edu.tongji.sse.profileexpert_preferences";
 }
