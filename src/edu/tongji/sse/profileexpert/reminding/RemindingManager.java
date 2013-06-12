@@ -395,11 +395,13 @@ public class RemindingManager
 		
 		Collections.sort(itemList);
 		
-		if(currentItem != null || itemList.size()>1 )
-		if(currentItem.getId() != itemList.get(0).getId())
-			rearrange(null);
-		else
-			nextItem = itemList.get(1);
+		if(currentItem != null && itemList.size()>1)
+		{
+			if(currentItem.getId() != itemList.get(0).getId())
+				rearrange(null);
+			else
+				nextItem = itemList.get(1);
+		}
 		
 		addItemToNotificationList(nextItem);
 		addItemToChangeProfileList(nextItem);

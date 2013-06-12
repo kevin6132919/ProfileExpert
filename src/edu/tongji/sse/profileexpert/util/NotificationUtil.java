@@ -38,7 +38,7 @@ public class NotificationUtil
 		appIntent.putExtra(RemindingItem.ID, ri.getId());
 		appIntent.putExtra(RemindingItem.TYPE, ri.getType());
 		
-		PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,	appIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,	appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		notification.setLatestEventInfo(ctx,title,content,contentIntent);
 		
