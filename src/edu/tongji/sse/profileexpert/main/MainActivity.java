@@ -124,6 +124,12 @@ public class MainActivity extends Activity implements OnCellTouchListener
 		case R.id.action_save_ringer_mode:
 			mrs = ProfileUtil.getCurrentRingtone(this);
 			return true;
+		case R.id.action_help:
+			//跳转到帮助界面
+			intent=new Intent();
+			intent.setClass(MainActivity.this, HelpActivity.class);
+			startActivity(intent);
+			return true;
 		default:
 			return false;
 		}

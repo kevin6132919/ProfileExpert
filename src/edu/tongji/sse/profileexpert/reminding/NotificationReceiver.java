@@ -2,7 +2,6 @@ package edu.tongji.sse.profileexpert.reminding;
 
 import java.util.Calendar;
 
-import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -75,7 +74,7 @@ public class NotificationReceiver extends BroadcastReceiver
 
 		//发出通知
 		NotificationUtil.sendNotify(context, context.getString(R.string.notification_text_5)
-				, content,Notification.DEFAULT_VIBRATE);
+				, content, ri);
 
 		MainActivity.rm.notificationHappened(isCurrentItem);
 	}

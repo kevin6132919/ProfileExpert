@@ -44,7 +44,7 @@ public class RoutineActivity extends Activity
 	private LinearLayout ll_routine = null;
 	private Calendar c = Calendar.getInstance();
 	private Cursor cursor = null;
-	private String[] weekdays = null;
+	public static String[] weekdays = null;
 	List<DrawableRoutine> routineList = null;
 	private int days[] = null;
 

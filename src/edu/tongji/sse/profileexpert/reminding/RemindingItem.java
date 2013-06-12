@@ -2,6 +2,9 @@ package edu.tongji.sse.profileexpert.reminding;
 
 public class RemindingItem implements Comparable<RemindingItem>
 {
+	public static final String TYPE = "type";
+	public static final String ID = "id";
+	
 	private long startTime = -1;
 	private long endTime = -1;
 	private long id = -1;

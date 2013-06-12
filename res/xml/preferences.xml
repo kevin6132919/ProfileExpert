@@ -11,17 +11,18 @@
             android:title="自动切换" />
     </PreferenceCategory>
     <PreferenceCategory android:title="详细设置" >
-        <PreferenceScreen android:title="切换设置" >
+        <!-- <PreferenceScreen android:title="切换设置" >
             <PreferenceCategory android:title="延迟时间" >
                 <ListPreference
-                    android:defaultValue="@string/switch_delay_defaut_value"
+                    android:defaultValue="后续版本推出"
                     android:entries="@array/switch_delay_display"
                     android:entryValues="@array/switch_delay_value"
                     android:key="switch_delay"
+                    android:selectable="false"
                     android:summary="点击修改"
                     android:title="点击延迟推迟的时间长短" />
             </PreferenceCategory>
-        </PreferenceScreen>
+        </PreferenceScreen> -->
         <PreferenceScreen android:title="提醒设置" >
             <PreferenceCategory android:title="启用状态" >
                 <CheckBoxPreference
@@ -45,7 +46,8 @@
                     android:defaultValue="false"
                     android:dependency="reminding_enable"
                     android:key="second_reminding_enable"
-                    android:summary="此项打勾意味着每次切换有两次提醒"
+                    android:selectable="false"
+                    android:summary="后续版本推出"
                     android:title="是否进行二次提醒" />
 
                 <ListPreference
@@ -60,15 +62,17 @@
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:dependency="reminding_enable"
+                    android:key="notification_silent"
                     android:summaryOff="通知会带上声音提醒"
                     android:summaryOn="通知不会带有声音提醒"
-                    android:title="通知静音" />
+                    android:title="通知静音" /><!-- 
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:dependency="reminding_enable"
+                    android:selectable="false"
                     android:summaryOff="通知时手机不震动"
                     android:summaryOn="通知时手机震动"
-                    android:title="通知震动" />
+                    android:title="通知震动" /> -->
             </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen android:title="法定假日设置" >
@@ -76,7 +80,8 @@
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="holiday_skip_enable"
-                    android:summary="在节假日不进行模式切换"
+                    android:selectable="false"
+                    android:summary="后续版本推出"
                     android:title="跳过节假日" />
             </PreferenceCategory>
         </PreferenceScreen>
@@ -85,7 +90,8 @@
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="message_shortcut_enable"
-                    android:summary="拒接来电后，显示快捷按钮，一键回复短信"
+                    android:selectable="false"
+                    android:summary="后续版本推出"
                     android:title="开启来电快捷操作" />
             </PreferenceCategory>
         </PreferenceScreen>

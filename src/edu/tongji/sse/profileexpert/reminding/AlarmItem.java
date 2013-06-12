@@ -5,10 +5,10 @@ import android.os.Parcelable;
 
 public class AlarmItem implements Comparable<AlarmItem> , Parcelable
 {
-	public static final String ALARM_ITEM_KEY = "open_type";
+	public static final String ALARM_ITEM_KEY = "alarm_item";
+	
 	public static final int OPEN_TYPE_BEGIN = 100;
 	public static final int OPEN_TYPE_END = 200;
-
 	
 	public static final int MATTER_TYPE_TEMP_MATTER = 1;
 	public static final int MATTER_TYPE_ROUTINE = 2;

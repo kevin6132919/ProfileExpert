@@ -1,6 +1,5 @@
 package edu.tongji.sse.profileexpert.reminding;
 
-import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -48,7 +47,7 @@ public class ChangeProfileReceiver extends BroadcastReceiver
 			NotificationUtil.sendNotify(context,
 					context.getString(R.string.change_profile_text_1),
 					context.getString(R.string.change_profile_text_2) + ":" + title
-					, Notification.DEFAULT_LIGHTS);
+					, ri);
 			ProfileUtil.switchToProfile(
 					context,
 					b,
@@ -60,7 +59,7 @@ public class ChangeProfileReceiver extends BroadcastReceiver
 			NotificationUtil.sendNotify(context,
 					context.getString(R.string.change_profile_text_1),
 					context.getString(R.string.change_profile_text_3),
-					Notification.DEFAULT_LIGHTS);
+					ri);
 			ProfileUtil.switchBack(context);
 		}
 

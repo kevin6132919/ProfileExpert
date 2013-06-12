@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.main.MainActivity;
+import edu.tongji.sse.profileexpert.main.ShowEventActivity;
+import edu.tongji.sse.profileexpert.reminding.RemindingItem;
 
 public class NotificationUtil
 {
@@ -21,7 +23,7 @@ public class NotificationUtil
 
 	//发出通知
 	@SuppressWarnings("deprecation")
-	public static void sendNotify(Context ctx, String title, String content, int defaults)
+	public static void sendNotify(Context ctx, String title, String content, RemindingItem ri )
 	{
 		Notification notification = new Notification(R.drawable.ic_launcher, title,
 				System.currentTimeMillis());
@@ -29,17 +31,23 @@ public class NotificationUtil
 		Intent appIntent = new Intent(Intent.ACTION_MAIN);
         appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         
-		appIntent.setClass(ctx, MainActivity.class);
+		appIntent.setClass(ctx, ShowEventActivity.class);
 		appIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
         		| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
         		| Intent.FLAG_ACTIVITY_CLEAR_TOP);//关键的一步，设置启动模式
+		appIntent.putExtra(RemindingItem.ID, ri.getId());
+		appIntent.putExtra(RemindingItem.TYPE, ri.getType());
 		
 		PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,	appIntent, 0);
-
+		
 		notification.setLatestEventInfo(ctx,title,content,contentIntent);
 		
 		//设置通知的震动与发声方式
-		notification.defaults = defaults;
+		boolean notification_silent =
+				MainActivity.preference.getBoolean("notification_silent", true);
+		
+		notification.defaults = notification_silent?
+				Notification.DEFAULT_VIBRATE : Notification.DEFAULT_SOUND;
 		notification.flags = Notification.FLAG_AUTO_CANCEL;
 
 		notificationManager = getNotificationManager(ctx);

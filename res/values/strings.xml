@@ -20,6 +20,7 @@
     <string name="exit">退出</string>
     <string name="help">帮助</string>
     <string name="new_matter">新建事项</string>
+    <string name="event">事件详情</string>
     
     <string name="select">请选择</string>
     <string name="delete">删除</string>
@@ -91,4 +92,12 @@
     <string name="change_profile_text_3">已切换回原模式</string>
     
     <string name="save_ringer_mode">保存当前铃声设置</string>
+    
+    <string name="user_help">使用说明</string>
+    <string name="user_help_1">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本软件可以帮助您管理日程，自动地切换模式，避免不必要的烦恼和尴尬。</string>
+    <string name="user_help_2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;在主界面中，点击日历可以快捷进入对应天的临时事项，可以选择菜单项保存当前的模式，作为从自定义模式中切换回来时的模式。</string>
+    <string name="user_help_3">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;在自定义模式选项中，您可以根据需要自建模式，然后就可在创建事件时方便的使用。</string>
+    <string name="user_help_4">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;日程是指循环往复的常规事件，如课表、每天固定上下班时间等。在日程管理中，选择菜单中的日程列表可以查看当天所有的日程。</string>
+    <string name="user_help_5">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;临时事项是指只进行一次的事件，如加班、突发时间等。临时事项界面中，点击日历选择日期，左右滑动可切至上/下一个月，长按日期可快捷新建事项。</string>
+    <string name="user_help_6">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;建立事件后，在设置中开启切换，就可享受模式自动切换了。</string>
 </resources>
