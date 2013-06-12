@@ -90,4 +90,5 @@
     <string name="change_profile_text_2">已切换至模式</string>
     <string name="change_profile_text_3">已切换回原模式</string>
     
+    <string name="save_ringer_mode">保存当前铃声设置</string>
 </resources>

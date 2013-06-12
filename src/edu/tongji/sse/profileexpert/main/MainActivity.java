@@ -16,8 +16,10 @@ import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendar.MyCell;
 import edu.tongji.sse.profileexpert.calendar.OnCellTouchListener;
+import edu.tongji.sse.profileexpert.entity.MyRingerSetting;
 import edu.tongji.sse.profileexpert.reminding.RemindingManager;
 import edu.tongji.sse.profileexpert.util.MyConstant;
+import edu.tongji.sse.profileexpert.util.ProfileUtil;
 
 public class MainActivity extends Activity implements OnCellTouchListener
 {
@@ -28,6 +30,7 @@ public class MainActivity extends Activity implements OnCellTouchListener
 	private MyCalendarView calendar = null;
 	public static SharedPreferences preference = null;
 	public static RemindingManager rm = null;
+	public static MyRingerSetting mrs = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -91,6 +94,8 @@ public class MainActivity extends Activity implements OnCellTouchListener
 		{
 			rm.startReminding(this);
 		}
+		
+		mrs = ProfileUtil.getCurrentRingtone(this);
 	}
 
 
@@ -114,8 +119,10 @@ public class MainActivity extends Activity implements OnCellTouchListener
 			startActivity(intent);
 			return true;
 		case R.id.action_exit:
-			//跳转到设置界面
 			this.finish();
+			return true;
+		case R.id.action_save_ringer_mode:
+			mrs = ProfileUtil.getCurrentRingtone(this);
 			return true;
 		default:
 			return false;
