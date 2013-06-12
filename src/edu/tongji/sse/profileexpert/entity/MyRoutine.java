@@ -48,6 +48,7 @@ public class MyRoutine implements Comparable<MyRoutine>
 		c.add(Calendar.DAY_OF_MONTH, dayInterval);
 		c.set(Calendar.HOUR_OF_DAY, hour);
 		c.set(Calendar.MINUTE, minute);
+		c.set(Calendar.SECOND, 0);
 		startTime = c.getTimeInMillis();
 		
 		if(!isSameDay)
@@ -57,6 +58,7 @@ public class MyRoutine implements Comparable<MyRoutine>
 		minute = Integer.parseInt(timeTo.substring(3));
 		c.set(Calendar.HOUR_OF_DAY, hour);
 		c.set(Calendar.MINUTE, minute);
+		c.set(Calendar.SECOND, 0);
 		endTime = c.getTimeInMillis();
 	}
 

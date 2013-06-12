@@ -11,24 +11,26 @@ public class NotificationReceiver extends BroadcastReceiver
 {
 	public void onReceive(Context context, Intent intent)
 	{
-		RemindingItem currentItem = MainActivity.rm.getCurrentItem();
+		int open_type = intent.getIntExtra(AlarmItem.OPEN_TYPE_KEY, -1);
+		if(open_type == -1)
+			return;
 		
 		//根据事项是否发生定制通知内容
 		String content = "";
-		if(currentItem.isHappened())
+		if(open_type == AlarmItem.OPEN_TYPE_BEGIN)
 		{
-			content = "将切换回到原模式,点击进入详情";
+			content = "将切换到指定模式,点击进入详情";
 		}
 		else
 		{
-			content = "将切换到指定模式,点击进入详情";
+			content = "将切换回到原模式,点击进入详情";
 		}
 		
 		//发出通知
 		NotificationUtil.sendNotify(context, "模式切换预告", content,
 				Notification.DEFAULT_VIBRATE);
 		
-		RemindingManager.notificationHappened();
+		MainActivity.rm.notificationHappened();
 	}
 }
 

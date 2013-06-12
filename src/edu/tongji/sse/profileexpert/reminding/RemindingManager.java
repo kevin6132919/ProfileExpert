@@ -17,6 +17,7 @@ import edu.tongji.sse.profileexpert.main.MainActivity;
 import edu.tongji.sse.profileexpert.provider.RoutineTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.AlarmUtil;
+import edu.tongji.sse.profileexpert.util.NotificationUtil;
 
 public class RemindingManager
 {
@@ -25,13 +26,17 @@ public class RemindingManager
 	private List<RemindingItem> itemList = null;
 	private static RemindingItem currentItem = null;
 	private Calendar c = Calendar.getInstance();
-	//private static RemindingItem nextItem = null;
+	private List<AlarmItem> notificationList = null;
+	private List<AlarmItem> changeProfileList = null;
+	private static RemindingItem nextItem = null;
 	
 	public RemindingManager(Context context, ContentResolver contentResolver)
 	{
 		this.ctx = context;
 		this.contentResolver = contentResolver;
 		itemList = new ArrayList<RemindingItem>();
+		notificationList = new ArrayList<AlarmItem>();
+		changeProfileList = new ArrayList<AlarmItem>();
 	}
 	
 	public void startReminding()
@@ -60,13 +65,40 @@ public class RemindingManager
 
 	private void setProfileChangeAlarm()
 	{
-		if(!currentItem.isHappened())
-			c.setTimeInMillis(currentItem.getStartTime());
-		else
-			c.setTimeInMillis(currentItem.getEndTime());
+		addItemToChangeProfileList(currentItem);
+		addItemToChangeProfileList(nextItem);
+		Collections.sort(changeProfileList);
 		
+		alarmChangeProfile();
+	}
+
+	private void alarmChangeProfile()
+	{
+		if(changeProfileList.size()>0)
+		{
+			AlarmUtil.alarm(ctx, AlarmUtil.CHANGE_PROFILE, changeProfileList.get(0));
+			changeProfileList.remove(0);
+		}
+	}
+
+	private void addItemToChangeProfileList(RemindingItem ri)
+	{
+		if(ri == null)
+			return;
 		
-		AlarmUtil.alarm(ctx, AlarmUtil.CHANGE_MODE, c.getTimeInMillis());
+		AlarmItem ai_start = new AlarmItem(
+				ri.getStartTime(),
+				AlarmItem.OPEN_TYPE_BEGIN,
+				ri.getType(),
+				ri.getId());
+		changeProfileList.add(ai_start);
+		
+		AlarmItem ai_end = new AlarmItem(
+				ri.getEndTime(),
+				AlarmItem.OPEN_TYPE_END,
+				ri.getType(),
+				ri.getId());
+		changeProfileList.add(ai_end);
 	}
 
 	private void setNotificationAlarm()
@@ -74,16 +106,53 @@ public class RemindingManager
 		if(!MainActivity.preference.getBoolean("reminding_enable", false))
 			return;
 		
-		int advanced_time = MainActivity.preference.getInt("first_reminding_time", 300);
+		addItemToNotificationList(currentItem);
+		addItemToNotificationList(nextItem);
 		
-		if(!currentItem.isHappened())
-			c.setTimeInMillis(currentItem.getStartTime());
-		else
-			c.setTimeInMillis(currentItem.getEndTime());
+		Collections.sort(notificationList);
 		
-		c.add(Calendar.MINUTE, -advanced_time);
+		alarmNofitication();
+	}
+
+	private void addItemToNotificationList(RemindingItem ri)
+	{
+		if(ri == null)
+			return;
 		
-		AlarmUtil.alarm(ctx, AlarmUtil.NOTIFICATION, c.getTimeInMillis());
+		int advanced_time = Integer.parseInt(
+				MainActivity.preference.getString("first_reminding_time", "3"));
+		
+		if(advanced_time != 30)
+		{
+			advanced_time *= 60;
+		}
+		
+		c.setTimeInMillis(ri.getStartTime());
+		c.add(Calendar.SECOND, -advanced_time);
+		AlarmItem ai_start = new AlarmItem(
+				c.getTimeInMillis(),
+				AlarmItem.OPEN_TYPE_BEGIN,
+				ri.getType(),
+				ri.getId());
+		notificationList.add(ai_start);
+		
+		c.setTimeInMillis(ri.getEndTime());
+		c.add(Calendar.SECOND, -advanced_time);
+		AlarmItem ai_end = new AlarmItem(
+				c.getTimeInMillis(),
+				AlarmItem.OPEN_TYPE_END,
+				ri.getType(),
+				ri.getId());
+		notificationList.add(ai_end);
+	}
+
+	private void alarmNofitication()
+	{
+		if(notificationList.size()>0)
+		{
+			AlarmUtil.alarm(ctx, AlarmUtil.NOTIFICATION, notificationList.get(0));
+			notificationList.remove(0);
+		}
 	}
 
 	private void checkNow()
@@ -136,8 +205,8 @@ public class RemindingManager
 		if(itemList.size()>0)
 			currentItem = itemList.get(0);
 		
-		/*if(itemList.size()>1)
-			nextItem = itemList.get(1);*/
+		if(itemList.size()>1)
+			nextItem = itemList.get(1);
 	}
 
 	private void getLatestRoutines()
@@ -177,9 +246,8 @@ public class RemindingManager
 			RemindingItem ri = new RemindingItem(
 					my.getStartTime(),
 					my.getEndTime(),
-					my.getTitle(),
-					my.getContent(),
-					my.getProfileId());
+					my.getId(),
+					AlarmItem.MATTER_TYPE_ROUTINE);
 			itemList.add(ri);
 		}
 	}
@@ -206,16 +274,12 @@ public class RemindingManager
 			long endTime = cursor.getLong(
 					cursor.getColumnIndex(TempMatterTable.TIME_TO));
 			
-			String title = cursor.getString(
-					cursor.getColumnIndex(TempMatterTable.TITLE));
+			long id = cursor.getInt(
+					cursor.getColumnIndex(TempMatterTable._ID));
 			
-			String content = cursor.getString(
-					cursor.getColumnIndex(TempMatterTable.DESCRIPTION));
+			RemindingItem ri = new RemindingItem(startTime, endTime,
+					id, AlarmItem.MATTER_TYPE_TEMP_MATTER);
 			
-			long profileId = cursor.getInt(
-					cursor.getColumnIndex(TempMatterTable.PROFILE_ID));
-			
-			RemindingItem ri = new RemindingItem(startTime, endTime, title, content ,profileId);
 			itemList.add(ri);
 			
 			i++;
@@ -228,8 +292,20 @@ public class RemindingManager
 				ctx,
 				ctx.getString(R.string.stop_changing),
 				Toast.LENGTH_SHORT).show();
+		clear();
+		NotificationUtil.cancelAll(ctx);
+		AlarmUtil.cancelAlarm(ctx);
 	}
 	
+	private void clear()
+	{
+		itemList.clear();
+		notificationList.clear();
+		changeProfileList.clear();
+		currentItem = null;
+		nextItem = null;
+	}
+
 	public void rearrange()
 	{
 		
@@ -240,20 +316,13 @@ public class RemindingManager
 		return currentItem;
 	}
 
-	public static void notificationHappened()
+	public void notificationHappened()
 	{
-		if(!currentItem.isReminded())
-			;
-		else
-			currentItem.remind();
+		alarmNofitication();
 	}
 
-	public static void changeModeHappened()
+	public void changeModeHappened()
 	{
-		// TODO Auto-generated method stub
-		if(!currentItem.isHappened())
-			;
-		else
-			currentItem.happen();
+		alarmChangeProfile();
 	}
 }

@@ -13,6 +13,12 @@ public class NotificationUtil
 	public static int NOTIFICATIONS_ID = R.layout.activity_main;
 	private static NotificationManager notificationManager = null;
 	
+	//得到系统的闹钟服务
+	private static NotificationManager getNotificationManager(Context ctx)
+	{
+		return (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+	}
+
 	//发出通知
 	@SuppressWarnings("deprecation")
 	public static void sendNotify(Context ctx, String title, String content, int defaults)
@@ -36,8 +42,13 @@ public class NotificationUtil
 		notification.defaults = defaults;
 		notification.flags = Notification.FLAG_AUTO_CANCEL;
 
-		notificationManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager = getNotificationManager(ctx);
 		
 		notificationManager.notify(NOTIFICATIONS_ID, notification);
+	}
+	
+	public static void cancelAll(Context ctx)
+	{
+		getNotificationManager(ctx).cancelAll();
 	}
 }

@@ -11,6 +11,7 @@
         tools:ignore="OldTargetApi" />
     <!-- <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.WRITE_CALENDAR"/> -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -85,5 +86,8 @@
             android:name="edu.tongji.sse.profileexpert.provider.RoutineProvider"
             android:authorities="edu.tongji.sse.profileexpert.routineprovider"
             android:exported="false" />
+        
+        <receiver android:name="edu.tongji.sse.profileexpert.reminding.NotificationReceiver"></receiver>
+        <receiver android:name="edu.tongji.sse.profileexpert.reminding.ChangeProfileReceiver"></receiver>
     </application>
 </manifest>

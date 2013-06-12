@@ -4,19 +4,17 @@ public class RemindingItem implements Comparable<RemindingItem>
 {
 	private long startTime = -1;
 	private long endTime = -1;
-	private String title = null;
-	private String content = null;
-	private long profileId = -1;
+	private long id = -1;
+	private int type = -1;
 	private boolean happened = false;
 	private boolean reminded = false;
 
-	public RemindingItem(long startTime,long endTime,String title,String content, long profileId)
+	public RemindingItem(long startTime,long endTime, long id, int type)
 	{
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.title = title;
-		this.content = content;
-		this.profileId = profileId;
+		this.id = id;
+		this.type = type;
 	}
 	
 	@Override
@@ -41,29 +39,13 @@ public class RemindingItem implements Comparable<RemindingItem>
 	public void setEndTime(long endTime) {
 		this.endTime = endTime;
 	}
-	
-	public String getTitle() {
-		return title;
+
+	public long getId() {
+		return id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-	
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public long getProfileId() {
-		return profileId;
-	}
-
-	public void setProfileId(long profileId) {
-		this.profileId = profileId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public boolean isHappened() {
@@ -82,5 +64,13 @@ public class RemindingItem implements Comparable<RemindingItem>
 	public void remind()
 	{
 		this.reminded = true;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 }

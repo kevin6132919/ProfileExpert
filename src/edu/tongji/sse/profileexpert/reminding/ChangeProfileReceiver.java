@@ -1,37 +1,31 @@
 package edu.tongji.sse.profileexpert.reminding;
 
-import edu.tongji.sse.profileexpert.main.MainActivity;
-import edu.tongji.sse.profileexpert.util.NotificationUtil;
-import edu.tongji.sse.profileexpert.util.ProfileUtil;
 import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import edu.tongji.sse.profileexpert.main.MainActivity;
+import edu.tongji.sse.profileexpert.util.NotificationUtil;
+import edu.tongji.sse.profileexpert.util.ProfileUtil;
 
 public class ChangeProfileReceiver extends BroadcastReceiver
 {
 	public void onReceive(Context context, Intent intent)
 	{
-		Log.v("PrintOut","ChangeModeReceiver start!");
-		
 		NotificationUtil.sendNotify(context, "模式切换",	"模式已切换", Notification.DEFAULT_LIGHTS);
-		RemindingItem currentItem = MainActivity.rm.getCurrentItem();
+		int open_type = intent.getIntExtra(AlarmItem.OPEN_TYPE_KEY, -1);
+		if(open_type == -1)
+			return;
 		
-		if(!currentItem.isHappened())
+		if(open_type == AlarmItem.OPEN_TYPE_BEGIN)
 		{
-			//Log.v("PrintOut","ChangeModeReceiver switchToSilent!");
 			ProfileUtil.switchToSilent(context);
-			currentItem.happen();
 		}
 		else
 		{
-			//Log.v("PrintOut","ChangeModeReceiver switchBack!");
 			ProfileUtil.switchBack(context);
 		}
 		
-		RemindingManager.changeModeHappened();
-		
-		//Log.v("PrintOut","ChangeModeReceiver end!")
+		MainActivity.rm.changeModeHappened();
 	}
 }
