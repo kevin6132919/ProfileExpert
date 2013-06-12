@@ -82,7 +82,7 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 						this,
 						this.getString(R.string.start_changing),
 						Toast.LENGTH_SHORT).show();
-				MainActivity.rm.startReminding();
+				MainActivity.rm.startReminding(this);
 			}
 			return true;
 		}

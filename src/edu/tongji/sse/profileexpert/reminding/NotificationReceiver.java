@@ -1,5 +1,7 @@
 package edu.tongji.sse.profileexpert.reminding;
 
+import java.util.Calendar;
+
 import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,10 +17,32 @@ import edu.tongji.sse.profileexpert.util.NotificationUtil;
 
 public class NotificationReceiver extends BroadcastReceiver
 {
+	private Calendar c = Calendar.getInstance();
 	public void onReceive(Context context, Intent intent)
 	{
 		RemindingItem ri = MainActivity.rm.getCurrentItem();
 
+		if(ri.isReminded())
+		{
+			int advanced_time = Integer.parseInt(
+					MainActivity.preference.getString("first_reminding_time", "3"));
+
+			if(advanced_time != 30)
+				advanced_time *= 60;
+			c.setTimeInMillis(ri.getEndTime());
+			int hour = c.get(Calendar.HOUR_OF_DAY);
+			int minute = c.get(Calendar.MINUTE);
+			
+			
+			c.setTimeInMillis(System.currentTimeMillis());
+			c.add(Calendar.SECOND, -advanced_time);
+			if(c.get(Calendar.HOUR_OF_DAY) != hour
+					|| c.get(Calendar.MINUTE) != minute)
+			{
+				ri = MainActivity.rm.getNextItem();
+			}
+		}
+		
 		String reminding_time = MainActivity.preference.getString("first_reminding_time", "3");
 		String time = MyConstant.getRemindingTimeText(Integer.parseInt(reminding_time));
 

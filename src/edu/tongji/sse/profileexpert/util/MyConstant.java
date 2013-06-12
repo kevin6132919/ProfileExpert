@@ -62,6 +62,7 @@ public class MyConstant
 	public static final int REQUEST_CODE_CREATE_TEMP_MATTER = 3;
 	public static final int REQUEST_CODE_CREATE_ROUTINE = 4;
 	public static final int REQUEST_CODE_EDIT_ROUTINE = 5;
+	public static final int REQUEST_CODE_EDIT_TEMP_MATTER = 6;
 	
 	//MyProfile中toString()方法里使用到的文字
 	public static final String RINGTONE = "铃声";

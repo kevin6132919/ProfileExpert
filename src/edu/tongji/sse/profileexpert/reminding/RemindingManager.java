@@ -38,13 +38,15 @@ public class RemindingManager
 		changeProfileList = new ArrayList<AlarmItem>();
 	}
 	
-	public void startReminding()
+	public void startReminding(Context context)
 	{
+		if(context == null)
+			context = ctx;
 		itemList.clear();
 		getLatestItems();
 		if(currentItem != null)
 		{
-			checkNow();
+			checkNow(context);
 		}
 	}
 	
@@ -61,7 +63,7 @@ public class RemindingManager
 	{
 		addItemToChangeProfileList(currentItem);
 		addItemToChangeProfileList(nextItem);
-		Collections.sort(changeProfileList);
+		//Collections.sort(changeProfileList);
 		
 		alarmChangeProfile();
 	}
@@ -149,19 +151,19 @@ public class RemindingManager
 		}
 	}
 
-	private void checkNow()
+	private void checkNow(Context context)
 	{
 		if(currentItem.getStartTime()<System.currentTimeMillis())
-			showChangeNowConfirmDialog();
+			showChangeNowConfirmDialog(context);
 	}
 
-	private void showChangeNowConfirmDialog()
+	private void showChangeNowConfirmDialog(Context context)
 	{
 		String msg = ctx.getString(R.string.change_now_confirm_text1) + ":" + ","
 				+ ctx.getString(R.string.change_now_confirm_text2) + ":" + ","
 				+ ctx.getString(R.string.change_now_confirm_text3) + ".";
 		
-		new Builder(ctx)
+		new Builder(context)
 		.setIcon(R.drawable.alerts_warning)
 		.setMessage(msg)
 		.setTitle(ctx.getString(R.string.change_now_confirm_tips))
@@ -301,16 +303,21 @@ public class RemindingManager
 		nextItem = null;
 	}
 
-	public void rearrange()
+	public void rearrange(Context context)
 	{
 		this.stopReminding();
 		if(MainActivity.preference.getBoolean("arm_status", false))
-			this.startReminding();
+			this.startReminding(context);
 	}
 
 	public RemindingItem getCurrentItem()
 	{
 		return currentItem;
+	}
+	
+	public RemindingItem getNextItem()
+	{
+		return nextItem;
 	}
 
 	public void notificationHappened()
@@ -322,7 +329,7 @@ public class RemindingManager
 		alarmNofitication();
 	}
 
-	private void getNextItem()
+	private void resetNextItem()
 	{
 		itemList.clear();
 		getLatestTempMatters();
@@ -333,7 +340,7 @@ public class RemindingManager
 		
 		if(currentItem != null || itemList.size()>1 )
 		if(currentItem.getId() != itemList.get(0).getId())
-			rearrange();
+			rearrange(null);
 		else
 			nextItem = itemList.get(1);
 		
@@ -341,7 +348,7 @@ public class RemindingManager
 		addItemToChangeProfileList(nextItem);
 		
 		Collections.sort(notificationList);
-		Collections.sort(changeProfileList);
+		//Collections.sort(changeProfileList);
 	}
 
 	public void changeModeHappened()
@@ -353,7 +360,7 @@ public class RemindingManager
 		else
 		{
 			currentItem = nextItem;
-			getNextItem();
+			resetNextItem();
 		}
 		alarmChangeProfile();
 	}

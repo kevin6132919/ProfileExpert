@@ -148,7 +148,7 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 						new String[]{""+id});
 				if(result == 1)
 				{
-					MainActivity.rm.rearrange();
+					MainActivity.rm.rearrange(TempMatterActivity.this);
 					msg = getString(R.string.delete_temp_matter_success);
 				}
 				else
@@ -255,5 +255,21 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 		int day = cell.getDayOfMonth();
 		mcv_calendar.setDate(year, month, day);
 		updateShowDay();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER)
+		{
+			if(resultCode == RESULT_OK)
+				MainActivity.rm.rearrange(this);
+		}
+		else if (requestCode == MyConstant.REQUEST_CODE_EDIT_TEMP_MATTER)
+		{
+			if(resultCode == RESULT_OK)
+				MainActivity.rm.rearrange(this);
+		}
 	}
 }

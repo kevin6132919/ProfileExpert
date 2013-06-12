@@ -89,7 +89,7 @@ public class MainActivity extends Activity implements OnCellTouchListener
 		boolean arm_status = preference.getBoolean("arm_status", false);
 		if(arm_status == true)
 		{
-			rm.startReminding();
+			rm.startReminding(this);
 		}
 	}
 

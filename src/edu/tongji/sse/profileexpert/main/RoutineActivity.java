@@ -204,7 +204,7 @@ public class RoutineActivity extends Activity
 						new String[]{""+id});
 				if(result == 1)
 				{
-					MainActivity.rm.rearrange();
+					MainActivity.rm.rearrange(RoutineActivity.this);
 					msg = getString(R.string.delete_routine_success);
 				}
 				else
@@ -514,7 +514,7 @@ public class RoutineActivity extends Activity
 		{
 			if (resultCode == RESULT_OK)
 			{
-				MainActivity.rm.rearrange();
+				MainActivity.rm.rearrange(this);
 				drawRoutine();
 			}
 		}
@@ -522,7 +522,7 @@ public class RoutineActivity extends Activity
 		{
 			if (resultCode == RESULT_OK)
 			{
-				MainActivity.rm.rearrange();
+				MainActivity.rm.rearrange(this);
 				drawRoutine();
 			}
 		}

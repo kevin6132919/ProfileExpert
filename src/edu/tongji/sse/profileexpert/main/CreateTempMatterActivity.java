@@ -23,7 +23,6 @@ import edu.tongji.sse.profileexpert.control.MyDateSpinner;
 import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
 import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
-import edu.tongji.sse.profileexpert.util.MyConstant;
 
 @SuppressLint("SimpleDateFormat")
 public class CreateTempMatterActivity extends Activity
@@ -186,9 +185,7 @@ public class CreateTempMatterActivity extends Activity
 			values.put(TempMatterTable.SHOW_STRING, show_str);
 			values.put(TempMatterTable.PROFILE_ID, profile_id);
 			getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
-			setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
-
-			MainActivity.rm.rearrange();
+			setResult(RESULT_OK);
 			
 			/*saveToGoogleCalendar(title,explain,l_time_from,l_time_to);*/
 			
