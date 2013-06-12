@@ -23,11 +23,16 @@ public class AlarmUtil
 	public static void alarm(Context ctx, int type, AlarmItem ai)
 	{
 		AlarmManager am = getAlarmManager(ctx);
-		Intent i = new Intent(ctx,
-				type == NOTIFICATION? NotificationReceiver.class : ChangeProfileReceiver.class);
-		i.putExtra(AlarmItem.OPEN_TYPE_KEY, ai.getOpen_type());
-		i.putExtra(AlarmItem.MATTER_TYPE_KEY, ai.getMatter_type());
-		i.putExtra(AlarmItem.ID_KEY, ai.getId());
+
+		@SuppressWarnings("rawtypes")
+		Class c = null;
+		if(type == NOTIFICATION)
+			c = NotificationReceiver.class;
+		else
+			c = ChangeProfileReceiver.class;
+		Intent i = new Intent(ctx,c);
+		//i.putExtra(AlarmItem.ALARM_ITEM_KEY, ai);
+		//i.putExtra(AlarmItem.ID_KEY, ai.getId());
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, 0, i, 0);
 		am.set(AlarmManager.RTC, ai.getTime(), pendingIntent);
 	}

@@ -6,6 +6,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
@@ -69,12 +70,18 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 		{
 			if(cbp_arm_status.isChecked())
 			{
-				//Toast.makeText(this, "off", Toast.LENGTH_SHORT).show();
+				Toast.makeText(
+						this,
+						getString(R.string.stop_changing),
+						Toast.LENGTH_SHORT).show();
 				MainActivity.rm.stopReminding();
 			}
 			else
 			{
-				//Toast.makeText(this, "on", Toast.LENGTH_SHORT).show();
+				Toast.makeText(
+						this,
+						this.getString(R.string.start_changing),
+						Toast.LENGTH_SHORT).show();
 				MainActivity.rm.startReminding();
 			}
 			return true;

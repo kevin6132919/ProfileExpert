@@ -187,6 +187,8 @@ public class CreateTempMatterActivity extends Activity
 			values.put(TempMatterTable.PROFILE_ID, profile_id);
 			getContentResolver().insert(TempMatterTable.CONTENT_URI, values);
 			setResult(MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
+
+			MainActivity.rm.rearrange();
 			
 			/*saveToGoogleCalendar(title,explain,l_time_from,l_time_to);*/
 			

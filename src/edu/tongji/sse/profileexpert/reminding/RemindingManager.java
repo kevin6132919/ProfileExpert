@@ -10,7 +10,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.entity.MyRoutine;
 import edu.tongji.sse.profileexpert.main.MainActivity;
@@ -41,16 +40,11 @@ public class RemindingManager
 	
 	public void startReminding()
 	{
-		Toast.makeText(
-				ctx,
-				ctx.getString(R.string.start_changing),
-				Toast.LENGTH_SHORT).show();
 		itemList.clear();
 		getLatestItems();
 		if(currentItem != null)
 		{
 			checkNow();
-			setAlarm();
 		}
 	}
 	
@@ -176,7 +170,7 @@ public class RemindingManager
 			{
 				public void onClick(DialogInterface dialog, int which)
 				{
-					// TODO Auto-generated method stub
+					setAlarm();
 					dialog.dismiss();
 				}
 			})
@@ -185,8 +179,13 @@ public class RemindingManager
 			{
 				public void onClick(DialogInterface dialog, int which)
 				{
-					// TODO Auto-generated method stub
 					itemList.remove(0);
+					currentItem = null;
+					nextItem = null;
+					if(itemList.size()>0)
+						currentItem = itemList.get(0);
+					if(itemList.size()>1)
+						nextItem = itemList.get(1);
 					setAlarm();
 					dialog.dismiss();
 				}
@@ -288,10 +287,6 @@ public class RemindingManager
 
 	public void stopReminding()
 	{
-		Toast.makeText(
-				ctx,
-				ctx.getString(R.string.stop_changing),
-				Toast.LENGTH_SHORT).show();
 		clear();
 		NotificationUtil.cancelAll(ctx);
 		AlarmUtil.cancelAlarm(ctx);
@@ -308,7 +303,9 @@ public class RemindingManager
 
 	public void rearrange()
 	{
-		
+		this.stopReminding();
+		if(MainActivity.preference.getBoolean("arm_status", false))
+			this.startReminding();
 	}
 
 	public RemindingItem getCurrentItem()
@@ -318,11 +315,46 @@ public class RemindingManager
 
 	public void notificationHappened()
 	{
+		if(!currentItem.isReminded())
+		{
+			currentItem.remind();
+		}
 		alarmNofitication();
+	}
+
+	private void getNextItem()
+	{
+		itemList.clear();
+		getLatestTempMatters();
+		
+		getLatestRoutines();
+		
+		Collections.sort(itemList);
+		
+		if(currentItem != null || itemList.size()>1 )
+		if(currentItem.getId() != itemList.get(0).getId())
+			rearrange();
+		else
+			nextItem = itemList.get(1);
+		
+		addItemToNotificationList(nextItem);
+		addItemToChangeProfileList(nextItem);
+		
+		Collections.sort(notificationList);
+		Collections.sort(changeProfileList);
 	}
 
 	public void changeModeHappened()
 	{
+		if(!currentItem.isHappened())
+		{
+			currentItem.happen();
+		}
+		else
+		{
+			currentItem = nextItem;
+			getNextItem();
+		}
 		alarmChangeProfile();
 	}
 }

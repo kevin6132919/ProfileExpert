@@ -86,6 +86,7 @@ public class ProfileActivity extends ListActivity
 				values.put(MyProfileTable.MESSAGE_CONTENT, mp.getMessage_content());
 				values.put(MyProfileTable.DESCRIPTION, mp.toString());
 				getContentResolver().insert(MyProfileTable.CONTENT_URI, values);
+				MainActivity.rm.rearrange();
 			}
 		}
 		else if(requestCode == MyConstant.REQUEST_CODE_EDIT_PROFILE)
@@ -117,6 +118,8 @@ public class ProfileActivity extends ListActivity
 						values,
 						MyProfileTable._ID + "=?",
 						new String[]{""+id});
+
+				MainActivity.rm.rearrange();
 			}
 		}
 
@@ -179,7 +182,10 @@ public class ProfileActivity extends ListActivity
 						MyProfileTable._ID + "=?",
 						new String[]{""+_id});
 				if(result == 1)
+				{
+					MainActivity.rm.rearrange();
 					msg = getString(R.string.delete_profile_success);
+				}
 				else
 					msg = getString(R.string.delete_profile_fail);
 				Toast.makeText(ProfileActivity.this, msg, Toast.LENGTH_SHORT).show();

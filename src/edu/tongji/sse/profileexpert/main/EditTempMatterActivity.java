@@ -220,6 +220,7 @@ public class EditTempMatterActivity extends Activity
 					MyProfileTable._ID + "=?",
 					new String[]{""+id});
 			//setResult(MyConstant.REQUEST_CODE_EDIT_TEMP_MATTER);
+			MainActivity.rm.rearrange();
 
 			back();
 		} catch (ParseException e) {

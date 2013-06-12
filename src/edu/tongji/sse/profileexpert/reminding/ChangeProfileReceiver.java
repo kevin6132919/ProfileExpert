@@ -4,7 +4,12 @@ import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.main.MainActivity;
+import edu.tongji.sse.profileexpert.provider.MyProfileTable;
+import edu.tongji.sse.profileexpert.provider.RoutineTable;
+import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.NotificationUtil;
 import edu.tongji.sse.profileexpert.util.ProfileUtil;
 
@@ -12,20 +17,67 @@ public class ChangeProfileReceiver extends BroadcastReceiver
 {
 	public void onReceive(Context context, Intent intent)
 	{
-		NotificationUtil.sendNotify(context, "模式切换",	"模式已切换", Notification.DEFAULT_LIGHTS);
-		int open_type = intent.getIntExtra(AlarmItem.OPEN_TYPE_KEY, -1);
-		if(open_type == -1)
-			return;
+		RemindingItem ri = MainActivity.rm.getCurrentItem();
 		
-		if(open_type == AlarmItem.OPEN_TYPE_BEGIN)
+		Cursor cursor = getCursor(context, ri.getType(),ri.getId());
+		String title = null;
+		if(cursor.moveToFirst())
 		{
+			long profileId = cursor.getLong(cursor.getColumnIndex(TempMatterTable.PROFILE_ID));
+			title = getProfileTitle(context, profileId);
+		}
+		
+		if(!ri.isHappened())
+		{
+			NotificationUtil.sendNotify(context,
+					"模式切换",	"已切换至模式:" + title
+					, Notification.DEFAULT_LIGHTS);
 			ProfileUtil.switchToSilent(context);
 		}
 		else
 		{
+			NotificationUtil.sendNotify(context, "模式切换",	"已切换回原模式", Notification.DEFAULT_LIGHTS);
 			ProfileUtil.switchBack(context);
 		}
 		
 		MainActivity.rm.changeModeHappened();
+	}
+	private Cursor getCursor(Context ctx,int type,long id)
+	{
+		if(type==AlarmItem.MATTER_TYPE_TEMP_MATTER)
+		{
+			return ctx.getContentResolver().query(
+					TempMatterTable.CONTENT_URI,
+					null,
+					TempMatterTable._ID + "=?",
+					new String[]{""+id},
+					null);
+		}
+		else
+		{
+			return ctx.getContentResolver().query(
+					RoutineTable.CONTENT_URI,
+					null,
+					RoutineTable._ID + "=?",
+					new String[]{""+id},
+					null);
+		}
+	}
+	
+	//由profile的id得到其标题
+	private String getProfileTitle(Context ctx,long profile_id)
+	{
+		Cursor cursor = ctx.getContentResolver().query(
+				MyProfileTable.CONTENT_URI,
+				null,
+				MyProfileTable._ID + "=?",
+				new String[]{""+profile_id},
+				null);
+
+		if(!cursor.moveToFirst())
+		{
+			return ctx.getString(R.string.show_profile_not_exist);
+		}
+		else return cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
 	}
 }

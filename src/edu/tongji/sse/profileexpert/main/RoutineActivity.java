@@ -203,7 +203,10 @@ public class RoutineActivity extends Activity
 						RoutineTable._ID + "=?",
 						new String[]{""+id});
 				if(result == 1)
+				{
+					MainActivity.rm.rearrange();
 					msg = getString(R.string.delete_routine_success);
+				}
 				else
 					msg = getString(R.string.delete_routine_fail);
 				Toast.makeText(RoutineActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -511,6 +514,7 @@ public class RoutineActivity extends Activity
 		{
 			if (resultCode == RESULT_OK)
 			{
+				MainActivity.rm.rearrange();
 				drawRoutine();
 			}
 		}
@@ -518,6 +522,7 @@ public class RoutineActivity extends Activity
 		{
 			if (resultCode == RESULT_OK)
 			{
+				MainActivity.rm.rearrange();
 				drawRoutine();
 			}
 		}

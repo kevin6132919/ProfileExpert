@@ -147,7 +147,10 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 						TempMatterTable._ID + "=?",
 						new String[]{""+id});
 				if(result == 1)
+				{
+					MainActivity.rm.rearrange();
 					msg = getString(R.string.delete_temp_matter_success);
+				}
 				else
 					msg = getString(R.string.delete_temp_matter_fail);
 				Toast.makeText(TempMatterActivity.this, msg, Toast.LENGTH_SHORT).show();
