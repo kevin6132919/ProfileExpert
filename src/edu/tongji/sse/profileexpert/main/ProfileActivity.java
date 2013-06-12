@@ -18,6 +18,8 @@ import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.entity.MyProfile;
 import edu.tongji.sse.profileexpert.provider.MyProfileTable;
+import edu.tongji.sse.profileexpert.provider.RoutineTable;
+import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class ProfileActivity extends ListActivity
@@ -72,7 +74,7 @@ public class ProfileActivity extends ListActivity
                 		ProfileActivity.this,
                 		mp.toString(),
                 		Toast.LENGTH_LONG).show();*/
-				
+
 				//将MyProfile的值填入ContentValues中
 				ContentValues values = new ContentValues();
 				values.put(MyProfileTable.NAME, mp.getName());
@@ -86,7 +88,7 @@ public class ProfileActivity extends ListActivity
 				values.put(MyProfileTable.MESSAGE_CONTENT, mp.getMessage_content());
 				values.put(MyProfileTable.DESCRIPTION, mp.toString());
 				getContentResolver().insert(MyProfileTable.CONTENT_URI, values);
-				MainActivity.rm.rearrange(this);
+				//MainActivity.rm.rearrange(this);
 			}
 		}
 		else if(requestCode == MyConstant.REQUEST_CODE_EDIT_PROFILE)
@@ -99,7 +101,7 @@ public class ProfileActivity extends ListActivity
 						Toast.LENGTH_SHORT).show();*/
 				MyProfile mp = (MyProfile) data.getParcelableExtra(MY_PROFILE_KEY);
 				long id = data.getLongExtra(EDIT_PROFILE_ID_KEY, -1);
-				
+
 				//将MyProfile的值填入ContentValues中
 				ContentValues values = new ContentValues();
 				values.put(MyProfileTable.NAME, mp.getName());
@@ -112,7 +114,7 @@ public class ProfileActivity extends ListActivity
 					values.put(MyProfileTable.RINGTONE, mp.getRingtone());
 				values.put(MyProfileTable.MESSAGE_CONTENT, mp.getMessage_content());
 				values.put(MyProfileTable.DESCRIPTION, mp.toString());
-				
+
 				getContentResolver().update(
 						MyProfileTable.CONTENT_URI,
 						values,
@@ -176,6 +178,14 @@ public class ProfileActivity extends ListActivity
 			@SuppressWarnings("deprecation")
 			public void onClick(DialogInterface dialog, int which)
 			{
+				if(profileIdHasBeenUsed(_id))
+				{
+					Toast.makeText(
+							ProfileActivity.this,
+							getString(R.string.can_not_delete_using_profile), 
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 				String msg = null;
 				int result = getContentResolver().delete(
 						MyProfileTable.CONTENT_URI,
@@ -196,5 +206,28 @@ public class ProfileActivity extends ListActivity
 			}})
 			.setNegativeButton(getString(R.string.cancel), null)
 			.show();
+	}
+
+	private boolean profileIdHasBeenUsed(long id)
+	{
+		Cursor cursor = this.getContentResolver().query(
+				TempMatterTable.CONTENT_URI,
+				null, 
+				TempMatterTable.PROFILE_ID + "=?",
+				new String[]{""+id},
+				null);
+		if(cursor.moveToFirst())
+			return true;
+
+		cursor = this.getContentResolver().query(
+				RoutineTable.CONTENT_URI,
+				null, 
+				RoutineTable.PROFILE_ID + "=?",
+				new String[]{""+id},
+				null);
+		if(cursor.moveToFirst())
+			return true;
+		
+		return false;
 	}
 }

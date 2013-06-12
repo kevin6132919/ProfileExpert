@@ -69,6 +69,7 @@
     <string name="weekday_not_selected">未选择从哪一天开始!</string>
     <string name="no_routine">当前没有日程</string>
     <string name="routine_not_exist">所选日程不存在!</string>
+    <string name="can_not_delete_using_profile">不能删除正在使用中的模式!</string>
     
     <string name="change_now_confirm_tips">确认切换</string>
     <string name="change_now_confirm_text1">检测到当前发生事件</string>
