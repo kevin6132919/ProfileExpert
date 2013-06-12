@@ -13,6 +13,7 @@ import android.database.Cursor;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.entity.MyRoutine;
 import edu.tongji.sse.profileexpert.main.MainActivity;
+import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.RoutineTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.AlarmUtil;
@@ -161,9 +162,18 @@ public class RemindingManager
 
 	private void showChangeNowConfirmDialog(Context context)
 	{
-		String msg = ctx.getString(R.string.change_now_confirm_text1) + ":" + ","
-				+ ctx.getString(R.string.change_now_confirm_text2) + ":" + ","
-				+ ctx.getString(R.string.change_now_confirm_text3) + ".";
+		Cursor cursor = getCursor(currentItem.getType(),currentItem.getId());
+		String msg = null;
+		if(cursor.moveToFirst())
+		{
+			String eventTitle = cursor.getString(cursor.getColumnIndex(TempMatterTable.TITLE));
+			long profileId = cursor.getLong(cursor.getColumnIndex(TempMatterTable.PROFILE_ID));
+			String profileTitle = getProfileTitle(profileId);
+			
+			msg = ctx.getString(R.string.change_now_confirm_text1) + ":" + eventTitle + ","
+					+ ctx.getString(R.string.change_now_confirm_text2) + ":" + profileTitle + ","
+					+ ctx.getString(R.string.change_now_confirm_text3) + ".";
+		}
 		
 		new Builder(context)
 		.setIcon(R.drawable.alerts_warning)
@@ -196,6 +206,44 @@ public class RemindingManager
 		})
 		.setCancelable(false)
 		.show();
+	}
+
+	private String getProfileTitle(long profileId)
+	{
+		Cursor cursor = ctx.getContentResolver().query(
+				MyProfileTable.CONTENT_URI,
+				null,
+				MyProfileTable._ID + "=?",
+				new String[]{""+profileId},
+				null);
+
+		if(!cursor.moveToFirst())
+		{
+			return ctx.getString(R.string.show_profile_not_exist);
+		}
+		else return cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
+	}
+
+	private Cursor getCursor(int type, long id)
+	{
+		if(type==AlarmItem.MATTER_TYPE_TEMP_MATTER)
+		{
+			return ctx.getContentResolver().query(
+					TempMatterTable.CONTENT_URI,
+					null,
+					TempMatterTable._ID + "=?",
+					new String[]{""+id},
+					null);
+		}
+		else
+		{
+			return ctx.getContentResolver().query(
+					RoutineTable.CONTENT_URI,
+					null,
+					RoutineTable._ID + "=?",
+					new String[]{""+id},
+					null);
+		}
 	}
 
 	private void getLatestItems()

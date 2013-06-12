@@ -80,4 +80,14 @@
     <string name="start_changing">开始模式切换</string>
     <string name="stop_changing">停止模式切换</string>
     
+    <string name="notification_text_1">将在</string>
+    <string name="notification_text_2">后切换到模式</string>
+    <string name="notification_text_3">点击进入详情</string>
+    <string name="notification_text_4">切换回到原模式</string>
+    <string name="notification_text_5">模式切换预告</string>
+    
+    <string name="change_profile_text_1">模式切换</string>
+    <string name="change_profile_text_2">已切换至模式</string>
+    <string name="change_profile_text_3">已切换回原模式</string>
+    
 </resources>

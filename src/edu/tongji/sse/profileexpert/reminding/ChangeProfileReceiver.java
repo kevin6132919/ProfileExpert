@@ -30,13 +30,17 @@ public class ChangeProfileReceiver extends BroadcastReceiver
 		if(!ri.isHappened())
 		{
 			NotificationUtil.sendNotify(context,
-					"模式切换",	"已切换至模式:" + title
+					context.getString(R.string.change_profile_text_1),
+					context.getString(R.string.change_profile_text_2) + ":" + title
 					, Notification.DEFAULT_LIGHTS);
 			ProfileUtil.switchToSilent(context);
 		}
 		else
 		{
-			NotificationUtil.sendNotify(context, "模式切换",	"已切换回原模式", Notification.DEFAULT_LIGHTS);
+			NotificationUtil.sendNotify(context,
+					context.getString(R.string.change_profile_text_1),
+					context.getString(R.string.change_profile_text_3),
+					Notification.DEFAULT_LIGHTS);
 			ProfileUtil.switchBack(context);
 		}
 		

@@ -62,17 +62,20 @@ public class NotificationReceiver extends BroadcastReceiver
 		if(!ri.isReminded())
 		{
 
-			content = "将在" + time + "后切换到模式" + ":" + title
-					+ "," + "点击进入详情";
+			content = context.getString(R.string.notification_text_1) + time
+					+ context.getString(R.string.notification_text_2) + ":" + title
+					+ "," + context.getString(R.string.notification_text_3);
 		}
 		else
 		{
-			content = "将在" + time + "切换回到原模式,点击进入详情";
+			content = context.getString(R.string.notification_text_1) + time
+					+ context.getString(R.string.notification_text_4)+","+
+					context.getString(R.string.notification_text_3);
 		}
 
 		//发出通知
-		NotificationUtil.sendNotify(context, "模式切换预告", content,
-				Notification.DEFAULT_VIBRATE);
+		NotificationUtil.sendNotify(context, context.getString(R.string.notification_text_5)
+				, content,Notification.DEFAULT_VIBRATE);
 
 		MainActivity.rm.notificationHappened(isCurrentItem);
 	}
