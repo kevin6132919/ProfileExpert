@@ -23,7 +23,6 @@ import edu.tongji.sse.profileexpert.control.MyDateSpinner;
 import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
 import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
-import edu.tongji.sse.profileexpert.util.MyConstant;
 
 @SuppressLint("SimpleDateFormat")
 public class EditTempMatterActivity extends Activity
@@ -220,7 +219,7 @@ public class EditTempMatterActivity extends Activity
 					values,
 					MyProfileTable._ID + "=?",
 					new String[]{""+id});
-			setResult(MyConstant.REQUEST_CODE_EDIT_TEMP_MATTER);
+			setResult(RESULT_OK);
 			//MainActivity.rm.rearrange(this);
 
 			back();

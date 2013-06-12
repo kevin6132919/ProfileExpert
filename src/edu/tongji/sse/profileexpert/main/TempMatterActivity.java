@@ -170,7 +170,7 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 		Intent intent=new Intent();
 		intent.setClass(TempMatterActivity.this, EditTempMatterActivity.class);
 		intent.putExtra(EDIT_TEMP_MATTER_ID_KEY, id);
-		startActivityForResult(intent, MyConstant.REQUEST_CODE_EDIT_PROFILE); 
+		startActivityForResult(intent, MyConstant.REQUEST_CODE_EDIT_TEMP_MATTER); 
 	}
 	//绘制事项列表
 	private void updateShowDay()
@@ -236,7 +236,7 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 		Intent intent=new Intent();
 		intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
 		intent.putExtra(SHOW_DAY_KEY, mcv_calendar.getShowDay());
-		startActivity(intent);
+		startActivityForResult(intent, MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
 	}
 
 	@Override

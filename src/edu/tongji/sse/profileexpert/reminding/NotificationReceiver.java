@@ -18,6 +18,7 @@ import edu.tongji.sse.profileexpert.util.NotificationUtil;
 public class NotificationReceiver extends BroadcastReceiver
 {
 	private Calendar c = Calendar.getInstance();
+	private boolean isCurrentItem = true;
 	public void onReceive(Context context, Intent intent)
 	{
 		RemindingItem ri = MainActivity.rm.getCurrentItem();
@@ -30,16 +31,17 @@ public class NotificationReceiver extends BroadcastReceiver
 			if(advanced_time != 30)
 				advanced_time *= 60;
 			c.setTimeInMillis(ri.getEndTime());
+			c.add(Calendar.SECOND, -advanced_time);
 			int hour = c.get(Calendar.HOUR_OF_DAY);
 			int minute = c.get(Calendar.MINUTE);
 			
 			
 			c.setTimeInMillis(System.currentTimeMillis());
-			c.add(Calendar.SECOND, -advanced_time);
 			if(c.get(Calendar.HOUR_OF_DAY) != hour
 					|| c.get(Calendar.MINUTE) != minute)
 			{
 				ri = MainActivity.rm.getNextItem();
+				isCurrentItem = false;
 			}
 		}
 		
@@ -72,7 +74,7 @@ public class NotificationReceiver extends BroadcastReceiver
 		NotificationUtil.sendNotify(context, "Ä£Ê½ÇÐ»»Ô¤¸æ", content,
 				Notification.DEFAULT_VIBRATE);
 
-		MainActivity.rm.notificationHappened();
+		MainActivity.rm.notificationHappened(isCurrentItem);
 	}
 
 	private Cursor getCursor(Context ctx,int type,long id)

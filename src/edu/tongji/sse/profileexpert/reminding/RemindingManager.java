@@ -155,6 +155,8 @@ public class RemindingManager
 	{
 		if(currentItem.getStartTime()<System.currentTimeMillis())
 			showChangeNowConfirmDialog(context);
+		else
+			setAlarm();
 	}
 
 	private void showChangeNowConfirmDialog(Context context)
@@ -192,6 +194,7 @@ public class RemindingManager
 					dialog.dismiss();
 				}
 		})
+		.setCancelable(false)
 		.show();
 	}
 
@@ -320,11 +323,17 @@ public class RemindingManager
 		return nextItem;
 	}
 
-	public void notificationHappened()
+	public void notificationHappened(boolean isCurrentItem)
 	{
-		if(!currentItem.isReminded())
+		if(isCurrentItem)
 		{
-			currentItem.remind();
+			if(!currentItem.isReminded())
+				currentItem.remind();
+		}
+		else
+		{
+			if(!nextItem.isReminded())
+				nextItem.remind();
 		}
 		alarmNofitication();
 	}
