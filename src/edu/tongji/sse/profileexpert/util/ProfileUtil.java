@@ -19,6 +19,7 @@ public class ProfileUtil
 				audio.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 			else
 			{
+				audio.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 				int max = audio.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
 				int index = max * volume / 100;
 				audio.setStreamVolume(AudioManager.STREAM_SYSTEM, index, 0);

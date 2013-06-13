@@ -21,7 +21,7 @@
     <string-array name="reminding_time_display">
         <item>30秒</item>
      	<item>1分钟</item>
-     	<item>2分钟</item>
+     	<item>3分钟</item>
      	<item>5分钟</item>
      	<item>10分钟</item>
      	<item>15分钟</item>
@@ -29,12 +29,12 @@
     <string-array name="reminding_time_value">
         <item>30</item>
         <item>1</item>
-        <item>2</item>
+        <item>3</item>
         <item>5</item>
         <item>10</item>
         <item>15</item>
     </string-array>
-    <string name="reminding_time_defaut_value">5</string>
+    <string name="reminding_time_defaut_value">3</string>
     
     <!-- 声音设置 -->
     <string-array name="sound_setting_display">

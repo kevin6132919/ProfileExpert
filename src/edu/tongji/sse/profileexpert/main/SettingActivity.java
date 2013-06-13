@@ -16,6 +16,7 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 	//private ListPreference lp_switch_delay = null;
 	private ListPreference lp_first_reminding_time = null;
 	private ListPreference lp_second_reminding_time = null;
+	private CheckBoxPreference cbp_reminding_enable = null;
 	
 	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState)
@@ -28,6 +29,7 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 		//lp_switch_delay = (ListPreference) findPreference("switch_delay");
 		lp_first_reminding_time = (ListPreference) findPreference("first_reminding_time");
 		lp_second_reminding_time = (ListPreference) findPreference("second_reminding_time");
+		cbp_reminding_enable = (CheckBoxPreference) findPreference("reminding_enable");
 		
 		// 设置监听器
 		cbp_arm_status.setOnPreferenceChangeListener(this);
@@ -35,17 +37,17 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 		lp_first_reminding_time.setOnPreferenceChangeListener(this);
 		lp_second_reminding_time.setOnPreferenceChangeListener(this);
 		
-		/*//设置初值
-		lp_switch_delay.setSummary(MyConstant.getDelayText(
-				Integer.parseInt(lp_switch_delay.getValue())));
+		//设置初值
+		/*lp_switch_delay.setSummary(MyConstant.getDelayText(
+				Integer.parseInt(lp_switch_delay.getValue())));*/
 		lp_first_reminding_time.setSummary(MyConstant.getRemindingTimeText(
-				Integer.parseInt(lp_first_reminding_time.getValue())));*/
-		String value = lp_second_reminding_time.getValue();
+				Integer.parseInt(lp_first_reminding_time.getValue())));
+		/*String value = lp_second_reminding_time.getValue();
 		if(value != null)
 		{
 			lp_second_reminding_time.setSummary(MyConstant.getRemindingTimeText(
 				Integer.parseInt(value)));
-		}
+		}*/
 	}
 
 	//preference改变监听函数
@@ -59,11 +61,17 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 		else */if(preference == lp_first_reminding_time)
 		{
 			preference.setSummary(MyConstant.getRemindingTimeText(Integer.parseInt(newValue.toString())));
+			MainActivity.rm.rearrange(this);
 			return true;
-		}
+		}/*
 		else if(preference == lp_second_reminding_time)
 		{
 			preference.setSummary(MyConstant.getRemindingTimeText(Integer.parseInt(newValue.toString())));
+			return true;
+		}*/
+		else if(preference == cbp_reminding_enable)
+		{
+			MainActivity.rm.rearrange(this);
 			return true;
 		}
 		else if(preference == cbp_arm_status)

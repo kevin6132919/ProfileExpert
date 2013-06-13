@@ -11,6 +11,7 @@ import edu.tongji.sse.profileexpert.provider.RoutineTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.reminding.AlarmItem;
 import edu.tongji.sse.profileexpert.reminding.RemindingItem;
+import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class ShowEventActivity extends Activity
 {
@@ -65,7 +66,7 @@ public class ShowEventActivity extends Activity
 				msg += "±ÍÃ‚:" + title + "\n";
 
 				int startDay = cursor.getInt(cursor.getColumnIndex(RoutineTable.START_DAY));
-				String weekDay = RoutineActivity.weekdays[startDay];
+				String weekDay = MyConstant.getDayOfWeek(startDay);
 				String timeFrom = cursor.getString(cursor.getColumnIndex(RoutineTable.TIME_FROM));
 				msg += "¥”:" + weekDay + " " + timeFrom + "\n";
 

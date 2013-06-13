@@ -43,7 +43,7 @@ public class MyConstant
 	//Ã·–— ±º‰
 	public static final int REMING_TIME_30 = 30;
 	public static final int REMING_TIME_1 = 1;
-	public static final int REMING_TIME_2 = 2;
+	public static final int REMING_TIME_3 = 3;
 	public static final int REMING_TIME_5 = 5;
 	public static final int REMING_TIME_10 = 10;
 	public static final int REMING_TIME_15 = 15;

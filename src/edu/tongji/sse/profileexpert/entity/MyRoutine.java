@@ -30,8 +30,6 @@ public class MyRoutine implements Comparable<MyRoutine>
 		this.content = content;
 		this.profileId = profileId;
 		
-		c.setTimeInMillis(System.currentTimeMillis());
-		
 		calculateRealTimeForNow();
 	}
 
@@ -70,7 +68,7 @@ public class MyRoutine implements Comparable<MyRoutine>
 		int minute = Integer.parseInt(timeTo.substring(3));
 		if(dayOfWeek == startDay)
 		{
-			if((hour == c.get(Calendar.HOUR_OF_DAY) && minute < c.get(Calendar.MINUTE))
+			if((hour == c.get(Calendar.HOUR_OF_DAY) && minute <= c.get(Calendar.MINUTE))
 					|| hour < c.get(Calendar.HOUR_OF_DAY))
 			{
 				return 7;

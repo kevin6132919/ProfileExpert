@@ -31,16 +31,18 @@ public class NotificationReceiver extends BroadcastReceiver
 				advanced_time *= 60;
 			c.setTimeInMillis(ri.getEndTime());
 			c.add(Calendar.SECOND, -advanced_time);
-			int hour = c.get(Calendar.HOUR_OF_DAY);
-			int minute = c.get(Calendar.MINUTE);
-			
-			
-			c.setTimeInMillis(System.currentTimeMillis());
-			if(c.get(Calendar.HOUR_OF_DAY) != hour
-					|| c.get(Calendar.MINUTE) != minute)
+			if(c.getTimeInMillis() >= System.currentTimeMillis())
 			{
-				ri = MainActivity.rm.getNextItem();
-				isCurrentItem = false;
+				int hour = c.get(Calendar.HOUR_OF_DAY);
+				int minute = c.get(Calendar.MINUTE);
+				
+				c.setTimeInMillis(System.currentTimeMillis());
+				if(c.get(Calendar.HOUR_OF_DAY) != hour
+						|| c.get(Calendar.MINUTE) != minute)
+				{
+					ri = MainActivity.rm.getNextItem();
+					isCurrentItem = false;
+				}
 			}
 		}
 		
