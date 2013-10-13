@@ -11,7 +11,9 @@
             android:title="自动切换" />
     </PreferenceCategory>
     <PreferenceCategory android:title="详细设置" >
-        <!-- <PreferenceScreen android:title="切换设置" >
+
+        <!--
+        <PreferenceScreen android:title="切换设置" >incomingNumberincomingNumberincomingNumberincomingNumberincomingNumber
             <PreferenceCategory android:title="延迟时间" >
                 <ListPreference
                     android:defaultValue="后续版本推出"
@@ -22,7 +24,8 @@
                     android:summary="点击修改"
                     android:title="点击延迟推迟的时间长短" />
             </PreferenceCategory>
-        </PreferenceScreen> -->
+        </PreferenceScreen>
+        -->
         <PreferenceScreen android:title="提醒设置" >
             <PreferenceCategory android:title="启用状态" >
                 <CheckBoxPreference
@@ -65,14 +68,16 @@
                     android:key="notification_silent"
                     android:summaryOff="通知会带上声音提醒"
                     android:summaryOn="通知不会带有声音提醒"
-                    android:title="通知静音" /><!-- 
+                    android:title="通知静音" />
+                <!--
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:dependency="reminding_enable"
                     android:selectable="false"
                     android:summaryOff="通知时手机不震动"
                     android:summaryOn="通知时手机震动"
-                    android:title="通知震动" /> -->
+                    android:title="通知震动" />
+                -->
             </PreferenceCategory>
         </PreferenceScreen>
         <PreferenceScreen android:title="法定假日设置" >
@@ -90,9 +95,23 @@
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:key="message_shortcut_enable"
-                    android:selectable="false"
-                    android:summary="后续版本推出"
+                    android:summaryOff="不监听未接来电"
+                    android:summaryOn="未接来电后快捷进入短信回复界面"
                     android:title="开启来电快捷操作" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:dependency="message_shortcut_enable"
+                    android:key="message_shortcut_enable_for_normal_profile"
+                    android:summaryOff="在原模式状态下启用快捷回复"
+                    android:summaryOn="在原模式状态下启用快捷回复"
+                    android:title="同时监听原模式" />
+
+                <EditTextPreference
+                    android:defaultValue="抱歉，我现在不方便接电话，稍后给您回电"
+                    android:dependency="message_shortcut_enable_for_normal_profile"
+                    android:key="message_shortcut_content_for_normal_profile"
+                    android:summary="短信内容预设值，点击修改"
+                    android:title="原模式短信内容" />
             </PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>

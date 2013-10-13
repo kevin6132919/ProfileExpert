@@ -12,12 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendar.MyCell;
 import edu.tongji.sse.profileexpert.calendar.OnCellTouchListener;
 import edu.tongji.sse.profileexpert.entity.MyRingerSetting;
 import edu.tongji.sse.profileexpert.reminding.RemindingManager;
+import edu.tongji.sse.profileexpert.util.CallUtil;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 import edu.tongji.sse.profileexpert.util.ProfileUtil;
 
@@ -95,6 +97,12 @@ public class MainActivity extends Activity implements OnCellTouchListener
 			rm.startReminding(this);
 		}
 		
+		boolean message_shortcut_status = preference.getBoolean("message_shortcut_enable", false);
+		if(message_shortcut_status == true)
+		{
+			CallUtil.registerReceiver(this);
+		}
+		
 		mrs = ProfileUtil.getCurrentRingtone(this);
 	}
 
@@ -123,6 +131,7 @@ public class MainActivity extends Activity implements OnCellTouchListener
 			return true;
 		case R.id.action_save_ringer_mode:
 			mrs = ProfileUtil.getCurrentRingtone(this);
+			Toast.makeText(this, getString(R.string.save_ringer_mode_success), Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.action_help:
 			//跳转到帮助界面
@@ -158,5 +167,10 @@ public class MainActivity extends Activity implements OnCellTouchListener
 		
 		intent.setClass(this, TempMatterActivity.class);
 		startActivity(intent);
+	}
+
+	protected void onDestroy()
+	{
+		super.onDestroy();
 	}
 }

@@ -2,12 +2,14 @@ package edu.tongji.sse.profileexpert.main;
 
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
+import edu.tongji.sse.profileexpert.util.CallUtil;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
 public class SettingActivity extends PreferenceActivity implements OnPreferenceChangeListener 
@@ -17,6 +19,8 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 	private ListPreference lp_first_reminding_time = null;
 	private ListPreference lp_second_reminding_time = null;
 	private CheckBoxPreference cbp_reminding_enable = null;
+	private CheckBoxPreference cbp_message_shortcut_enable = null;
+	private EditTextPreference etp_message_shortcut_content_for_normal_profile = null;
 	
 	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState)
@@ -30,12 +34,16 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 		lp_first_reminding_time = (ListPreference) findPreference("first_reminding_time");
 		lp_second_reminding_time = (ListPreference) findPreference("second_reminding_time");
 		cbp_reminding_enable = (CheckBoxPreference) findPreference("reminding_enable");
+		cbp_message_shortcut_enable = (CheckBoxPreference) findPreference("message_shortcut_enable");
+		etp_message_shortcut_content_for_normal_profile = (EditTextPreference) findPreference("message_shortcut_content_for_normal_profile");
 		
 		// 设置监听器
 		cbp_arm_status.setOnPreferenceChangeListener(this);
 		//lp_switch_delay.setOnPreferenceChangeListener(this);
 		lp_first_reminding_time.setOnPreferenceChangeListener(this);
 		lp_second_reminding_time.setOnPreferenceChangeListener(this);
+		cbp_message_shortcut_enable.setOnPreferenceChangeListener(this);
+		etp_message_shortcut_content_for_normal_profile.setOnPreferenceChangeListener(this);
 		
 		//设置初值
 		/*lp_switch_delay.setSummary(MyConstant.getDelayText(
@@ -48,6 +56,11 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 			lp_second_reminding_time.setSummary(MyConstant.getRemindingTimeText(
 				Integer.parseInt(value)));
 		}*/
+		String message_content = etp_message_shortcut_content_for_normal_profile.getText();
+		if(message_content != null && !message_content.equals(""))
+		{
+			etp_message_shortcut_content_for_normal_profile.setSummary(message_content);
+		}
 	}
 
 	//preference改变监听函数
@@ -92,6 +105,26 @@ public class SettingActivity extends PreferenceActivity implements OnPreferenceC
 						Toast.LENGTH_SHORT).show();
 				MainActivity.rm.startReminding(this);
 			}
+			return true;
+		}
+		else if(preference == etp_message_shortcut_content_for_normal_profile)
+		{
+			preference.setSummary(newValue.toString());
+			return true;
+		}
+		else if(preference == cbp_message_shortcut_enable)
+		{
+			if(Boolean.parseBoolean(newValue.toString()))
+			{
+				Toast.makeText(this, getString(R.string.message_shortcut_enable_on), Toast.LENGTH_SHORT).show();
+				CallUtil.registerReceiver(this);
+			}
+			else
+			{
+				Toast.makeText(this, getString(R.string.message_shortcut_enable_off), Toast.LENGTH_SHORT).show();
+				CallUtil.unregisterReceiver();
+			}
+			
 			return true;
 		}
 		return false;

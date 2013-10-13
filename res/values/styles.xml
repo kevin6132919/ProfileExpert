@@ -18,4 +18,6 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="DialogTheme" parent="android:Theme.Dialog"></style>
+    
 </resources>

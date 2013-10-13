@@ -27,6 +27,9 @@
     <string name="edit">编辑</string>
     <string name="tips">温馨提示</string>
     <string name="confirm">确认</string>
+    
+    <string name="save_ringer_mode_success">已保存当前铃声设置。\n切换回原模式时将使用此设置.</string>
+    
     <string name="delete_profile_text">确定要删除该情景模式吗?删除后将无法恢复!</string>
     <string name="delete_profile_success">模式删除成功</string>
     <string name="delete_profile_fail">模式删除失败</string>
@@ -92,6 +95,11 @@
     <string name="change_profile_text_3">已切换回原模式</string>
     
     <string name="save_ringer_mode">保存当前铃声设置</string>
+    
+    <string name="send_message_title">快捷回复</string>
+    <string name="send_message_content">发现未接来电，是否使用快捷回复功能？确认将进入短信编辑页面。</string>
+    <string name="message_shortcut_enable_on">来电快捷操作已开启</string>
+    <string name="message_shortcut_enable_off">来电快捷操作已关闭</string>
     
     <string name="user_help">使用说明</string>
     <string name="user_help_1">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本软件可以帮助您管理日程，自动地切换模式，避免不必要的烦恼和尴尬。</string>
