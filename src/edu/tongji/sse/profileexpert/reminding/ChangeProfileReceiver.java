@@ -26,7 +26,7 @@ public class ChangeProfileReceiver extends BroadcastReceiver
 		if(cursor.moveToFirst())
 		{
 			long profileId = cursor.getLong(cursor.getColumnIndex(TempMatterTable.PROFILE_ID));
-			cursor = getProfileTitle(context, profileId);
+			cursor = getProfileCursor(context, profileId);
 			if(cursor.moveToFirst())
 			{
 				title =cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
@@ -88,7 +88,7 @@ public class ChangeProfileReceiver extends BroadcastReceiver
 	}
 
 	//由profile的id得到其cursor
-	private Cursor getProfileTitle(Context ctx,long profile_id)
+	private Cursor getProfileCursor(Context ctx,long profile_id)
 	{
 		return ctx.getContentResolver().query(
 				MyProfileTable.CONTENT_URI,

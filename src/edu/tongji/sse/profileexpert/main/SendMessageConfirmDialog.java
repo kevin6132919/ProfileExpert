@@ -13,7 +13,7 @@ public class SendMessageConfirmDialog extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.help);
 		
 		/*TextView tv = (TextView) findViewById(R.id.msg);
 		tv.setText(getString(R.string.send_message_content));
@@ -41,6 +41,8 @@ public class SendMessageConfirmDialog extends Activity
 
 		final String incomingNumber = getIntent().getStringExtra("incomingNumber");
 		
+		final String msg = getIntent().getStringExtra("messageContent");
+		
 		new Builder(this)
 		.setIcon(R.drawable.alerts_warning)
 		.setMessage(getString(R.string.send_message_content))
@@ -50,13 +52,13 @@ public class SendMessageConfirmDialog extends Activity
 			{
 				Uri smsToUri = Uri.parse("smsto:" + incomingNumber);
 				Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);  
-				intent.putExtra("sms_body", "∂Ã–≈ƒ⁄»›≤‚ ‘");  
+				intent.putExtra("sms_body", msg);  
 				startActivity(intent);
-				dialog.dismiss();
+				SendMessageConfirmDialog.this.finish();
 			}})
 			.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					SendMessageConfirmDialog.this.finish();
+					dialog.dismiss();
 				}
 			})
 			.show();
