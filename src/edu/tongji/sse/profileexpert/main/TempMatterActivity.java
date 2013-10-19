@@ -25,9 +25,10 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.tongji.sse.profileexpert.R;
-import edu.tongji.sse.profileexpert.calendar.MyCalendarView;
-import edu.tongji.sse.profileexpert.calendar.MyCell;
-import edu.tongji.sse.profileexpert.calendar.OnCellTouchListener;
+import edu.tongji.sse.profileexpert.calendar.ImportCalendarPreSelectionActivity;
+import edu.tongji.sse.profileexpert.calendarview.MyCalendarView;
+import edu.tongji.sse.profileexpert.calendarview.MyCell;
+import edu.tongji.sse.profileexpert.calendarview.OnCellTouchListener;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 
@@ -225,6 +226,9 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 		case R.id.action_add_temp_matter:
 			jumpToAddTempMatterActivity();
 			return true;
+		case R.id.action_import:
+			jumpToAddImportCalendarActivity();
+			return true;
 		default:
 			return false;
 		}
@@ -237,6 +241,14 @@ public class TempMatterActivity extends ListActivity implements OnCellTouchListe
 		intent.setClass(TempMatterActivity.this, CreateTempMatterActivity.class);
 		intent.putExtra(SHOW_DAY_KEY, mcv_calendar.getShowDay());
 		startActivityForResult(intent, MyConstant.REQUEST_CODE_CREATE_TEMP_MATTER);
+	}
+
+	//跳转到导入系统日历预选界面
+	private void jumpToAddImportCalendarActivity()
+	{
+		Intent intent=new Intent();
+		intent.setClass(TempMatterActivity.this, ImportCalendarPreSelectionActivity.class);
+		startActivity(intent);
 	}
 
 	@Override

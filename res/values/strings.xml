@@ -101,6 +101,11 @@
     <string name="message_shortcut_enable_on">来电快捷操作已开启</string>
     <string name="message_shortcut_enable_off">来电快捷操作已关闭</string>
     
+    <string name="import_calendar">导入系统日历</string>
+    <string name="string_import">导入</string>
+    <string name="calendar">日历</string>
+    <string name="import_calendar_explain">选择区间:开始日期0点~结束日期24点</string>
+    
     <string name="user_help">使用说明</string>
     <string name="user_help_1">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本软件可以帮助您管理日程，自动地切换模式，避免不必要的烦恼和尴尬。</string>
     <string name="user_help_2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;在主界面中，点击日历可以快捷进入对应天的临时事项，可以选择菜单项保存当前的模式，作为从自定义模式中切换回来时的模式。</string>

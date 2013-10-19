@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <edu.tongji.sse.profileexpert.calendar.MyCalendarView
+                <edu.tongji.sse.profileexpert.calendarview.MyCalendarView
                     android:id="@+id/my_calendar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package edu.tongji.sse.profileexpert.calendar;
+package edu.tongji.sse.profileexpert.calendarview;
 
 import java.util.Calendar;
 

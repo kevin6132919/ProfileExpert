@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_rectangle_margin"
+    android:background="@drawable/gray_rectangle_background" >
+
+    <TableLayout
+        android:id="@+id/table_of_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/background_light"
+        android:stretchColumns="0,1" >
+
+        <TableRow tools:ignore="UselessParent" >
+
+            <Button
+                android:id="@+id/bt_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:background="@drawable/button_style"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/bt_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:background="@drawable/button_style"
+                android:text="@string/start" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/table_of_buttons"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_calendar_address"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pre_import_calendar_item_height"
+                android:layout_marginLeft="@dimen/pre_import_calendar_item_horizonal_margin"
+                android:layout_marginRight="@dimen/pre_import_calendar_item_horizonal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/calendar"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/pre_import_calendar_item_tips_text_size" />
+            
+            <Spinner
+                android:id="@+id/sp_calendar_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pre_import_calendar_item_height"
+                android:layout_toRightOf="@id/tv_calendar_address"
+                android:drawSelectorOnTop="true"
+                android:spinnerMode="dropdown" />
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pre_import_calendar_item_height"
+                android:layout_marginLeft="@dimen/pre_import_calendar_item_horizonal_margin"
+                android:layout_marginRight="@dimen/pre_import_calendar_item_horizonal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/start"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/pre_import_calendar_item_tips_text_size" />
+
+            <edu.tongji.sse.profileexpert.control.MyDateSpinner
+                android:id="@+id/my_date_spinner_from"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pre_import_calendar_item_height"
+                android:layout_toRightOf="@id/tv_start" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pre_import_calendar_item_height"
+                android:layout_marginLeft="@dimen/pre_import_calendar_item_horizonal_margin"
+                android:layout_marginRight="@dimen/pre_import_calendar_item_horizonal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/end"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/pre_import_calendar_item_tips_text_size" />
+
+            <edu.tongji.sse.profileexpert.control.MyDateSpinner
+                android:id="@+id/my_date_spinner_to"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pre_import_calendar_item_height"
+                android:layout_toRightOf="@id/tv_end" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/parting_line" 
+            android:layout_marginTop="@dimen/pre_import_calendar_explain_time_margin_top"/>
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_explain"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pre_import_calendar_explain_item_height"
+                android:layout_marginLeft="@dimen/pre_import_calendar_item_horizonal_margin"
+                android:layout_marginRight="@dimen/pre_import_calendar_item_horizonal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/explain"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/pre_import_calendar_item_tips_text_size" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/pre_import_calendar_explain_item_height"
+                android:layout_toRightOf="@id/tv_explain"
+                android:gravity="center_vertical"
+                android:text="@string/import_calendar_explain"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/pre_import_calendar_explain_item_tips_text_size" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    
+</RelativeLayout>
