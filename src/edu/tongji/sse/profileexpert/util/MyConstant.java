@@ -1,5 +1,6 @@
 package edu.tongji.sse.profileexpert.util;
 
+
 public class MyConstant
 {
 	//震动设置 
@@ -63,6 +64,7 @@ public class MyConstant
 	public static final int REQUEST_CODE_CREATE_ROUTINE = 4;
 	public static final int REQUEST_CODE_EDIT_ROUTINE = 5;
 	public static final int REQUEST_CODE_EDIT_TEMP_MATTER = 6;
+	public static final int REQUEST_CODE_IMPORT_CALENDAR_EVENTS = 7;
 	
 	//MyProfile中toString()方法里使用到的文字
 	public static final String RINGTONE = "铃声";
@@ -94,4 +96,10 @@ public class MyConstant
 	
 	//切换提醒
 	public static final String preference_name = "edu.tongji.sse.profileexpert_preferences";
+	
+	//系统日历
+	public static String calanderURL = "content://com.android.calendar/calendars";
+	public static String calanderEventURL = "content://com.android.calendar/events";
+	public static String calanderRemiderURL = "content://com.android.calendar/reminders";
+    
 }

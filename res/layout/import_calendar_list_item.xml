@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <CheckBox
+        android:id="@+id/cb_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@id/cb_select"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_time_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_title"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/cb_select"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/item_break_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_title"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/item_time_from"
+        android:text="@string/break_line"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/item_time_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_title"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/item_break_line"
+        android:textSize="14sp" />
+
+    <Spinner
+        android:id="@+id/item_sp_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/item_time_to"
+        android:layout_alignTop="@id/item_title"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@id/item_time_to"
+        android:drawSelectorOnTop="true"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+</RelativeLayout>

@@ -25,12 +25,12 @@
                 android:text="@string/cancel" />
 
             <Button
-                android:id="@+id/bt_start"
+                android:id="@+id/bt_select"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:background="@drawable/button_style"
-                android:text="@string/start" />
+                android:text="@string/string_select" />
         </TableRow>
     </TableLayout>
 
@@ -57,7 +57,7 @@
             
             <Spinner
                 android:id="@+id/sp_calendar_address"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/pre_import_calendar_item_height"
                 android:layout_toRightOf="@id/tv_calendar_address"
                 android:drawSelectorOnTop="true"

@@ -101,10 +101,20 @@
     <string name="message_shortcut_enable_on">来电快捷操作已开启</string>
     <string name="message_shortcut_enable_off">来电快捷操作已关闭</string>
     
-    <string name="import_calendar">导入系统日历</string>
+    <string name="import_calendar">从手机本地日历导入</string>
+    <string name="error_no_calendar_account">未找到可用的日历账户，请添加账户后再使用本功能</string>
     <string name="string_import">导入</string>
     <string name="calendar">日历</string>
     <string name="import_calendar_explain">选择区间:开始日期0点~结束日期24点</string>
+    <string name="import_selection_error">区间或日历地址错误，请重试</string>
+    <string name="import_selection_no_events">该日历在该时间段内无事件，请重新选择</string>
+    <string name="import_failed">抱歉，导入失败，请重试</string>
+    <string name="import_successful">所选事件已成功导入临时事项</string>
+    <string name="loading">加载中</string>
+    <string name="string_select">选择</string>
+    <string name="loading_calendar_events">正在载入所选日历事件，请稍后！</string>
+    <string name="error_no_selected_item">尚未选择事件，无法导入！</string>
+    <string name="break_line">&#160;~&#160;</string>
     
     <string name="user_help">使用说明</string>
     <string name="user_help_1">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;本软件可以帮助您管理日程，自动地切换模式，避免不必要的烦恼和尴尬。</string>
