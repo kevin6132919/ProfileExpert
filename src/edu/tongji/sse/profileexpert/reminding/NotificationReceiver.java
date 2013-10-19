@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.main.MainActivity;
-import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.RoutineTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
+import edu.tongji.sse.profileexpert.util.ContentResolverUtil;
 import edu.tongji.sse.profileexpert.util.MyConstant;
 import edu.tongji.sse.profileexpert.util.NotificationUtil;
 
@@ -55,7 +55,7 @@ public class NotificationReceiver extends BroadcastReceiver
 		if(cursor.moveToFirst())
 		{
 			long profileId = cursor.getLong(cursor.getColumnIndex(TempMatterTable.PROFILE_ID));
-			title = getProfileTitle(context, profileId);
+			title = ContentResolverUtil.getProfileTitle(context, profileId);
 		}
 
 		//根据事项是否发生定制通知内容
@@ -101,23 +101,6 @@ public class NotificationReceiver extends BroadcastReceiver
 					new String[]{""+id},
 					null);
 		}
-	}
-	
-	//由profile的id得到其标题
-	private String getProfileTitle(Context ctx,long profile_id)
-	{
-		Cursor cursor = ctx.getContentResolver().query(
-				MyProfileTable.CONTENT_URI,
-				null,
-				MyProfileTable._ID + "=?",
-				new String[]{""+profile_id},
-				null);
-
-		if(!cursor.moveToFirst())
-		{
-			return ctx.getString(R.string.show_profile_not_exist);
-		}
-		else return cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
 	}
 }
 

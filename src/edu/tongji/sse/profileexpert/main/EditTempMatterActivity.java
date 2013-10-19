@@ -23,6 +23,8 @@ import edu.tongji.sse.profileexpert.control.MyDateSpinner;
 import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
 import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
+import edu.tongji.sse.profileexpert.util.CommonUtil;
+import edu.tongji.sse.profileexpert.util.ContentResolverUtil;
 
 @SuppressLint("SimpleDateFormat")
 public class EditTempMatterActivity extends Activity
@@ -204,8 +206,8 @@ public class EditTempMatterActivity extends Activity
 
 			String show_str = time_from.substring(11)
 					+ "-" + time_to.substring(11)
-					+ "  " + shortString(title,5)
-					+ "  " + shortString(getProfileTitle(profile_id),5);
+					+ "  " + CommonUtil.shortString(title,5)
+					+ "  " + CommonUtil.shortString(ContentResolverUtil.getProfileTitle(this, profile_id),5);
 
 			values.put(TempMatterTable.TIME_FROM, l_time_from);
 			values.put(TempMatterTable.TIME_TO, l_time_to);
@@ -226,32 +228,6 @@ public class EditTempMatterActivity extends Activity
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-	}
-
-	//由profile的id得到其标题
-	private String getProfileTitle(long profile_id)
-	{
-		Cursor cursor = getContentResolver().query(
-				MyProfileTable.CONTENT_URI,
-				null,
-				MyProfileTable._ID + "=?",
-				new String[]{""+profile_id},
-				null);
-
-		if(!cursor.moveToFirst())
-		{
-			return getString(R.string.show_profile_not_exist);
-		}
-		else return cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
-	}
-
-	//剪短string
-	private String shortString(String title, int length)
-	{
-		if(title.length() < length + 2)
-			return title;
-		else
-			return title.substring(0, length)+"..";
 	}
 
 	//后退

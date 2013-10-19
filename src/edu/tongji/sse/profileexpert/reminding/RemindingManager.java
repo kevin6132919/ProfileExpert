@@ -13,10 +13,10 @@ import android.database.Cursor;
 import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.entity.MyRoutine;
 import edu.tongji.sse.profileexpert.main.MainActivity;
-import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.RoutineTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
 import edu.tongji.sse.profileexpert.util.AlarmUtil;
+import edu.tongji.sse.profileexpert.util.ContentResolverUtil;
 import edu.tongji.sse.profileexpert.util.NotificationUtil;
 
 public class RemindingManager
@@ -168,7 +168,7 @@ public class RemindingManager
 		{
 			String eventTitle = cursor.getString(cursor.getColumnIndex(TempMatterTable.TITLE));
 			long profileId = cursor.getLong(cursor.getColumnIndex(TempMatterTable.PROFILE_ID));
-			String profileTitle = getProfileTitle(profileId);
+			String profileTitle = ContentResolverUtil.getProfileTitle(ctx, profileId);
 			
 			msg = ctx.getString(R.string.change_now_confirm_text1) + ":" + eventTitle + ","
 					+ ctx.getString(R.string.change_now_confirm_text2) + ":" + profileTitle + ","
@@ -206,22 +206,6 @@ public class RemindingManager
 		})
 		.setCancelable(false)
 		.show();
-	}
-
-	private String getProfileTitle(long profileId)
-	{
-		Cursor cursor = ctx.getContentResolver().query(
-				MyProfileTable.CONTENT_URI,
-				null,
-				MyProfileTable._ID + "=?",
-				new String[]{""+profileId},
-				null);
-
-		if(!cursor.moveToFirst())
-		{
-			return ctx.getString(R.string.show_profile_not_exist);
-		}
-		else return cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
 	}
 
 	private Cursor getCursor(int type, long id)

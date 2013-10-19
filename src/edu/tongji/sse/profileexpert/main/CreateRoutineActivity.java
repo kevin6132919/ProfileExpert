@@ -18,6 +18,8 @@ import edu.tongji.sse.profileexpert.R;
 import edu.tongji.sse.profileexpert.control.MyTimeSpinner;
 import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.RoutineTable;
+import edu.tongji.sse.profileexpert.util.CommonUtil;
+import edu.tongji.sse.profileexpert.util.ContentResolverUtil;
 
 public class CreateRoutineActivity extends Activity
 {
@@ -98,8 +100,8 @@ public class CreateRoutineActivity extends Activity
 
 		String show_str = time_from
 				+ "-" + time_to
-				+ "  " + shortString(title,5)
-				+ "  " + shortString(getProfileTitle(profile_id),5);
+				+ "  " + CommonUtil.shortString(title,5)
+				+ "  " + CommonUtil.shortString(ContentResolverUtil.getProfileTitle(this,profile_id),5);
 
 		values.put(RoutineTable.START_DAY, weekdaySelected);
 		values.put(RoutineTable.IS_SAME_DAY, is_same_day);
@@ -229,38 +231,13 @@ public class CreateRoutineActivity extends Activity
 		else
 			return 6;
 	}
-
-	//由profile的id得到其标题
-	private String getProfileTitle(long profile_id)
-	{
-		Cursor cursor = getContentResolver().query(
-				MyProfileTable.CONTENT_URI,
-				null,
-				MyProfileTable._ID + "=?",
-				new String[]{""+profile_id},
-				null);
-
-		if(!cursor.moveToFirst())
-		{
-			return getString(R.string.show_profile_not_exist);
-		}
-		else return cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
-	}
-
-	//剪短string
-	private String shortString(String title, int length)
-	{
-		if(title.length() < length + 2)
-			return title;
-		else
-			return title.substring(0, length)+"..";
-	}
 	
 	//后退
 	private void back()
 	{
 		this.finish();
 	}
+	
 	//初始化Spinner
 	@SuppressWarnings("deprecation")
 	private void initSpinners()

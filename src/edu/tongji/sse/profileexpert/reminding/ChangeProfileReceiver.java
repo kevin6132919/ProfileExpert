@@ -9,6 +9,7 @@ import edu.tongji.sse.profileexpert.main.MainActivity;
 import edu.tongji.sse.profileexpert.provider.MyProfileTable;
 import edu.tongji.sse.profileexpert.provider.RoutineTable;
 import edu.tongji.sse.profileexpert.provider.TempMatterTable;
+import edu.tongji.sse.profileexpert.util.ContentResolverUtil;
 import edu.tongji.sse.profileexpert.util.NotificationUtil;
 import edu.tongji.sse.profileexpert.util.ProfileUtil;
 
@@ -26,7 +27,7 @@ public class ChangeProfileReceiver extends BroadcastReceiver
 		if(cursor.moveToFirst())
 		{
 			long profileId = cursor.getLong(cursor.getColumnIndex(TempMatterTable.PROFILE_ID));
-			cursor = getProfileCursor(context, profileId);
+			cursor = ContentResolverUtil.getProfileCursor(context, profileId);
 			if(cursor.moveToFirst())
 			{
 				title =cursor.getString(cursor.getColumnIndex(MyProfileTable.NAME));
@@ -85,16 +86,5 @@ public class ChangeProfileReceiver extends BroadcastReceiver
 					new String[]{""+id},
 					null);
 		}
-	}
-
-	//由profile的id得到其cursor
-	private Cursor getProfileCursor(Context ctx,long profile_id)
-	{
-		return ctx.getContentResolver().query(
-				MyProfileTable.CONTENT_URI,
-				null,
-				MyProfileTable._ID + "=?",
-				new String[]{""+profile_id},
-				null);
 	}
 }
