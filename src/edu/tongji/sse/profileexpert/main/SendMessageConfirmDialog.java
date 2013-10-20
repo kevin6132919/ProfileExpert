@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnCancelListener;
 import android.net.Uri;
 import android.os.Bundle;
 import edu.tongji.sse.profileexpert.R;
@@ -54,11 +55,18 @@ public class SendMessageConfirmDialog extends Activity
 				Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);  
 				intent.putExtra("sms_body", msg);  
 				startActivity(intent);
-				SendMessageConfirmDialog.this.finish();
+				dialog.dismiss();
 			}})
 			.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
+				}
+			})
+			.setOnCancelListener(new OnCancelListener()
+			{
+				public void onCancel(DialogInterface dialog)
+				{
+					SendMessageConfirmDialog.this.finish();
 				}
 			})
 			.show();

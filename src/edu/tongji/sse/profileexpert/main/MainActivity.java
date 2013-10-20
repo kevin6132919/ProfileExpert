@@ -18,6 +18,7 @@ import edu.tongji.sse.profileexpert.calendarview.MyCalendarView;
 import edu.tongji.sse.profileexpert.calendarview.MyCell;
 import edu.tongji.sse.profileexpert.calendarview.OnCellTouchListener;
 import edu.tongji.sse.profileexpert.entity.MyRingerSetting;
+import edu.tongji.sse.profileexpert.help.HelpActivity;
 import edu.tongji.sse.profileexpert.reminding.RemindingManager;
 import edu.tongji.sse.profileexpert.util.CallUtil;
 import edu.tongji.sse.profileexpert.util.MyConstant;

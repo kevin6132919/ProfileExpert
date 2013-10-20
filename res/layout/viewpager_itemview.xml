@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+	<ImageView 
+	    android:id="@+id/album_imgview"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:contentDescription="@string/app_name"
+	    android:scaleType="fitXY"
+	    />
+	
+	<TextView
+	    android:id="@+id/album_name"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="bottom|center_horizontal" 
+	    android:textColor="@android:color/white"
+	    android:textSize="18sp"
+	    />
+</FrameLayout>

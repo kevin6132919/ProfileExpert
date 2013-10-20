@@ -79,7 +79,7 @@
             android:name="edu.tongji.sse.profileexpert.main.ShowEventActivity">
         </activity>
         <activity
-            android:name="edu.tongji.sse.profileexpert.main.HelpActivity"
+            android:name="edu.tongji.sse.profileexpert.help.HelpActivity"
             android:label="@string/user_help" >
         </activity>
         <activity

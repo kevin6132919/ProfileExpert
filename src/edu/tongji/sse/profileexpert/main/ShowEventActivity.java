@@ -2,6 +2,8 @@ package edu.tongji.sse.profileexpert.main;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -100,6 +102,13 @@ public class ShowEventActivity extends Activity
 			.setIcon(android.R.drawable.btn_star)
 			.setTitle(getString(R.string.event))
 			.setMessage(msg)
+			.setOnCancelListener(new OnCancelListener()
+			{
+				public void onCancel(DialogInterface dialog)
+				{
+					ShowEventActivity.this.finish();
+				}
+			})
 			.show();
 		}
 	}

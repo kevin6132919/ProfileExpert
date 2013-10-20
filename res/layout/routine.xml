@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_rectangle_margin"
+    android:layout_margin="@dimen/activity_routine_margin"
     android:background="@drawable/routine_gray_rectangle_background"
     android:orientation="horizontal" >
 
