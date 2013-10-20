@@ -56,10 +56,12 @@ public class SendMessageConfirmDialog extends Activity
 				intent.putExtra("sms_body", msg);  
 				startActivity(intent);
 				dialog.dismiss();
+				SendMessageConfirmDialog.this.finish();
 			}})
 			.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
+					SendMessageConfirmDialog.this.finish();
 				}
 			})
 			.setOnCancelListener(new OnCancelListener()
